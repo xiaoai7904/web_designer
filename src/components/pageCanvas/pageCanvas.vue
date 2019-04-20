@@ -70,7 +70,7 @@ export default class PageCanvas extends Vue {
     });
   }
   showVruleLine(e) {
-    console.log(e)
+    // console.log(e)
   }
   hideVruleLine(e) {
     console.log(e)
