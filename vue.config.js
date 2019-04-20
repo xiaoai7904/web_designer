@@ -32,6 +32,7 @@ module.exports = {
     ]);
   },
   productionSourceMap: false,
+  baseUrl: './',
   outputDir: 'docs'
   // devServer: {
   //   port: 8081,
