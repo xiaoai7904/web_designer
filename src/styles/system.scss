@@ -1,0 +1,30 @@
+.ui-designer {
+  .el-collapse {
+    border-top: 0;
+  }
+  .el-collapse-item__content {
+    padding: 10px;
+  }
+  .el-collapse-item__header {
+    padding: 0 5px;
+    background-color: #42b983;
+    color: #fff;
+    font-size: 15px;
+  }
+}
+
+// 自定义webkit滚动条样式
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #fbfbfb !important;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #cacaca !important;
+}
