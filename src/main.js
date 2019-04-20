@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
-import $ from 'jquery'
 import observer from '@/modules/observer/observer'
 import installComponents from '@/plugins'
 
