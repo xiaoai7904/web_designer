@@ -31,7 +31,9 @@ module.exports = {
       }
     ]);
   },
-  productionSourceMap: false
+  productionSourceMap: false,
+  publicPath: '/web_designer/',
+  outputDir: 'docs'
   // devServer: {
   //   port: 8081,
   //   proxy: {
