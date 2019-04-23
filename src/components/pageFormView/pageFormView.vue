@@ -10,6 +10,7 @@ export default class PageFormView extends Vue {
 
   @Watch('options', { deep: true, immediate: true })
   updateOptionsFn(newValue) {
+    // console.log(newValue)
     this.createModel()
     this.createRules()
   }

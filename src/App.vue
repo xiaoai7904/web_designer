@@ -12,7 +12,7 @@
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

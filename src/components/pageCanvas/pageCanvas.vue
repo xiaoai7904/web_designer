@@ -70,10 +70,16 @@ export default class PageCanvas extends Vue {
     });
   }
   showVruleLine(e) {
-    // console.log(e)
+    this.$emit('showVruleLine', e)
   }
   hideVruleLine(e) {
-    console.log(e)
+    this.$emit('hideVruleLine', e)
+  }
+  showHruleLine(e) {
+    this.$emit('showHruleLine', e)
+  }
+  hideHruleLine(e) {
+    this.$emit('hideHruleLine', e)
   }
   dragover(event) {
     this.$emit('dragover', event)
@@ -120,7 +126,7 @@ export default class PageCanvas extends Vue {
         return <div class="ruler vRule" on-mousemove={e => _this.showVruleLine(e)} on-mouseleave={e => _this.hideVruleLine(e)} onstyle={_this.vrulerStyle}>{this.vruler(h)}</div>
       },
       createHrule(h) {
-        return <div class="ruler hRule" style={_this.hrulerStyle}>{this.hruler(h)}</div>
+        return <div class="ruler hRule" on-mousemove={e => _this.showHruleLine(e)} on-mouseleave={e => _this.hideHruleLine(e)} style={_this.hrulerStyle}>{this.hruler(h)}</div>
       }
     }
   }

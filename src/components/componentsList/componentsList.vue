@@ -12,7 +12,7 @@ class ComponentsList extends Vue {
     let items = []
 
     items = this.componentsList.map(item => {
-      return this.createRoot(h, item.key, item.name, h(item.key, { props: { options: item.props } }))
+      return this.createRoot(h, item.key, item.custom.name, h(item.key, { props: { options: item.props } }))
     })
     return items
   }

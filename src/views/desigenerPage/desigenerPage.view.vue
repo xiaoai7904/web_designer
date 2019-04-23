@@ -1,11 +1,11 @@
 <template>
   <div class="desigener">
-    <div class="desigener-tools">
+    <div class="page-header-tools">
       <img :src="logo" alt="Web Designer">
-      <div class="desigener-tools__wrap">
-        <ul class="desigener-tools__ul">
-          <li class="desigener-tools__ul-item">预览</li>
-          <li class="desigener-tools__ul-item">发布</li>
+      <div class="page-header-tools__wrap">
+        <ul class="page-header-tools__ul">
+          <li class="page-header-tools__ul-item" @click="preview">预览</li>
+          <li class="page-header-tools__ul-item" @click="release">发布</li>
         </ul>
       </div>
     </div>
@@ -16,7 +16,7 @@
       <div class="desigener-page__item desigener-page__left">
         <el-collapse value="1">
           <el-collapse-item name="1" title="布局层级树:">
-            <el-tree :data="componentList"></el-tree>
+            <el-tree ref="componentTree" node-key="id" :data="componentList" :highlight-current="true"></el-tree>
           </el-collapse-item>
         </el-collapse>
       </div>
@@ -41,42 +41,6 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
 </script>
 <style lang="scss">
 .desigener {
-  &-tools {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 60px;
-    border-bottom: 2px solid #42b983;
-    padding: 0 10px;
-    box-sizing: border-box;
-    img {
-      width: 300px;
-      height: 50px;
-    }
-    &__wrap {
-    }
-    &__ul {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      display: flex;
-      justify-content: flex-start;
-      &-item {
-        padding: 5px 20px;
-        border: 1px solid #42b983;
-        border-radius: 10px;
-        margin-left: 15px;
-        font-size: 16px;
-        color: #42b983;
-        &:hover {
-          cursor: pointer;
-          background: #42b983;
-          color: #fff;
-        }
-      }
-    }
-  }
   &-page {
     overflow: hidden;
     padding-left: 200px;
@@ -92,6 +56,9 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
       width: 200px;
       margin-left: -100%;
       left: -200px;
+      .el-collapse-item__content {
+        padding: 10px 0 !important;
+      }
     }
     &__right {
       box-sizing: border-box;

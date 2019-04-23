@@ -6,7 +6,7 @@ import { State, Mutation } from 'vuex-class'
 import Configuration from '@/modules/configuration/configuration'
 import VueDraggableResizable from '@/components/draggableResizable/draggableResizable.vue'
 import pageCanvas from '@/components/pageCanvas/pageCanvas.vue'
-import { uuid, throttle,extend } from '@/modules/utils/utils'
+import { uuid, throttle, extend } from '@/modules/utils/utils'
 import { Watch } from '@/modules/vuePropertyDecorator/vuePropertyDecorator'
 import PageEventManage from '@/modules/pageEventManage/pageEventManage'
 
@@ -28,6 +28,8 @@ class designerArea extends Vue {
   coordinate = { x: 0, y: 0, w: 400, h: 100 }
   checkPlugin = false
   pageEvent = null
+  auxLineY = {}
+  auxLineX = {}
 
   bindEvent() {
     this.pageEvent = new PageEventManage()
@@ -64,7 +66,7 @@ class designerArea extends Vue {
     let dropComponentsOption = null
 
     id && (dropComponentsOption = configuration.getOption(id[0]))
-    dropComponentsOption.length && this.addPlugin(extend(true, {}, dropComponentsOption[0], {custom: {x: event.offsetX, y: event.offsetY}}))
+    dropComponentsOption.length && this.addPlugin(extend(true, {}, dropComponentsOption[0], { custom: { x: event.offsetX, y: event.offsetY } }))
   }
   dragend(event) {
     event.dataTransfer.clearData()
@@ -99,10 +101,44 @@ class designerArea extends Vue {
     this.checkPlugin = false
     this.updateCurrentPluginsFn([])
   }
+  showVruleLine(e) {
+    this.auxLineY = {
+      display: 'block',
+      transform: `translateY(${e.clientY - 60}px)`
+    }
+  }
+  hideVruleLine(e) {
+    this.auxLineY = {
+      display: 'none',
+    }
+  }
+  showHruleLine(e) {
+    this.auxLineX = {
+      display: 'block',
+      transform: `translateX(${e.clientX - 200}px)`
+    }
+  }
+  hideHruleLine(e) {
+    this.auxLineX = {
+      display: 'none',
+    }
+  }
   createRuler(h) {
     // TODO 没有考虑多页面,后期考虑
     return <div class="designer-content-ruler">
-      <pageCanvas xw={this.page.style.w} xh={18} yw={this.page.style.h} yh={18} background={this.page.style.background} on-drop={($event) => this.drop($event)} on-dragover={($event) => this.dragover($event)} on-dragend={($event) => this.dragend($event)}>
+      <pageCanvas
+        xw={this.page.style.w}
+        xh={18}
+        yw={this.page.style.h}
+        yh={18}
+        background={this.page.style.background}
+        on-drop={($event) => this.drop($event)}
+        on-dragover={($event) => this.dragover($event)}
+        on-dragend={($event) => this.dragend($event)}
+        on-showVruleLine={e => { this.showVruleLine(e) }}
+        on-hideVruleLine={e => { this.hideVruleLine(e) }}
+        on-showHruleLine={e => { this.showHruleLine(e) }}
+        on-hideHruleLine={e => { this.hideHruleLine(e) }}>
         {this.createComponentsItem(h)}
       </pageCanvas>
     </div>
@@ -129,6 +165,12 @@ class designerArea extends Vue {
       </ul>}
     </div>
   }
+  createAuxiliaryLineY(h) {
+    return <div class="designer-content-aus-line__y" style={this.auxLineY}></div>
+  }
+  createAuxiliaryLineX(h) {
+    return <div class="designer-content-aus-line__x" style={this.auxLineX}></div>
+  }
   createComponentsItem(h) {
     let items = []
     items = this.plugins.map(item => {
@@ -137,10 +179,10 @@ class designerArea extends Vue {
     return items
   }
   createRoot(h, item, children) {
-    return h('vue-draggable-resizable', {
+    return h('VueDraggableResizable', {
       class: ['designer-content-drag'],
       key: item.id,
-      props: { w: item.custom.width, h: item.custom.height, x: item.custom.x, y: item.custom.y, parent: true, snap: true, minh: 10, parentSelector: '.page-canvas__components' },
+      props: { w: item.custom.width, h: item.custom.height, x: item.custom.x, y: item.custom.y, parent: '.page-canvas__components', snap: true, minHeight: 10, parentSelector: '.page-canvas__components' },
       on: { resizing: this.resizing, dragging: this.dragging, activated: this.activatedFn.bind(this, item.id), deactivated: this.deactivatedFn }
     }, [h('div', {
       class: ['designer-content-drag-proxy'],
@@ -160,6 +202,8 @@ class designerArea extends Vue {
     return <div class="designer-content" >
       {this.createRuler(h)}
       {this.createSetting(h)}
+      {this.createAuxiliaryLineX(h)}
+      {this.createAuxiliaryLineY(h)}
     </div>
   }
   mounted() {
@@ -216,6 +260,24 @@ export default designerArea
     position: relative;
     top: 19px;
     left: 19px;
+  }
+  &-aus-line {
+    &__x {
+      top: 0;
+      left: 0;
+      height: 100%;
+      position: absolute;
+      border-left: 1px solid red;
+      transition: translateX 0.3s;
+    }
+    &__y {
+      top: 0;
+      left: 0;
+      width: 100%;
+      position: absolute;
+      border-top: 1px solid red;
+      transition: translateY 0.3s;
+    }
   }
 }
 </style>

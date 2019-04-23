@@ -10,7 +10,8 @@ export default new Vuex.Store({
   state: {
     page: pageIns.page[0], // 暂时不支持多页面 page类里面考虑了多页面
     plugins: [],
-    currentPlugins: []
+    currentPlugins: [],
+    perviewHtml: ''
   },
   mutations: {
     updatePageProps(state, options) {
@@ -25,12 +26,15 @@ export default new Vuex.Store({
     },
     updatePluginsProps(state, options) {
       state.plugins = pageIns.updatePlugin({ pageId: state.page.id, options });
-      state.currentPlugins = extend(true, [], state.plugins.filter(item => item.id === state.currentPlugins[0].id));
+      state.currentPlugins = state.plugins.filter(item => item.id === state.currentPlugins[0].id) 
     },
     updateCurrentPlugins(state, options) {
       state.currentPlugins = [];
       state.currentPlugins = extend(true, [], options);
-    }
+    },
+    setPerviewHtml(state, html) {
+      state.perviewHtml = html
+    } 
   },
   actions: {}
 });

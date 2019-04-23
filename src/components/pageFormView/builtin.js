@@ -1,6 +1,6 @@
 export const createItem = (h, item, vm) => {
   let renderDom = null;
-
+  // console.log('render');
   switch (item.type) {
     case 'input':
       renderDom = (
@@ -8,6 +8,7 @@ export const createItem = (h, item, vm) => {
           value={vm.handlerData(item.id, 'get')}
           size="small"
           placeholder="请输入"
+          disabled={item.options && item.options.disabled !== undefined ? item.options.disabled : false}
           on-input={value => {
             vm.handlerData({ id: item.id, value }, 'set');
           }}
@@ -21,7 +22,9 @@ export const createItem = (h, item, vm) => {
         <el-input-number
           value={vm.handlerData(item.id, 'get')}
           size="small"
-          min={0}
+          disabled={item.options && item.options.disabled !== undefined ? item.options.disabled : false}
+          min={item.options && item.options.min !== void 0 ? item.options.min : 0}
+          max={item.options && item.options.max !== void 0 ? item.options.max : Infinity}
           placeholder="请输入"
           on-input={value => {
             vm.handlerData({ id: item.id, value }, 'set');

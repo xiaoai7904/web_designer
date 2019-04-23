@@ -26,7 +26,7 @@ export default class Plugins extends Observer {
         break;
       }
     }
-    return this
+    return this;
   }
   getPlguin(key) {
     if (key) return extend(true, [], this.plugins.filter(item => item.key === key));
@@ -34,6 +34,7 @@ export default class Plugins extends Observer {
   }
   addAttrs(data) {
     data['id'] = data.key + '_' + uuid();
+    data.custom && (data.custom['id'] = data.id);
     return data;
   }
   setOption(option) {
@@ -55,6 +56,6 @@ export default class Plugins extends Observer {
         break;
       }
     }
-    return this
+    return this;
   }
 }

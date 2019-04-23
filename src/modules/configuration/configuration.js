@@ -5,7 +5,6 @@ import { extend } from '../utils/utils';
 const DEFAULT_CONFIG = [
   {
     key: 'xaInput',
-    name: 'Input 输入框',
     props: {
       type: 'text',
       value: '',
@@ -39,9 +38,27 @@ const DEFAULT_CONFIG = [
       width: 200,
       height: 200,
       x: 0,
-      y: 0
+      y: 0,
+      name: 'Input 输入框'
     },
     options: [
+      {
+        label: '组件信息',
+        type: 'title'
+      },
+      {
+        id: 'custom.id',
+        label: '组件ID',
+        type: 'input',
+        options: {
+          disabled: true
+        }
+      },
+      {
+        id: 'custom.name',
+        label: '组件名',
+        type: 'input'
+      },
       {
         label: '尺寸',
         type: 'title'
@@ -49,12 +66,20 @@ const DEFAULT_CONFIG = [
       {
         id: 'custom.width',
         label: '宽',
-        type: 'inputNumber'
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
       },
       {
         id: 'custom.height',
         label: '高',
-        type: 'inputNumber'
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
       },
       {
         label: '位置',
@@ -63,12 +88,20 @@ const DEFAULT_CONFIG = [
       {
         id: 'custom.x',
         label: 'x坐标',
-        type: 'inputNumber'
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: 1920
+        }
       },
       {
         id: 'custom.y',
         label: 'y坐标',
-        type: 'inputNumber'
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: 850
+        }
       },
       {
         label: '属性配置',
@@ -168,27 +201,27 @@ const DEFAULT_CONFIG = [
       {
         id: 'style.paddingTop',
         label: '内边距-上',
-        type: 'inputNumber',
+        type: 'inputNumber'
       },
       {
         id: 'style.paddingBottom',
         label: '内边距-下',
-        type: 'inputNumber',
+        type: 'inputNumber'
       },
       {
         id: 'style.paddingLeft',
         label: '内边距-左',
-        type: 'inputNumber',
+        type: 'inputNumber'
       },
       {
         id: 'style.paddingRight',
         label: '内边距-右',
-        type: 'inputNumber',
+        type: 'inputNumber'
       },
       {
         id: 'style.borderWidth',
         label: '边框宽度',
-        type: 'inputNumber',
+        type: 'inputNumber'
       },
       {
         id: 'style.borderStyle',
