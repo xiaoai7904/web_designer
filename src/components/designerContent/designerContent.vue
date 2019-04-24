@@ -193,7 +193,8 @@ class designerArea extends Vue {
         paddingRight: item.style.paddingRight + 'px',
         borderWidth: item.style.borderWidth + 'px',
         borderStyle: item.style.borderStyle,
-        borderColor: item.style.borderColor
+        borderColor: item.style.borderColor,
+        backgroundColor: item.style.backgroundColor
       },
       attrs: { id: item.id }
     }, [children])])
@@ -269,6 +270,7 @@ export default designerArea
       position: absolute;
       border-left: 1px solid red;
       transition: translateX 0.3s;
+      display: none;
     }
     &__y {
       top: 0;
@@ -277,6 +279,7 @@ export default designerArea
       position: absolute;
       border-top: 1px solid red;
       transition: translateY 0.3s;
+      display: none;
     }
   }
 }
