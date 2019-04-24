@@ -127,9 +127,9 @@ class designerArea extends Vue {
     // TODO 没有考虑多页面,后期考虑
     return <div class="designer-content-ruler">
       <pageCanvas
-        xw={this.page.style.w}
+        xw={this.page.style.w + 18}
         xh={18}
-        yw={this.page.style.h}
+        yw={this.page.style.h + 18}
         yh={18}
         background={this.page.style.background}
         on-drop={($event) => this.drop($event)}
