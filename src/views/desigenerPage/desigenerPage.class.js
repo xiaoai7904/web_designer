@@ -19,7 +19,7 @@ class DesigenerPage extends Vue {
   @Mutation('updatePluginsProps') updatePluginsProps;
   @Mutation('setPerviewHtml') setPerviewHtml;
 
-  @Watch('plugins', { deep: true })
+  @Watch('plugins', { deep: true, immediate: true })
   updateComponentsTree(newValue) {
     this.componentList = [];
     if (newValue.length) {

@@ -28,7 +28,7 @@ export default class PageFormView extends Vue {
   createFormItem(h) {
     if (Object.keys(this.options).length) {
       return this.options.options.map(item => {
-        if (item.type === 'title' || item.type === 'tips') {
+        if (item.type === 'title' || item.type === 'tips' || !item.label) {
           return createItem(h, item, this)
         }
         return <el-form-item label={item.label + ': '} prop={item.id}>

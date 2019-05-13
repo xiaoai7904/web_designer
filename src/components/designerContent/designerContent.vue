@@ -80,7 +80,7 @@ class designerArea extends Vue {
         _this.updatePluginsProps({ id: _this.currentPlugins[0].id, modify: { id: 'custom.height', value: h } })
       }
 
-      _this.coordinate = Object.assign({}, _this.coordinate, { x, y, w, h })
+      // _this.coordinate = Object.assign({}, _this.coordinate, { x, y, w, h })
     }
   }, 500)
   dragging = throttle((x, y) => {
@@ -90,7 +90,7 @@ class designerArea extends Vue {
         _this.updatePluginsProps({ id: _this.currentPlugins[0].id, modify: { id: 'custom.y', value: y } })
       }
 
-      _this.coordinate = Object.assign({}, _this.coordinate, { x, y })
+      // _this.coordinate = Object.assign({}, _this.coordinate, { x, y })
     }
   }, 500)
   activatedFn(id) {
@@ -127,9 +127,9 @@ class designerArea extends Vue {
     // TODO 没有考虑多页面,后期考虑
     return <div class="designer-content-ruler">
       <pageCanvas
-        xw={this.page.style.w}
+        xw={this.page.style.w + 18}
         xh={18}
-        yw={this.page.style.h}
+        yw={this.page.style.h + 18}
         yh={18}
         background={this.page.style.background}
         on-drop={($event) => this.drop($event)}
@@ -148,19 +148,19 @@ class designerArea extends Vue {
       {this.checkPlugin && <ul class="designer-content-setting__ul">
         <li>
           <span>Y:</span>
-          <span>{this.coordinate.y}</span>
+          <span>{this.currentPlugins[0].custom.y}</span>
         </li>
         <li>
           <span>X:</span>
-          <span>{this.coordinate.x}</span>
+          <span>{this.currentPlugins[0].custom.x}</span>
         </li>
         <li>
           <span>高:</span>
-          <span>{this.coordinate.h}px</span>
+          <span>{this.currentPlugins[0].custom.height}px</span>
         </li>
         <li>
           <span>宽:</span>
-          <span>{this.coordinate.w}px</span>
+          <span>{this.currentPlugins[0].custom.width}px</span>
         </li>
       </ul>}
     </div>
@@ -193,7 +193,8 @@ class designerArea extends Vue {
         paddingRight: item.style.paddingRight + 'px',
         borderWidth: item.style.borderWidth + 'px',
         borderStyle: item.style.borderStyle,
-        borderColor: item.style.borderColor
+        borderColor: item.style.borderColor,
+        backgroundColor: item.style.backgroundColor
       },
       attrs: { id: item.id }
     }, [children])])
@@ -269,6 +270,7 @@ export default designerArea
       position: absolute;
       border-left: 1px solid red;
       transition: translateX 0.3s;
+      display: none;
     }
     &__y {
       top: 0;
@@ -277,6 +279,7 @@ export default designerArea
       position: absolute;
       border-top: 1px solid red;
       transition: translateY 0.3s;
+      display: none;
     }
   }
 }

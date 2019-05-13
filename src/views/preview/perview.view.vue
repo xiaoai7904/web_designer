@@ -14,7 +14,9 @@
         </ul>
       </div>
     </div>
-    <div class="perview-html" v-html="perviewHtml"></div>
+    <div class="perview-html">
+        <div v-html="perviewHtml" :style="perviewHtmlStyle"></div>
+    </div>
   </div>
 </template>
 <script>
@@ -29,6 +31,8 @@ export default perview
     overflow: auto;
     .page-canvas__wrap {
       margin: 0 auto;
+      width: 100% !important;
+      height: 100% !important;
     }
   }
 

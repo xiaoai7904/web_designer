@@ -25,7 +25,6 @@ export default {
         disabled={this.options.disabled}
         readonly={this.options.readonly}
         maxlength={this.options.maxlength}
-        icon={this.options.icon}
         prefix={this.options.prefix}
         suffix={this.options.suffix}
         search={this.options.search}

@@ -79,6 +79,9 @@ export const createItem = (h, item, vm) => {
     case 'tips':
       renderDom = <span class="attributs-setting__tips">{item.label}</span>;
       break;
+    case 'custom':
+      renderDom = item.render(h, vm);
+      break;
   }
   return renderDom;
 };
