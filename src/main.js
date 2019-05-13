@@ -5,7 +5,7 @@ import store from './store';
 import ElementUI from 'element-ui';
 import observer from '@/modules/observer/observer';
 import installComponents from '@/plugins';
-
+import '@/components'
 import 'element-ui/lib/theme-chalk/index.css';
 import './styles/system.scss';
 import './lib/jqueryRuler/ruler.css';

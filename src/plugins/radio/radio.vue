@@ -23,10 +23,10 @@ export default {
         fill={this.options.fill}
       >
         {this.options.buttomStyle && this.options.children.map(item => {
-          return <el-radio-button label={item.value}>{item.label}</el-radio-button>
+          return <el-radio-button label={item.value} disabled={item.disabled}>{item.label}</el-radio-button>
         })}
         {!this.options.buttomStyle && this.options.children.map(item => {
-          return <el-radio label={item.value} border={this.options.border}>{item.label}</el-radio>
+          return <el-radio label={item.value} border={this.options.border}  disabled={item.disabled}>{item.label}</el-radio>
         })}
       </el-radio-group>
     </div>

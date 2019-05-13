@@ -162,7 +162,6 @@ const DEFAULT_CONFIG = [
       disabled: false,
       readonly: false,
       maxlength: 200,
-      icon: '',
       prefix: '',
       suffix: '',
       search: false,
@@ -174,7 +173,7 @@ const DEFAULT_CONFIG = [
       autocomplete: 'off'
     },
     style: Object.assign({}, commonConfig.style),
-    custom: Object.assign({ name: 'Input 输入框' }, commonConfig.custom),
+    custom: Object.assign({}, commonConfig.custom, { name: 'Input 输入框', height: 50 }),
     options: [].concat(commonConfig.options, [
       {
         label: '属性配置',
@@ -284,7 +283,7 @@ const DEFAULT_CONFIG = [
       controlsPosition: ''
     },
     style: Object.assign({}, commonConfig.style),
-    custom: Object.assign({ name: 'InputNumber 计数器' }, commonConfig.custom),
+    custom: Object.assign({}, commonConfig.custom, { name: 'InputNumber 计数器', height: 50 }),
     options: [].concat(commonConfig.options, [
       {
         label: '属性配置',
@@ -371,17 +370,21 @@ const DEFAULT_CONFIG = [
       border: false,
       children: [
         {
+          id: '1',
           value: 'radio1',
-          label: 'radio1'
+          label: 'radio1',
+          disabled: false
         },
         {
+          id: '2',
           value: 'radio2',
-          label: 'radio2'
+          label: 'radio2',
+          disabled: false
         }
       ]
     },
     style: Object.assign({}, commonConfig.style),
-    custom: Object.assign({ name: 'Radio 单选框' }, commonConfig.custom),
+    custom: Object.assign({}, commonConfig.custom, { name: 'Radio 单选框', height: 35 }),
     options: [].concat(commonConfig.options, [
       {
         label: '属性配置',
@@ -441,12 +444,79 @@ const DEFAULT_CONFIG = [
         type: 'switch',
         activeText: '是',
         inactiveText: '否'
-      }
-      // {
-      //   id: 'props.children',
-      //   label: '子元素',
+      },
+      {
+        label: '可选项配置',
+        type: 'title'
+      },
+      {
+        id: 'props.children',
+        label: '',
+        type: 'custom',
+        render(h, vm) {
+          function updateItem(vm, props) {
+            return function(key, value) {
+              let _data = vm.handlerData('props.children', 'get');
+              _data.map(item => {
+                if (item.id === props.data.id) {
+                  item[key] = value;
+                }
+              });
 
-      // }
+              vm.$store.commit('updatePluginsProps', {
+                id: vm.options.id,
+                modify: { id: 'props.children', value: _data }
+              });
+            };
+          }
+          return (
+            <itemList
+              list={vm.handlerData('props.children', 'get')}
+              id="props.children"
+              ins={vm}
+              scopedSlots={{
+                default(props) {
+                  return [
+                    <ul class="item-list__ul">
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">显示值</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.label}
+                          on-input={val => {
+                            updateItem(vm, props)('label', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">绑定值</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.value}
+                          on-input={val => {
+                            updateItem(vm, props)('value', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <el-checkbox
+                          value={props.data.disabled}
+                          size="mini"
+                          on-input={val => {
+                            updateItem(vm, props)('disabled', val);
+                          }}
+                        >
+                          禁用
+                        </el-checkbox>
+                      </li>
+                    </ul>
+                  ];
+                }
+              }}
+            />
+          );
+        }
+      }
     ])
   }
 ];
