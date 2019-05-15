@@ -10,7 +10,9 @@ export default {
     styles() {
       return {
         width: '100%',
-        height: '100%'
+        height: '100%',
+        fontSize: this.options.fontSize + 'px',
+        color: this.options.fontColor
       }
     }
   },
@@ -25,8 +27,8 @@ export default {
         disabled={this.options.disabled}
         readonly={this.options.readonly}
         maxlength={this.options.maxlength}
-        prefix={this.options.prefix}
-        suffix={this.options.suffix}
+        prefix-icon={this.options.prefix}
+        suffix-icon={this.options.suffix}
         search={this.options.search}
         enter-button={this.options.enterButton}
         rows={this.options.rows}
@@ -45,10 +47,12 @@ export default {
   .el-input {
     width: 100%;
     height: 100%;
+    font-size: inherit;
   }
   .el-input__inner {
     width: 100%;
     height: 100% !important;
+    color: inherit;
   }
 }
 </style>

@@ -16,7 +16,7 @@
       >
         <template slot="title">
           <i class="el-icon-more handle-sort"></i>
-          {{item.label}}
+          <span class="handle-label">{{item.label}}</span>
           <i
             class="el-icon-delete handle-del"
             v-show="currentIndex === index"
@@ -29,7 +29,7 @@
     <el-button type="text" icon="el-icon-plus" @click="add">新增列表项</el-button>
   </div>
 </template>
-
+-
 <script>
 import draggable from "vuedraggable";
 import { extend, uuid } from '@/modules/utils/utils';
@@ -112,6 +112,7 @@ export default {
     height: 35px !important;
     background-color: #fff !important;
     color: #606266 !important;
+    position: relative;
     &:hover {
       background-color: #e6e6e6 !important;
       color: #606266 !important;
@@ -130,13 +131,22 @@ export default {
     cursor: move;
   }
   .handle-del {
-    margin: 0 0 0 150px;
+    position: absolute;
+    top: 10px;
+    right: 30px;
     &:hover {
-      color: #42b983;
+      color: $--color-primary;
     }
   }
+  .handle-label {
+    display: inline-block;
+    width: 190px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
   .el-button--text {
-    color: #42b983;
+    color: $--color-primary;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 {
-  "name": "vue_cli_3.x",
-  "version": "0.1.0",
+  "name": "web_designer",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -24,7 +24,7 @@
     "@vue/cli-service": "^3.0.4",
     "babel-eslint": "^10.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "element-ui": "^2.7.2",
+    "element-ui": "2.8.2",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "jquery": "^3.3.1",

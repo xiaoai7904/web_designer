@@ -25,7 +25,6 @@ class designerArea extends Vue {
   @Mutation('updatePluginsProps') updatePluginsProps
   @Mutation('delPlugin') delPluginFn
 
-  coordinate = { x: 0, y: 0, w: 400, h: 100 }
   checkPlugin = false
   pageEvent = null
   auxLineY = {}
@@ -79,8 +78,6 @@ class designerArea extends Vue {
         _this.updatePluginsProps({ id: _this.currentPlugins[0].id, modify: { id: 'custom.width', value: w } })
         _this.updatePluginsProps({ id: _this.currentPlugins[0].id, modify: { id: 'custom.height', value: h } })
       }
-
-      // _this.coordinate = Object.assign({}, _this.coordinate, { x, y, w, h })
     }
   }, 500)
   dragging = throttle((x, y) => {
@@ -89,8 +86,6 @@ class designerArea extends Vue {
         _this.updatePluginsProps({ id: _this.currentPlugins[0].id, modify: { id: 'custom.x', value: x } })
         _this.updatePluginsProps({ id: _this.currentPlugins[0].id, modify: { id: 'custom.y', value: y } })
       }
-
-      // _this.coordinate = Object.assign({}, _this.coordinate, { x, y })
     }
   }, 500)
   activatedFn(id) {

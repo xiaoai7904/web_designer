@@ -17,6 +17,7 @@ export default class PageFormView extends Vue {
 
   formMode = {}
   formRules = {}
+  currentIcons = ''
 
   createRules() { }
   createModel() {
@@ -92,7 +93,7 @@ export default class PageFormView extends Vue {
   &__title {
     display: inline-block;
     width: 100%;
-    border-bottom: 2px solid #42b983;
+    border-bottom: 2px solid $--color-primary;
     font-size: 14px;
     font-weight: 900;
     margin-bottom: 10px;
@@ -100,10 +101,23 @@ export default class PageFormView extends Vue {
   &__tips {
     display: inline-block;
     width: 100%;
-    border-bottom: 2px solid #42b983;
+    border-bottom: 2px solid $--color-primary;
     font-size: 12px;
     margin-bottom: 10px;
     color: #848484;
+  }
+  &__icons {
+    border: 1px solid $--color-primary;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      border-style: dashed;
+      color: $--color-primary;
+    }
   }
   .el-form-item {
     margin-bottom: 10px;

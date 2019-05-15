@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import itemList from './itemList/itemList';
+import pageIconsView from './pageIconsView/pageIconsView';
+import pageDialogView from './pageDialogView/pageDialogView'
 
 const components = {
-  itemList
+  itemList,
+  pageIconsView,
+  pageDialogView
 };
 
 export const installFn = function() {

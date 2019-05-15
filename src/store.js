@@ -11,7 +11,8 @@ export default new Vuex.Store({
     page: pageIns.page[0], // 暂时不支持多页面 page类里面考虑了多页面
     plugins: [],
     currentPlugins: [],
-    perviewHtml: ''
+    perviewHtml: '',
+    defaultThemeColor: '#42b983'
   },
   mutations: {
     updatePageProps(state, options) {
