@@ -19,11 +19,13 @@ class designerArea extends Vue {
   @State('page') page
   @State('plugins') plugins
   @State('currentPlugins') currentPlugins
+  @State('clipboard') clipboard
 
   @Mutation('addPlugin') addPlugin
   @Mutation('updateCurrentPlugins') updateCurrentPluginsFn
   @Mutation('updatePluginsProps') updatePluginsProps
   @Mutation('delPlugin') delPluginFn
+  @Mutation('setClipboard') setClipboardFn
 
   checkPlugin = false
   pageEvent = null
@@ -52,9 +54,22 @@ class designerArea extends Vue {
   }
   copyPluginCallback() {
     console.log('copy')
+    console.log(this.currentPlugins)
+    this.setClipboardFn(extend(true, [], this.currentPlugins))
   }
   pastePluginCallback() {
     console.log('paste')
+    if (this.clipboard && this.clipboard.length) {
+      let orgData = this.clipboard[0].custom
+      let _id = this.clipboard[0].key + '_' + uuid()
+      let _x = orgData.x + 10 > this.page.style.w ? this.page.style.w - orgData.w : orgData.x + 10
+      let _y = orgData.y + 10 > this.page.style.h ? this.page.style.h - orgData.h : orgData.y + 10
+      let _newPlugins = extend(true, {}, this.clipboard[0], { custom: { id: _id, x: _x, y: _y }, id: _id })
+
+      // 更新剪贴板为当前复制后的组件
+      this.setClipboardFn(extend(true, [], [_newPlugins]))
+      this.addPlugin(_newPlugins)
+    }
   }
   dragover(event) {
     event.preventDefault()
