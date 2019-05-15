@@ -25,9 +25,9 @@ export default class PageEventManage extends Observer {
   }
   emit(event) {
     if (navigator.platform.match("Mac") ? event.metaKey : event.ctrlKey) {
-      eventKeycodeMap[event.keyCode] && this.trigger(['pageEvent', eventKeycodeMap[event.keyCode].toLocaleUpperCase(), 'isCtrl'].join('_'));
+      eventKeycodeMap[event.keyCode] && this.trigger(['pageEvent', eventKeycodeMap[event.keyCode].toLocaleUpperCase(), 'isCtrl'].join('_'), event);
     } else {
-      eventKeycodeMap[event.keyCode] && this.trigger(['pageEvent', eventKeycodeMap[event.keyCode].toLocaleUpperCase()].join('_'));
+      eventKeycodeMap[event.keyCode] && this.trigger(['pageEvent', eventKeycodeMap[event.keyCode].toLocaleUpperCase()].join('_'), event);
     }
   }
   bindEvent() {

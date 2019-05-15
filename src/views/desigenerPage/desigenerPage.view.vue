@@ -16,7 +16,12 @@
       <div class="desigener-page__item desigener-page__left">
         <el-collapse value="1">
           <el-collapse-item name="1" title="布局层级树:">
-            <el-tree ref="componentTree" node-key="id" :data="componentList" :highlight-current="true"></el-tree>
+            <el-tree
+              ref="componentTree"
+              node-key="id"
+              :data="componentList"
+              :highlight-current="true"
+            ></el-tree>
           </el-collapse-item>
         </el-collapse>
       </div>
@@ -56,6 +61,8 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
       width: 200px;
       margin-left: -100%;
       left: -200px;
+      overflow-x: hidden;
+      overflow-y: auto;
       .el-collapse-item__content {
         padding: 10px 0 !important;
       }

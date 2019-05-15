@@ -12,7 +12,8 @@ export default new Vuex.Store({
     plugins: [],
     currentPlugins: [],
     perviewHtml: '',
-    defaultThemeColor: '#42b983'
+    defaultThemeColor: '#42b983',
+    clipboard: [] // 存储剪贴板数据
   },
   mutations: {
     updatePageProps(state, options) {
@@ -27,15 +28,19 @@ export default new Vuex.Store({
     },
     updatePluginsProps(state, options) {
       state.plugins = pageIns.updatePlugin({ pageId: state.page.id, options });
-      state.currentPlugins = state.plugins.filter(item => item.id === state.currentPlugins[0].id) 
+      state.currentPlugins = state.plugins.filter(item => item.id === state.currentPlugins[0].id);
     },
     updateCurrentPlugins(state, options) {
       state.currentPlugins = [];
       state.currentPlugins = extend(true, [], options);
     },
     setPerviewHtml(state, html) {
-      state.perviewHtml = html
-    } 
+      state.perviewHtml = html;
+    },
+    setClipboard(state, data) {
+      state.clipboard = [];
+      state.clipboard = extend(true, [], data);
+    }
   },
   actions: {}
 });

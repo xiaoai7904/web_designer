@@ -44,7 +44,7 @@ export default {
   }
   .el-input-number__decrease,
   .el-input-number__increase {
-    height: 100% !important;
+    height: calc(100% - 2px) !important;
     display: flex;
     align-items: center;
     justify-content: center;
