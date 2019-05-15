@@ -170,7 +170,9 @@ const DEFAULT_CONFIG = [
       autosize: false,
       number: false,
       autofocus: false,
-      autocomplete: 'off'
+      autocomplete: 'off',
+      fontSize: 14,
+      fontColor: '#606266'
     },
     style: Object.assign({}, commonConfig.style),
     custom: Object.assign({}, commonConfig.custom, { name: 'Input 输入框', height: 50 }),
@@ -265,6 +267,31 @@ const DEFAULT_CONFIG = [
         id: 'props.readonly',
         label: '只读',
         type: 'switch'
+      },
+      {
+        id: 'props.fontSize',
+        label: '文字大小',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      ,
+      {
+        id: 'props.fontColor',
+        label: '文字颜色',
+        type: 'color'
+      },
+      {
+        id: 'props.prefix',
+        label: '头部图标',
+        type: 'icon'
+      },
+      {
+        id: 'props.suffix',
+        label: '尾部图标',
+        type: 'icon'
       }
     ])
   },

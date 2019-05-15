@@ -13,16 +13,22 @@
 ### 项目运行
 ```
 npm install
+or
+yarn
 ```
 
 ### 编译开发
 ```
 npm run serve
+or
+yarn serve
 ```
 
 ### 编译打包
 ```
 npm run build
+or
+yarn build
 ```
 ### 后期版本规划
 * 一键生成页面和代码(基于`Vue cli 3.x`)
@@ -36,3 +42,4 @@ npm run build
 * 2019-04-20 新增拖拽组件进行排版,修改页面,组件属性
 * 2019-04-23 新增排版辅助线和预览功能
 * 2019-04-24 新增inputNumber,radio组件
+* 2019-05-15 新增icon图标选择器

@@ -52,7 +52,7 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
     }
     &__left {
       box-sizing: border-box;
-      border-right: 2px solid #42b983;
+      border-right: 2px solid $--color-primary;
       width: 200px;
       margin-left: -100%;
       left: -200px;
@@ -62,7 +62,7 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
     }
     &__right {
       box-sizing: border-box;
-      border-left: 2px solid #42b983;
+      border-left: 2px solid $--color-primary;
       width: 300px;
       margin-left: -300px;
       right: -300px;

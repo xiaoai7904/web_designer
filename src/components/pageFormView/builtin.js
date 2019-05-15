@@ -1,6 +1,5 @@
 export const createItem = (h, item, vm) => {
   let renderDom = null;
-  // console.log('render');
   switch (item.type) {
     case 'input':
       renderDom = (
@@ -71,6 +70,36 @@ export const createItem = (h, item, vm) => {
           }}
           show-alpha
         />
+      );
+      break;
+    case 'icon':
+      let _currentCheckIcon = '';
+      renderDom = (
+        <div
+          class="attributs-setting__icons"
+          on-click={e => {
+            vm.$refs.iconsDialogView.showDialog(item.id);
+            vm.$nextTick(() => {
+              vm.currentIcons = vm.handlerData(item.id, 'get');
+            });
+          }}
+        >
+          <i class={vm.handlerData(item.id, 'get')} style="font-size:35px;" />
+          <pageDialogView
+            ref="iconsDialogView"
+            options={{ width: '1100px', title: '选择Icon图标', id: item.id }}
+            on-confirmDialog={id => {
+              _currentCheckIcon && vm.handlerData({ id, value: _currentCheckIcon }, 'set');
+            }}
+          >
+            <pageIconsView
+              checkIcons={vm.currentIcons}
+              on-check={value => {
+                _currentCheckIcon = value;
+              }}
+            />
+          </pageDialogView>
+        </div>
       );
       break;
     case 'title':
