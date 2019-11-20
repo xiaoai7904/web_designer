@@ -50,7 +50,7 @@ export default ComponentsList
   flex-wrap: wrap;
   align-content: center;
   align-items: center;
-  padding: 0 4px;
+  // padding: 0 4px;
   &-item {
     margin-bottom: 1px;
     outline: 1px solid #dcdee2;
