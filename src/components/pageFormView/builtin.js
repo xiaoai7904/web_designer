@@ -48,7 +48,7 @@ export const createItem = (h, item, vm) => {
       break;
     case 'switch':
       renderDom = (
-        <xa-switch
+        <PageSwitch
           value={vm.handlerData(item.id, 'get')}
           on-change={value => {
             vm.handlerData({ id: item.id, value }, 'set');

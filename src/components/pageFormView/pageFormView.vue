@@ -1,10 +1,13 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import PageSwitch from '@/components/pageSwitch/pageSwitch'
 import { State, Mutation } from 'vuex-class'
 import { Watch, Prop } from '@/modules/vuePropertyDecorator/vuePropertyDecorator'
 import { createItem } from './builtin'
-@Component({})
+@Component({
+  components: {PageSwitch}
+})
 export default class PageFormView extends Vue {
   @Prop(Object) options
 

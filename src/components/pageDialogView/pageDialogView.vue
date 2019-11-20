@@ -1,4 +1,6 @@
 <script>
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import Vue from "vue";
 import Component from "vue-class-component";
 
@@ -29,7 +31,7 @@ import Component from "vue-class-component";
 /**
  * dialog view类
  */
-export default class PageDialogView extends Vue {
+class PageDialogView extends Vue {
   show = false;
   isDestroy = false;
   loading = false;
@@ -45,7 +47,7 @@ export default class PageDialogView extends Vue {
    */
   showDialog(id) {
     try {
-      this.options.beforDialogShowCallBack().then(data => {
+      this.options.beforDialogShowCallBack().then(() => {
         $("body").css({
           overflow: "hidden"
         });
@@ -127,6 +129,7 @@ export default class PageDialogView extends Vue {
     }
   }
 }
+export default PageDialogView
 </script>
 
 <style lang="scss">

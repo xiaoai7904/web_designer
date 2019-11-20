@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable no-unused-vars */
 export default {
   name: 'xaInputNumber',
   data() { return {} },

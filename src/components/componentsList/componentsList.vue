@@ -12,12 +12,13 @@ class ComponentsList extends Vue {
     let items = []
 
     items = this.componentsList.map(item => {
-      return this.createRoot(h, item.key, item.custom.name, h(item.key, { props: { options: item.props } }))
+      return this.createRoot(h, item.key, item.custom.name, h('i', { class: ['iconfont', item.custom.iconname] }))
     })
     return items
   }
   createRoot(h, componentsName, titleName, children) {
-    return h('div', { class: ['components-list-item'], attrs: { draggable: true, id: `${componentsName}_${uuid()}` }, on: { dragover: this.dragover, dragstart: this.dragstart } }, [this.createTitle(h, { name: titleName }), children])
+    return h('div', { class: ['components-list-item'], attrs: { draggable: true, id: `${componentsName}_${uuid()}` }, on: { dragover: this.dragover, dragstart: this.dragstart } }, [children, h('span', { class: ['components-list-item__des'] }, titleName)])
+    // return h('div', { class: ['components-list-item'], attrs: { draggable: true, id: `${componentsName}_${uuid()}` }, on: { dragover: this.dragover, dragstart: this.dragstart } }, [this.createTitle(h, { name: titleName }), children])
   }
   createTitle(h, data) {
     return h('div', { class: ['components-list-item__title'] }, data.name)
@@ -37,7 +38,7 @@ class ComponentsList extends Vue {
     event.preventDefault()
   }
   render(h) {
-    return h('div', { class: ['components-list'], attrs: { id: 'ui-designer-components-list' }}, this.createComponentsItem(h))
+    return h('div', { class: ['components-list'], attrs: { id: 'ui-designer-components-list' } }, this.createComponentsItem(h))
   }
 }
 export default ComponentsList
@@ -45,11 +46,23 @@ export default ComponentsList
 
 <style lang="scss">
 .components-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  padding: 0 4px;
   &-item {
-    margin-bottom: 10px;
-    border: 1px solid #dcdee2;
-    padding: 5px;
+    margin-bottom: 1px;
+    outline: 1px solid #dcdee2;
     overflow: hidden;
+    width: 62px;
+    height: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    margin-left: 1px;
     &__title {
       border-bottom: 1px solid #dcdee2;
       margin-bottom: 10px;
@@ -60,6 +73,19 @@ export default ComponentsList
         cursor: move;
       }
     }
+    &__des {
+      font-size: 12px;
+      margin-top: 5px;
+      line-height: initial;
+    }
+    &:hover {
+      background-color: #ececec;
+      cursor: move;
+    }
+  }
+  .iconfont {
+    font-size: 24px;
+    line-height: initial;
   }
 }
 #ui-designer-components-list {

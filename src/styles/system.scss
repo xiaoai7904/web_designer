@@ -12,7 +12,9 @@
     padding: 0 5px;
     background-color: $--color-primary;
     color: #fff;
-    font-size: 15px;
+    font-size: 13px;
+    height: 30px;
+    line-height: 30px;
   }
   .el-tree--highlight-current {
     .is-checked {

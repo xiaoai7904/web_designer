@@ -14,7 +14,7 @@
         <designerArea/>
       </div>
       <div class="desigener-page__item desigener-page__left">
-        <el-collapse value="1">
+        <el-collapse value="1" :value="['1','2']">
           <el-collapse-item name="1" title="布局层级树:">
             <el-tree
               ref="componentTree"
@@ -22,6 +22,9 @@
               :data="componentList"
               :highlight-current="true"
             ></el-tree>
+          </el-collapse-item>
+          <el-collapse-item name="2" title="组件列表:">
+            <componentsList/>
           </el-collapse-item>
         </el-collapse>
       </div>
@@ -33,9 +36,9 @@
           <el-collapse-item name="2" title="组件属性:">
             <pageFormView :options="currentPluginOptions" @updateOptions="updatePluginsPropsFn"/>
           </el-collapse-item>
-          <el-collapse-item name="3" title="组件列表:">
+          <!-- <el-collapse-item name="3" title="组件列表:">
             <componentsList/>
-          </el-collapse-item>
+          </el-collapse-item> -->
         </el-collapse>
       </div>
     </div>

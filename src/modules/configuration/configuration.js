@@ -175,7 +175,7 @@ const DEFAULT_CONFIG = [
       fontColor: '#606266'
     },
     style: Object.assign({}, commonConfig.style),
-    custom: Object.assign({}, commonConfig.custom, { name: 'Input 输入框', height: 50 }),
+    custom: Object.assign({}, commonConfig.custom, { name: '输入框', height: 50, iconname: 'iconinput' }),
     options: [].concat(commonConfig.options, [
       {
         label: '属性配置',
@@ -310,7 +310,7 @@ const DEFAULT_CONFIG = [
       controlsPosition: ''
     },
     style: Object.assign({}, commonConfig.style),
-    custom: Object.assign({}, commonConfig.custom, { name: 'InputNumber 计数器', height: 50 }),
+    custom: Object.assign({}, commonConfig.custom, { name: '计数器', height: 50, iconname: 'iconfuhao-shuzishurukuang' }),
     options: [].concat(commonConfig.options, [
       {
         label: '属性配置',
@@ -411,7 +411,7 @@ const DEFAULT_CONFIG = [
       ]
     },
     style: Object.assign({}, commonConfig.style),
-    custom: Object.assign({}, commonConfig.custom, { name: 'Radio 单选框', height: 35 }),
+    custom: Object.assign({}, commonConfig.custom, { name: '单选框', height: 35, iconname: 'icondanxuananniuzu' }),
     options: [].concat(commonConfig.options, [
       {
         label: '属性配置',
@@ -545,6 +545,1323 @@ const DEFAULT_CONFIG = [
         }
       }
     ])
+  },
+  {
+    key: 'xaCheckBox',
+    props: {
+      value: '',
+      disabled: false,
+      size: '',
+      textColor: '#fff',
+      fill: '#409EFF',
+      buttomStyle: false,
+      border: false,
+      children: [
+        {
+          id: '1',
+          value: 'checkbox1',
+          label: 'checkbox1',
+          disabled: false
+        },
+        {
+          id: '2',
+          value: 'checkbox2',
+          label: 'checkbox2',
+          disabled: false
+        }
+      ]
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '复选框', height: 50, iconname: 'iconfuxuankuang' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.value',
+        label: '当前值',
+        type: 'input'
+      },
+      {
+        id: 'props.disabled',
+        label: '禁用状态',
+        type: 'switch',
+        activeText: '禁用',
+        inactiveText: '启用'
+      },
+      {
+        id: 'props.size',
+        label: '尺寸',
+        type: 'select',
+        list: [
+          {
+            value: 'mini',
+            label: 'mini'
+          },
+          {
+            value: 'small',
+            label: 'small'
+          },
+          {
+            value: 'medium',
+            label: 'medium'
+          }
+        ]
+      },
+      {
+        id: 'props.textColor',
+        label: '文本颜色',
+        type: 'color'
+      },
+      {
+        id: 'props.fill',
+        label: '填充色',
+        type: 'color'
+      },
+      {
+        id: 'props.buttomStyle',
+        label: '按钮模式',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.border',
+        label: '显示边框',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.min',
+        label: '最小',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.max',
+        label: '最大',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        label: '可选项配置',
+        type: 'title'
+      },
+      {
+        id: 'props.children',
+        label: '',
+        type: 'custom',
+        render(h, vm) {
+          function updateItem(vm, props) {
+            return function(key, value) {
+              let _data = vm.handlerData('props.children', 'get');
+              _data.map(item => {
+                if (item.id === props.data.id) {
+                  item[key] = value;
+                }
+              });
+
+              vm.$store.commit('updatePluginsProps', {
+                id: vm.options.id,
+                modify: { id: 'props.children', value: _data }
+              });
+            };
+          }
+          return (
+            <itemList
+              list={vm.handlerData('props.children', 'get')}
+              id="props.children"
+              ins={vm}
+              scopedSlots={{
+                default(props) {
+                  return [
+                    <ul class="item-list__ul">
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">显示值</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.label}
+                          on-input={val => {
+                            updateItem(vm, props)('label', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">绑定值</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.value}
+                          on-input={val => {
+                            updateItem(vm, props)('value', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <el-checkbox
+                          value={props.data.disabled}
+                          size="mini"
+                          on-input={val => {
+                            updateItem(vm, props)('disabled', val);
+                          }}
+                        >
+                          禁用
+                        </el-checkbox>
+                      </li>
+                    </ul>
+                  ];
+                }
+              }}
+            />
+          );
+        }
+      }
+    ])
+  },
+  {
+    key: 'xaSelect',
+    props: {
+      value: '',
+      disabled: false,
+      placeholder: '请选择',
+      multiple: false,
+      clearable: false,
+      multipleLimit: 0,
+      children: [
+        {
+          id: '1',
+          value: 'select1',
+          label: 'select1',
+          disabled: false
+        },
+        {
+          id: '2',
+          value: 'select2',
+          label: 'select2',
+          disabled: false
+        }
+      ]
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '下拉框', height: 50, iconname: 'iconxialakuang' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.value',
+        label: '当前值',
+        type: 'input'
+      },
+      {
+        id: 'props.disabled',
+        label: '禁用状态',
+        type: 'switch',
+        activeText: '禁用',
+        inactiveText: '启用'
+      },
+      {
+        id: 'props.placeholder',
+        label: '占位描述',
+        type: 'input'
+      },
+      {
+        id: 'props.multiple',
+        label: '多选',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.clearable',
+        label: '一键清除',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.multipleLimit',
+        label: '最大选择',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        label: '可选项配置',
+        type: 'title'
+      },
+      {
+        id: 'props.children',
+        label: '',
+        type: 'custom',
+        render(h, vm) {
+          function updateItem(vm, props) {
+            return function(key, value) {
+              let _data = vm.handlerData('props.children', 'get');
+              _data.map(item => {
+                if (item.id === props.data.id) {
+                  item[key] = value;
+                }
+              });
+
+              vm.$store.commit('updatePluginsProps', {
+                id: vm.options.id,
+                modify: { id: 'props.children', value: _data }
+              });
+            };
+          }
+          return (
+            <itemList
+              list={vm.handlerData('props.children', 'get')}
+              id="props.children"
+              ins={vm}
+              scopedSlots={{
+                default(props) {
+                  return [
+                    <ul class="item-list__ul">
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">显示值</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.label}
+                          on-input={val => {
+                            updateItem(vm, props)('label', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">绑定值</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.value}
+                          on-input={val => {
+                            updateItem(vm, props)('value', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <el-checkbox
+                          value={props.data.disabled}
+                          size="mini"
+                          on-input={val => {
+                            updateItem(vm, props)('disabled', val);
+                          }}
+                        >
+                          禁用
+                        </el-checkbox>
+                      </li>
+                    </ul>
+                  ];
+                }
+              }}
+            />
+          );
+        }
+      }
+    ])
+  },
+  {
+    key: 'xaSwitch',
+    props: {
+      value: false,
+      disabled: false,
+      width: 50,
+      activeText: '开启',
+      inactiveText: '关闭',
+      activeColor: '#13ce66',
+      inactiveColor: '#909399'
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '开关', height: 35, width: 70, iconname: 'iconkaiguan' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.value',
+        label: '当前值',
+        type: 'switch',
+        activeText: '开启',
+        inactiveText: '关闭'
+      },
+      {
+        id: 'props.width',
+        label: '宽度',
+        type: 'input'
+      },
+      {
+        id: 'props.activeText',
+        label: '打开描述',
+        type: 'input'
+      },
+      {
+        id: 'props.inactiveText',
+        label: '关闭描述',
+        type: 'input'
+      },
+      {
+        id: 'props.activeColor',
+        label: '打开颜色',
+        type: 'color'
+      },
+      {
+        id: 'props.inactiveColor',
+        label: '关闭颜色',
+        type: 'color'
+      },
+      {
+        id: 'props.disabled',
+        label: '禁用状态',
+        type: 'switch',
+        activeText: '禁用',
+        inactiveText: '启用'
+      }
+    ])
+  },
+  {
+    key: 'xaProgress',
+    props: {
+      percentage: 50,
+      type: 'line',
+      strokeWidth: 20,
+      status: 'text',
+      color: '',
+      width: 126
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '进度条', height: 50, width: 300, iconname: 'iconjindutiao' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.percentage',
+        label: '当前值',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: 100
+        }
+      },
+      {
+        id: 'props.type',
+        label: '类型',
+        type: 'select',
+        list: [
+          {
+            value: 'line',
+            label: 'line'
+          },
+          {
+            value: 'circle',
+            label: 'circle'
+          }
+        ]
+      },
+      {
+        id: 'props.status',
+        label: '状态',
+        type: 'select',
+        list: [
+          {
+            value: 'success',
+            label: 'success'
+          },
+          {
+            value: 'exception',
+            label: 'exception'
+          },
+          {
+            value: 'text',
+            label: 'text'
+          }
+        ]
+      },
+      {
+        id: 'props.strokeWidth',
+        label: '进度条宽',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.color',
+        label: '颜色',
+        type: 'color'
+      }
+    ])
+  },
+  {
+    key: 'xaSlider',
+    props: {
+      value: 50,
+      disabled: false,
+      min: 0,
+      max: 100,
+      step: 1,
+      showTooltip: true
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '滑块', height: 50, width: 300, iconname: 'iconhuakuai-' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.value',
+        label: '当前值',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.min',
+        label: '最小',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.max',
+        label: '最大',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.step',
+        label: '步数',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.showTooltip',
+        label: '提示框',
+        type: 'switch',
+        activeText: '显示',
+        inactiveText: '关闭'
+      }
+    ])
+  },
+  {
+    key: 'xaTag',
+    props: {
+      value: '标签1',
+      type: 'success',
+      hit: false,
+      closable: false,
+      color: '',
+      size: 'small'
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '标签', height: 40, width: 65, iconname: 'icontag' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.value',
+        label: '当前值',
+        type: 'input'
+      },
+      {
+        id: 'props.hit',
+        label: '边框描边',
+        type: 'switch',
+        activeText: '显示',
+        inactiveText: '关闭'
+      },
+      {
+        id: 'props.closable',
+        label: '可关闭',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.type',
+        label: '类型',
+        type: 'select',
+        list: [
+          {
+            value: 'success',
+            label: 'success'
+          },
+          {
+            value: 'info',
+            label: 'info'
+          },
+          {
+            value: 'warning',
+            label: 'warning'
+          },
+          {
+            value: 'danger',
+            label: 'danger'
+          }
+        ]
+      },
+      {
+        id: 'props.size',
+        label: '尺寸',
+        type: 'select',
+        list: [
+          {
+            value: 'mini',
+            label: 'mini'
+          },
+          {
+            value: 'small',
+            label: 'small'
+          },
+          {
+            value: 'medium',
+            label: 'medium'
+          }
+        ]
+      },
+      {
+        id: 'props.color',
+        label: '背景色',
+        type: 'color'
+      }
+    ])
+  },
+  {
+    key: 'xaAlert',
+    props: {
+      title: '成功提示的文案',
+      type: 'success',
+      description: '文字说明文字说明文字说明文字说明文字说明文字说明',
+      closable: false,
+      center: false,
+      closeText: '',
+      showIcon: true,
+      effect: 'light'
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '警告', height: 70, width: 450, iconname: 'iconjinggao' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.title',
+        label: '标题',
+        type: 'input'
+      },
+      {
+        id: 'props.description',
+        label: '描述',
+        type: 'input'
+      },
+      {
+        id: 'props.closeText',
+        label: '关闭文字',
+        type: 'input'
+      },
+      {
+        id: 'props.closable',
+        label: '是否关闭',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.showIcon',
+        label: '显示图标',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.center',
+        label: '是否居中',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.effect',
+        label: '主题',
+        type: 'select',
+        list: [
+          {
+            value: 'light',
+            label: 'light'
+          },
+          {
+            value: 'dark',
+            label: 'dark'
+          }
+        ]
+      }
+    ])
+  },
+  {
+    key: 'xaCollapse',
+    props: {
+      value: '',
+      accordion: false,
+      children: [
+        {
+          id: '1',
+          label: '一致性 Consistency',
+          content: '与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念'
+        },
+        {
+          id: '2',
+          label: '反馈 Feedback',
+          content: '控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作'
+        }
+      ]
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '折叠面板', height: 130, width: 200, iconname: 'iconzhediemianban' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.value',
+        label: '当前值',
+        type: 'input'
+      },
+      {
+        id: 'props.accordion',
+        label: '手风琴',
+        type: 'switch',
+        activeText: '开启',
+        inactiveText: '关闭'
+      },
+      {
+        label: '可选项配置',
+        type: 'title'
+      },
+      {
+        id: 'props.children',
+        label: '',
+        type: 'custom',
+        render(h, vm) {
+          function updateItem(vm, props) {
+            return function(key, value) {
+              let _data = vm.handlerData('props.children', 'get');
+              _data.map(item => {
+                if (item.id === props.data.id) {
+                  item[key] = value;
+                }
+              });
+
+              vm.$store.commit('updatePluginsProps', {
+                id: vm.options.id,
+                modify: { id: 'props.children', value: _data }
+              });
+            };
+          }
+          return (
+            <itemList
+              list={vm.handlerData('props.children', 'get')}
+              id="props.children"
+              ins={vm}
+              scopedSlots={{
+                default(props) {
+                  return [
+                    <ul class="item-list__ul">
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">ID</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.id}
+                          on-input={val => {
+                            updateItem(vm, props)('id', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">标题</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.label}
+                          on-input={val => {
+                            updateItem(vm, props)('label', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">内容</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.content}
+                          on-input={val => {
+                            updateItem(vm, props)('content', val);
+                          }}
+                        />
+                      </li>
+                    </ul>
+                  ];
+                }
+              }}
+            />
+          );
+        }
+      }
+    ])
+  },
+  {
+    key: 'xaCalendar',
+    props: {
+      value: new Date()
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '日历', height: 675, width: 529, iconname: 'iconrili' }),
+    options: [].concat(commonConfig.options)
+  },
+  {
+    key: 'xaBreadcrumb',
+    props: {
+      separator: '/',
+      children: [
+        {
+          id: '1',
+          label: '首页',
+          path: ''
+        },
+        {
+          id: '2',
+          label: '活动管理',
+          path: ''
+        }
+      ]
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '面包屑', height: 26, width: 250, iconname: 'iconbreadcrumbs' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.separator',
+        label: '分隔符',
+        type: 'input'
+      },
+      {
+        label: '可选项配置',
+        type: 'title'
+      },
+      {
+        id: 'props.children',
+        label: '',
+        type: 'custom',
+        render(h, vm) {
+          function updateItem(vm, props) {
+            return function(key, value) {
+              let _data = vm.handlerData('props.children', 'get');
+              _data.map(item => {
+                if (item.id === props.data.id) {
+                  item[key] = value;
+                }
+              });
+
+              vm.$store.commit('updatePluginsProps', {
+                id: vm.options.id,
+                modify: { id: 'props.children', value: _data }
+              });
+            };
+          }
+          return (
+            <itemList
+              list={vm.handlerData('props.children', 'get')}
+              id="props.children"
+              ins={vm}
+              scopedSlots={{
+                default(props) {
+                  return [
+                    <ul class="item-list__ul">
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">标题</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.label}
+                          on-input={val => {
+                            updateItem(vm, props)('label', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">路径</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.path}
+                          on-input={val => {
+                            updateItem(vm, props)('path', val);
+                          }}
+                        />
+                      </li>
+                    </ul>
+                  ];
+                }
+              }}
+            />
+          );
+        }
+      }
+    ])
+  },
+  {
+    key: 'xaColorPicker',
+    props: {
+      value: '#409EFF',
+      disabled: false,
+      size: 'small',
+      showAlpha: false,
+      colorFormat: 'rgb'
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '颜色选择器', height: 50, width: 50, iconname: 'iconyanse' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.value',
+        label: '当前值',
+        type: 'input'
+      },
+      {
+        id: 'props.disabled',
+        label: '禁用状态',
+        type: 'switch',
+        activeText: '禁用',
+        inactiveText: '启用'
+      },
+      {
+        id: 'props.showAlpha',
+        label: '透明度',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.size',
+        label: '尺寸',
+        type: 'select',
+        list: [
+          {
+            value: 'mini',
+            label: 'mini'
+          },
+          {
+            value: 'small',
+            label: 'small'
+          },
+          {
+            value: 'medium',
+            label: 'medium'
+          }
+        ]
+      },
+      {
+        id: 'props.colorFormat',
+        label: '颜色格式',
+        type: 'select',
+        list: [
+          {
+            value: 'hsl',
+            label: 'hsl'
+          },
+          {
+            value: 'hsv',
+            label: 'hsv'
+          },
+          {
+            value: 'hex',
+            label: 'hex'
+          },
+          {
+            value: 'rgb',
+            label: 'rgb'
+          }
+        ]
+      }
+    ])
+  },
+  {
+    key: 'xaRate',
+    props: {
+      value: '',
+      disabled: false,
+      max: 5,
+      allowHalf: false
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '评分', height: 50, width: 150, iconname: 'iconpingfen' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.value',
+        label: '当前值',
+        type: 'input'
+      },
+      {
+        id: 'props.disabled',
+        label: '禁用状态',
+        type: 'switch',
+        activeText: '禁用',
+        inactiveText: '启用'
+      },
+      {
+        id: 'props.allowHalf',
+        label: '是否半选',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.max',
+        label: '最大值',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      }
+    ])
+  },
+  {
+    key: 'xaTimePicker',
+    props: {
+      value: '',
+      disabled: false,
+      readonly: false,
+      editable: false,
+      clearable: false,
+      size: 'small'
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '时间选择器', height: 50, width: 230, iconname: 'iconshijian' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.disabled',
+        label: '禁用状态',
+        type: 'switch',
+        activeText: '禁用',
+        inactiveText: '启用'
+      },
+      {
+        id: 'props.readonly',
+        label: '是否只读',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.editable',
+        label: '是否编辑',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.clearable',
+        label: '是否清除',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.size',
+        label: '尺寸',
+        type: 'select',
+        list: [
+          {
+            value: 'mini',
+            label: 'mini'
+          },
+          {
+            value: 'small',
+            label: 'small'
+          },
+          {
+            value: 'medium',
+            label: 'medium'
+          }
+        ]
+      }
+    ])
+  },
+  {
+    key: 'xaDatePicker',
+    props: {
+      value: '',
+      disabled: false,
+      readonly: false,
+      editable: false,
+      clearable: false,
+      size: 'small'
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '日期选择器', height: 50, width: 230, iconname: 'iconriqi' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.disabled',
+        label: '禁用状态',
+        type: 'switch',
+        activeText: '禁用',
+        inactiveText: '启用'
+      },
+      {
+        id: 'props.readonly',
+        label: '是否只读',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.editable',
+        label: '是否编辑',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.clearable',
+        label: '是否清除',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.size',
+        label: '尺寸',
+        type: 'select',
+        list: [
+          {
+            value: 'mini',
+            label: 'mini'
+          },
+          {
+            value: 'small',
+            label: 'small'
+          },
+          {
+            value: 'medium',
+            label: 'medium'
+          }
+        ]
+      }
+    ])
+  },
+  {
+    key: 'xaButton',
+    props: {
+      content: '按钮',
+      disabled: false,
+      type: 'primary',
+      round: false,
+      circle: false,
+      plain: false,
+      size: 'small'
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '按钮', height: 50, width: 100, iconname: 'iconanniu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.content',
+        label: '按钮内容',
+        type: 'input'
+      },
+      {
+        id: 'props.disabled',
+        label: '禁用状态',
+        type: 'switch',
+        activeText: '禁用',
+        inactiveText: '启用'
+      },
+      {
+        id: 'props.plain',
+        label: '朴素按钮',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.round',
+        label: '圆角按钮',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.circle',
+        label: '圆形按钮',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.size',
+        label: '尺寸',
+        type: 'select',
+        list: [
+          {
+            value: 'mini',
+            label: 'mini'
+          },
+          {
+            value: 'small',
+            label: 'small'
+          },
+          {
+            value: 'medium',
+            label: 'medium'
+          }
+        ]
+      },
+      {
+        id: 'props.type',
+        label: '类型',
+        type: 'select',
+        list: [
+          {
+            value: 'primary',
+            label: 'primary'
+          },
+          {
+            value: 'success',
+            label: 'success'
+          },
+          {
+            value: 'warning',
+            label: 'warning'
+          },
+          {
+            value: 'danger',
+            label: 'danger'
+          },
+          {
+            value: 'info',
+            label: 'info'
+          },
+          {
+            value: 'text',
+            label: 'text'
+          }
+        ]
+      }
+    ])
+  },
+  {
+    key: 'xaLink',
+    props: {
+      content: '链接',
+      disabled: false,
+      type: 'primary',
+      underline: false,
+      href: '',
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '链接', height: 35, width: 80, iconname: 'iconlianjie' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.content',
+        label: '链接内容',
+        type: 'input'
+      },
+      {
+        id: 'props.href',
+        label: '地址',
+        type: 'input'
+      },
+      {
+        id: 'props.disabled',
+        label: '禁用状态',
+        type: 'switch',
+        activeText: '禁用',
+        inactiveText: '启用'
+      },
+      {
+        id: 'props.underline',
+        label: '下划线',
+        type: 'switch',
+        activeText: '显示',
+        inactiveText: '隐藏'
+      },
+      {
+        id: 'props.type',
+        label: '类型',
+        type: 'select',
+        list: [
+          {
+            value: 'primary',
+            label: 'primary'
+          },
+          {
+            value: 'success',
+            label: 'success'
+          },
+          {
+            value: 'warning',
+            label: 'warning'
+          },
+          {
+            value: 'danger',
+            label: 'danger'
+          },
+          {
+            value: 'info',
+            label: 'info'
+          }
+        ]
+      }
+    ])
   }
 ];
 export default class Configuration {
@@ -557,7 +1874,11 @@ export default class Configuration {
   setOption() {}
   getOption(key) {
     if (!key) return extend(true, [], this.options);
-    return extend(true, [], this.options.filter(item => item.key === key));
+    return extend(
+      true,
+      [],
+      this.options.filter(item => item.key === key)
+    );
   }
   getDefaultConfig() {
     return extend(true, [], this.options);
