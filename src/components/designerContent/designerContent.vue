@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable no-unused-vars */
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { State, Mutation } from 'vuex-class'
@@ -43,22 +44,19 @@ class designerArea extends Vue {
       .register({ key: 'v', isCtrl: true }, this.pastePluginCallback)
   }
   delPluginCallback() {
-    console.log('del')
+
     this.currentPlugins.length && this.delPluginFn(this.currentPlugins[0].id)
   }
   savePageCallback() {
-    console.log('save')
+    
   }
   cancelCallback() {
-    console.log('cancel')
+   
   }
   copyPluginCallback() {
-    console.log('copy')
-    console.log(this.currentPlugins)
     this.setClipboardFn(extend(true, [], this.currentPlugins))
   }
   pastePluginCallback() {
-    console.log('paste')
     if (this.clipboard && this.clipboard.length) {
       let orgData = this.clipboard[0].custom
       let _id = this.clipboard[0].key + '_' + uuid()

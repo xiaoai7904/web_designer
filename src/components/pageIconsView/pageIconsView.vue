@@ -1,4 +1,5 @@
 <script>
+/* eslint-disable no-unused-vars */
 import pageIconsConfig from './pageIconsConfig'
 
 export default {
