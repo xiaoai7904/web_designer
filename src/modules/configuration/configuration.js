@@ -1801,7 +1801,7 @@ const DEFAULT_CONFIG = [
       disabled: false,
       type: 'primary',
       underline: false,
-      href: '',
+      href: ''
     },
     style: Object.assign({}, commonConfig.style),
     custom: Object.assign({}, commonConfig.custom, { name: '链接', height: 35, width: 80, iconname: 'iconlianjie' }),
@@ -1860,6 +1860,429 @@ const DEFAULT_CONFIG = [
             label: 'info'
           }
         ]
+      }
+    ])
+  },
+  {
+    key: 'xaTable',
+    props: {
+      data: [
+        {
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        },
+        {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        },
+        {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        },
+        {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }
+      ],
+      stripe: false,
+      border: false,
+      size: 'small',
+      fit: true,
+      showHeader: true,
+      emptyText: '暂无数据',
+      showSummary: false,
+      sumText: '合计',
+      summaryMethod: null,
+      spanMethod: null,
+      children: [
+        {
+          prop: 'date',
+          label: '日期'
+        },
+        {
+          prop: 'name',
+          label: '姓名'
+        },
+        {
+          prop: 'address',
+          label: '地址'
+        }
+      ]
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '表格', height: 240, width: 675, iconname: 'iconbiaoge' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.data',
+        label: '数据源',
+        type: 'code',
+        options: {
+          btnName: '数据源编辑'
+        }
+      },
+      {
+        id: 'props.emptyText',
+        label: '空显示值',
+        type: 'input'
+      },
+      {
+        id: 'props.sumText',
+        label: '汇总显示',
+        type: 'input'
+      },
+      {
+        id: 'props.stripe',
+        label: '斑马纹',
+        type: 'switch',
+        activeText: '开启',
+        inactiveText: '关闭'
+      },
+      {
+        id: 'props.border',
+        label: '纵向边框',
+        type: 'switch',
+        activeText: '开启',
+        inactiveText: '关闭'
+      },
+      {
+        id: 'props.fit',
+        label: '宽度适应',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.showHeader',
+        label: '显示表头',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.showSummary',
+        label: '显示合计',
+        type: 'switch',
+        activeText: '显示',
+        inactiveText: '隐藏'
+      },
+      {
+        id: 'props.size',
+        label: '尺寸',
+        type: 'select',
+        list: [
+          {
+            value: 'medium',
+            label: 'medium'
+          },
+          {
+            value: 'small',
+            label: 'small'
+          },
+          {
+            value: 'mini',
+            label: 'mini'
+          }
+        ]
+      }
+    ])
+  },
+  {
+    key: 'xaTree',
+    props: {
+      data: [
+        {
+          label: '一级 1',
+          children: [
+            {
+              label: '二级 1-1',
+              children: [
+                {
+                  label: '三级 1-1-1'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          label: '一级 2',
+          children: [
+            {
+              label: '二级 2-1',
+              children: [
+                {
+                  label: '三级 2-1-1'
+                }
+              ]
+            },
+            {
+              label: '二级 2-2',
+              children: [
+                {
+                  label: '三级 2-2-1'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          label: '一级 3',
+          children: [
+            {
+              label: '二级 3-1',
+              children: [
+                {
+                  label: '三级 3-1-1'
+                }
+              ]
+            },
+            {
+              label: '二级 3-2',
+              children: [
+                {
+                  label: '三级 3-2-1'
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      props: {
+        children: 'children',
+        label: 'label'
+      },
+      emptyText: '暂无数据',
+      load: null,
+      renderContent: null,
+      highlightCurrent: false,
+      defaultExpandAll: false,
+      showCheckbox: false,
+      indent: 16,
+      iconClass: null,
+      lazy: false,
+      draggable: false
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '树形控件', height: 160, width: 150, iconname: 'iconjuxingkaobei' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.data',
+        label: '数据源',
+        type: 'code',
+        options: {
+          btnName: '数据源编辑'
+        }
+      },
+      {
+        id: 'props.emptyText',
+        label: '空显示值',
+        type: 'input'
+      },
+      {
+        id: 'props.indent',
+        label: '水平缩进',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.highlightCurrent',
+        label: '高亮选中',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.defaultExpandAll',
+        label: '默认展开',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.showCheckbox',
+        label: '是否选择',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.lazy',
+        label: '懒加载',
+        type: 'switch',
+        activeText: '开启',
+        inactiveText: '关闭'
+      },
+      {
+        id: 'props.draggable',
+        label: '拖拽',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      }
+    ])
+  },
+  {
+    key: 'xaMenu',
+    props: {
+      defaultActive: '',
+      mode: 'vertical',
+      // collapse: false,
+      backgroundColor: '#fff',
+      textColor: '#303133',
+      activeTextColor: '#409EFF',
+      // uniqueOpened: false,
+      // menuTrigger: 'hover',
+      router: false,
+      // collapseTransition: true,
+      children: [
+        {
+          index: '1',
+          title: '导航1',
+          disabled: false,
+          iconClass: 'el-icon-location'
+        },
+        {
+          title: '导航2',
+          iconClass: 'el-icon-menu',
+          index: '3',
+          children: [
+            {
+              index: '2-1',
+              title: '导航2-1',
+              disabled: false
+            },
+            {
+              index: '2-2',
+              title: '导航2-2',
+              disabled: false
+            }
+          ]
+        },
+        {
+          title: '导航3',
+          iconClass: 'el-icon-menu',
+          index: '3',
+          children: [
+            {
+              index: '3-1',
+              title: '导航3-1',
+              disabled: false
+            },
+            {
+              index: '3-2',
+              title: '导航3-2',
+              disabled: false
+            }
+          ]
+        }
+      ]
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '菜单', height: 350, width: 170, iconname: 'iconmenu-line' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.children',
+        type: 'code',
+        label: '数据源',
+        options: {
+          btnName: '数据源编辑'
+        }
+      },
+      {
+        id: 'props.defaultActive',
+        label: '激活菜单',
+        type: 'input'
+      },
+      {
+        id: 'props.mode',
+        label: '模式',
+        type: 'select',
+        list: [
+          {
+            value: 'horizontal',
+            label: 'horizontal'
+          },
+          {
+            value: 'vertical',
+            label: 'vertical'
+          }
+        ]
+      },
+      // {
+      //   id: 'props.menuTrigger',
+      //   label: '触发方式',
+      //   type: 'select',
+      //   list: [
+      //     {
+      //       value: 'hover',
+      //       label: 'hover'
+      //     },
+      //     {
+      //       value: 'click',
+      //       label: 'click'
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 'props.collapse',
+      //   label: '水平折叠',
+      //   type: 'switch',
+      //   activeText: '是',
+      //   inactiveText: '否'
+      // },
+      // {
+      //   id: 'props.uniqueOpened',
+      //   label: '单个菜单展开',
+      //   type: 'switch',
+      //   activeText: '是',
+      //   inactiveText: '否'
+      // },
+      {
+        id: 'props.router',
+        label: 'vue-router',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      // {
+      //   id: 'props.collapseTransition',
+      //   label: '折叠动画',
+      //   type: 'switch',
+      //   activeText: '是',
+      //   inactiveText: '否'
+      // },
+      {
+        id: 'props.backgroundColor',
+        label: '背景色',
+        type: 'color'
+      },
+      {
+        id: 'props.textColor',
+        label: '文字色',
+        type: 'color'
+      },
+      {
+        id: 'props.activeTextColor',
+        label: '激活文字色',
+        type: 'color'
       }
     ])
   }

@@ -30,6 +30,8 @@ module.exports = {
         'window.jQuery': 'jquery'
       }
     ]);
+
+    config.plugin('MonacoWebpackPlugin').use(require('monaco-editor-webpack-plugin'))
   },
   css: {
     loaderOptions: {

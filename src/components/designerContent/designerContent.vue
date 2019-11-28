@@ -32,6 +32,7 @@ class designerArea extends Vue {
   pageEvent = null
   auxLineY = {}
   auxLineX = {}
+  isLockPageEvent = false
 
   bindEvent() {
     this.pageEvent = new PageEventManage()
@@ -42,21 +43,27 @@ class designerArea extends Vue {
       .register({ key: 'z', isCtrl: true }, this.cancelCallback)
       .register({ key: 'c', isCtrl: true }, this.copyPluginCallback)
       .register({ key: 'v', isCtrl: true }, this.pastePluginCallback)
+
+    window.Uidesigner.$event.once('open_code_editor', (data) => {
+      this.isLockPageEvent = data
+    })
   }
   delPluginCallback() {
-
+    if (this.isLockPageEvent) return false
     this.currentPlugins.length && this.delPluginFn(this.currentPlugins[0].id)
   }
   savePageCallback() {
-    
+    if (this.isLockPageEvent) return false
   }
   cancelCallback() {
-   
+    if (this.isLockPageEvent) return false
   }
   copyPluginCallback() {
+    if (this.isLockPageEvent) return false
     this.setClipboardFn(extend(true, [], this.currentPlugins))
   }
   pastePluginCallback() {
+    if (this.isLockPageEvent) return false
     if (this.clipboard && this.clipboard.length) {
       let orgData = this.clipboard[0].custom
       let _id = this.clipboard[0].key + '_' + uuid()

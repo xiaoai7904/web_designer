@@ -69,8 +69,11 @@ class PageDialogView extends Vue {
         .beforDialogHideCallBack()
         .then(data => {
           this.addData(data);
+        }, err => {
+          this.loading = false;
         });
     } catch (e) {
+      this.loading = false;
       this.addData();
     }
   }
@@ -96,12 +99,13 @@ class PageDialogView extends Vue {
    */
   render(h) {
     if (this.isDestroy) {
+      let customClassnames = `${this.options.classname} page-dialog-view el-dialog-reset-header`
       return (
         <el-dialog
           v-dragDialog
           top="0"
           title={this.options.title || '修改'}
-          custom-class="page-dialog-view el-dialog-reset-header"
+          custom-class={customClassnames}
           visible={this.show}
           closeOnClickModal={false}
           closeOnPressEscape={false}

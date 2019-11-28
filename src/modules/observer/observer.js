@@ -23,6 +23,10 @@ export default class Observer {
 
     return this;
   }
+  once(name, fn) {
+    this.off(name)
+    this.on(name, fn)
+  }
   /**
    * 删除监听事件
    * @param {String} name 关闭监听事件名称
