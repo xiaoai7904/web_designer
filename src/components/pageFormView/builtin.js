@@ -1,3 +1,5 @@
+import { types } from '@/modules/utils/utils';
+
 export const createItem = (h, item, vm) => {
   let renderDom = null;
   switch (item.type) {
@@ -73,11 +75,11 @@ export const createItem = (h, item, vm) => {
       );
       break;
     case 'icon':
-      let _currentCheckIcon = '';
+      var _currentCheckIcon = '';
       renderDom = (
         <div
           class="attributs-setting__icons"
-          on-click={e => {
+          on-click={() => {
             vm.$refs.iconsDialogView.showDialog(item.id);
             vm.$nextTick(() => {
               vm.currentIcons = vm.handlerData(item.id, 'get');
@@ -98,6 +100,50 @@ export const createItem = (h, item, vm) => {
                 _currentCheckIcon = value;
               }}
             />
+          </pageDialogView>
+        </div>
+      );
+      break;
+    case 'code':
+      renderDom = (
+        <div
+          class="attributs-setting__code"
+          on-click={() => {
+            vm.$refs.codeDialogView.showDialog(item.id);
+            vm.$nextTick(() => {
+              vm.currentCodeContent = JSON.stringify(vm.handlerData(item.id, 'get'));
+            });
+          }}
+        >
+          <el-button size="mini" type="primary">
+            {item.options.btnName || '代码注入'}
+          </el-button>
+          <pageDialogView
+            ref="codeDialogView"
+            options={{
+              width: '1100px',
+              title: '代码编辑器',
+              id: item.id,
+              classname: 'code-dialog',
+              beforDialogHideCallBack: () => {
+                return new Promise((resolve, reject) => {
+                  let _value = vm.$refs.codeEditorRef.getValue();
+                  if (types(_value) === '[object Error]') {
+                    vm.$alert('代码存在语法错误!', '错误', {
+                      confirmButtonText: '确定'
+                    });
+                    reject(_value);
+                  } else {
+                    resolve(_value);
+                  }
+                });
+              }
+            }}
+            on-confirmDialog={id => {
+              vm.handlerData({ id, value: vm.$refs.codeEditorRef.getValue() }, 'set');
+            }}
+          >
+            <CodeEditor ref="codeEditorRef" codeContent={vm.currentCodeContent} language={item.options.language || 'json'} type={types(vm.handlerData(item.id, 'get'))} />
           </pageDialogView>
         </div>
       );

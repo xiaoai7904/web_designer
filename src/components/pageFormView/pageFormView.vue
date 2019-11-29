@@ -2,11 +2,12 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import PageSwitch from '@/components/pageSwitch/pageSwitch'
+import CodeEditor from '@/components/codeEditor/codeEditor'
 import { State, Mutation } from 'vuex-class'
 import { Watch, Prop } from '@/modules/vuePropertyDecorator/vuePropertyDecorator'
 import { createItem } from './builtin'
 @Component({
-  components: {PageSwitch}
+  components: { PageSwitch, CodeEditor }
 })
 export default class PageFormView extends Vue {
   @Prop(Object) options
@@ -21,6 +22,7 @@ export default class PageFormView extends Vue {
   formMode = {}
   formRules = {}
   currentIcons = ''
+  currentCodeContent = ''
 
   createRules() { }
   createModel() {
@@ -77,14 +79,14 @@ export default class PageFormView extends Vue {
       return h('div', {
         class: ['attributs-setting']
       }, [
-          h('el-form', {
-            props: {
-              model: this.formMode,
-              rules: this.formRules,
-              'label-width': '80px'
-            }
-          }, this.createFormItem(h))
-        ])
+        h('el-form', {
+          props: {
+            model: this.formMode,
+            rules: this.formRules,
+            'label-width': '90px'
+          }
+        }, this.createFormItem(h))
+      ])
     }
     return <span>暂无数据</span>
   }
@@ -128,6 +130,34 @@ export default class PageFormView extends Vue {
   .el-select,
   .el-input-number {
     width: 100%;
+  }
+}
+
+.code-dialog {
+  background-color: rgb(28, 31, 37) !important;
+  .el-dialog__header {
+    background-color: rgb(28, 31, 37) !important;
+    border-bottom: 1px solid #3a3939 !important;
+  }
+  .el-dialog__title {
+    color: #fff;
+  }
+  .el-dialog__body {
+    height: 80vh;
+    box-sizing: border-box;
+    padding: 0;
+  }
+  .el-dialog__footer {
+    border-top: 1px solid #3a3939 !important;
+    .el-button--default {
+      background: #4a4949;
+      border-color: #4a4949;
+      color: #fff;
+    }
+    .el-button--primary {
+      background-color: #569bd5;
+      border-color: #569bd5;
+    }
   }
 }
 </style>
