@@ -55,6 +55,7 @@ module.exports = {
     ]);
 
     config.plugin('MonacoWebpackPlugin').use(require('monaco-editor-webpack-plugin'));
+    
     const date = dateFormat(new Date().getTime(), 'yyyyMMddhhmm');
     config.output.filename(`js_${date}/[name].[hash:8].js`).chunkFilename(`js_${date}/[name].[hash:8].js`);
   },
