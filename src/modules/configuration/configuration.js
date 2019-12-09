@@ -139,7 +139,6 @@ const commonConfig = {
       label: '边框颜色',
       type: 'color'
     },
-    ,
     {
       id: 'style.backgroundColor',
       label: '背景颜色',
@@ -1517,7 +1516,7 @@ const DEFAULT_CONFIG = [
   {
     key: 'xaRate',
     props: {
-      value: '',
+      value: 0,
       disabled: false,
       max: 5,
       allowHalf: false
@@ -2289,10 +2288,10 @@ const DEFAULT_CONFIG = [
 ];
 export default class Configuration {
   constructor(options) {
-    if (!window.webDesigner) {
-      window.webDesigner = { configuration: null };
+    if (!window.Uidesigner) {
+      window.Uidesigner = {};
     }
-    this.options = window.webDesigner.configuration = Object.assign([], DEFAULT_CONFIG, options);
+    this.options = window.Uidesigner.configuration = Object.assign([], DEFAULT_CONFIG, options);
   }
   setOption() {}
   getOption(key) {

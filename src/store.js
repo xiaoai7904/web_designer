@@ -3,7 +3,8 @@ import Vuex from 'vuex';
 import { extend } from '@/modules/utils/utils';
 import Page from '@/modules/page/page';
 let pageIns = new Page();
-window.webDesigner = { page: pageIns.page[0] };
+
+(window.Uidesigner || (window.Uidesigner = {})) && (window.Uidesigner.pageIns = pageIns)
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -44,3 +45,4 @@ export default new Vuex.Store({
   },
   actions: {}
 });
+

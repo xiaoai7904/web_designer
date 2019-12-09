@@ -4,6 +4,7 @@
       <img :src="logo" alt="Web Designer">
       <div class="page-header-tools__wrap">
         <ul class="page-header-tools__ul">
+          <li class="page-header-tools__ul-item" @click="save">保存</li>
           <li class="page-header-tools__ul-item" @click="preview">预览</li>
           <li class="page-header-tools__ul-item" @click="release">发布</li>
         </ul>
@@ -38,7 +39,7 @@
           </el-collapse-item>
           <!-- <el-collapse-item name="3" title="组件列表:">
             <componentsList/>
-          </el-collapse-item> -->
+          </el-collapse-item> --> 
         </el-collapse>
       </div>
     </div>
