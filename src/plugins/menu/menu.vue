@@ -25,7 +25,7 @@ export default {
         // unique-opened={this.options.uniqueOpened}
         // menu-trigger={this.options.menuTrigger}
         router={this.options.router}
-        // collapse-transition={this.options.collapseTransition}
+      // collapse-transition={this.options.collapseTransition}
       >
         {this.options.children.map((item, index) => {
           if (!item.children) {
@@ -54,4 +54,10 @@ export default {
 </script>
 
 <style lang="scss">
+.xa-menu {
+  .el-menu {
+    width: 100%;
+    height: 100%;
+  }
+}
 </style>

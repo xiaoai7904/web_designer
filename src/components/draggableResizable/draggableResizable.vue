@@ -119,12 +119,12 @@ export default {
     w: {
       type: Number,
       default: 200,
-      validator: (val) => val > 0
+      validator: (val) => val >= 0
     },
     h: {
       type: Number,
       default: 200,
-      validator: (val) => val > 0
+      validator: (val) => val >= 0
     },
     minWidth: {
       type: Number,

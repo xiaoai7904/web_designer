@@ -44,10 +44,10 @@ class DesigenerPage extends Vue {
         }
       });
       this.currentPluginOptions = extend(true, {}, newValue[0]);
-      this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys(newValue.map(item => item.id))
-    }else {
-      this.currentPluginOptions = {}
-      this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys([])
+      this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys(newValue.map(item => item.id));
+    } else {
+      this.currentPluginOptions = {};
+      this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys([]);
     }
   }
   @Watch('pageState', { deep: true, immediate: true })
@@ -74,6 +74,20 @@ class DesigenerPage extends Vue {
     this.$router.push({ name: 'perview' });
   }
   release() {}
+  save() {
+    window.localStorage.setItem(
+      'pagePlugins',
+      JSON.stringify(this.$store.state.plugins, (key, value) => {
+        if (typeof value === 'function') {
+          return value.toString();
+        }
+        return value;
+      })
+    );
+    this.$alert('数据保存成功', '提示', {
+      confirmButtonText: '确定'
+    });
+  }
 }
 
 export default DesigenerPage;
