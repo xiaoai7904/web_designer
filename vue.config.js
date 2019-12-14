@@ -57,14 +57,13 @@ module.exports = {
   lintOnSave: false,
   productionSourceMap: false,
   baseUrl: './',
-  outputDir: 'docs'
-  // devServer: {
-  //   port: 8081,
-  //   proxy: {
-  //     "/api": {
-  //       target: "http://....",
-  //       changeOrigin: true
-  //     },
-  //   }
-  // }
+  outputDir: 'docs',
+  devServer: {
+    proxy: {
+      "/api": {
+        target: "http://192.168.1.199:7001",
+        changeOrigin: true
+      },
+    }
+  }
 };

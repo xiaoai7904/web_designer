@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import Observer from '@/modules/observer/observer';
+import Http from '@/modules/http/Http.module';
 import installComponents from '@/plugins';
 import '@/directive';
 import '@/components';
@@ -21,6 +22,7 @@ export default class SystemLoader {
     installComponents();
   }
   mountVue() {
+    Vue.prototype.$http = new Http();
     Vue.use(ElementUI);
     Vue.config.productionTip = false;
   }

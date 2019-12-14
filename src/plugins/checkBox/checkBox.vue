@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'xaCheckbox',
+  name: 'xaCheckBox',
   props: {
     options: Object
   },
