@@ -73,19 +73,61 @@ class DesigenerPage extends Vue {
     this.setPerviewHtml(_html.innerHTML);
     this.$router.push({ name: 'perview' });
   }
-  release() {}
-  save() {
-    window.localStorage.setItem(
-      'pagePlugins',
-      JSON.stringify(this.$store.state.plugins, (key, value) => {
-        if (typeof value === 'function') {
-          return value.toString();
+  release() {
+    console.log(this.$store.state.page);
+    // this.$http.post('/api/install').then((data) => {
+    //   console.log(data);
+    //   this.$http.post('/api/run')
+    // });
+    // return
+    this.save('release').then(() => {
+      let loadingNotify = this.$notify.info({
+        title: '提示',
+        duration: 0,
+        showClose: false,
+        message: '模版生成中,请稍后...'
+      });
+
+      this.$http.post('/api/release', { page: JSON.stringify(this.$store.state.page), terminal: navigator.platform.indexOf('Mac') > -1 ? 'mac' : 'windows' }).then(
+        data => {
+          console.log(data);
+          loadingNotify.close();
+          this.$notify({
+            title: '成功',
+            message: '模版生成成功',
+            type: 'success'
+          });
+          this.$http.post('/api/install').then(data => {
+            console.log(data);
+            // this.$http.post('/api/run')
+          });
+        },
+        err => {
+          loadingNotify.close();
+          this.$notify.error({
+            title: '错误',
+            message: '模版生成失败,' + err.data.msg
+          });
         }
-        return value;
-      })
-    );
-    this.$alert('数据保存成功', '提示', {
-      confirmButtonText: '确定'
+      );
+    });
+  }
+  save(type) {
+    return new Promise(resolve => {
+      window.localStorage.setItem(
+        'pagePlugins',
+        JSON.stringify(this.$store.state.plugins, (key, value) => {
+          if (typeof value === 'function') {
+            return value.toString();
+          }
+          return value;
+        })
+      );
+      type !== 'release' &&
+        this.$alert('数据保存成功', '提示', {
+          confirmButtonText: '确定'
+        });
+      resolve();
     });
   }
 }

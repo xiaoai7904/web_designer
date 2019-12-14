@@ -8,9 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "monaco-editor": "0.18.1",
     "monaco-editor-webpack-plugin": "^1.7.0",
-    "vue": "^2.6.6",
+    "vue": "^2.6.10",
     "vue-class-component": "^7.0.1",
     "vue-draggable-resizable-gorkys": "^1.1.2",
     "vue-router": "^3.0.1",
