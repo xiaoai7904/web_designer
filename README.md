@@ -15,6 +15,7 @@
 npm install
 // 启用设计器后台服务(至少node 8.x),用于发布模版和生成模版代码
 cd server/
+npm install
 npm run dev
 ```
 
