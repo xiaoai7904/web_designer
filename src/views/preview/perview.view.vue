@@ -54,5 +54,8 @@ export default perview
   .designer-content-setting {
     display: none;
   }
+  .drag-handle {
+    display: none;
+  }
 }
 </style>

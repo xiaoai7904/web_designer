@@ -22,6 +22,7 @@
               node-key="id"
               :data="componentList"
               :highlight-current="true"
+              @node-click="componentNodeClick"
             ></el-tree>
           </el-collapse-item>
           <el-collapse-item name="2" title="组件列表:">
@@ -82,6 +83,18 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
     }
     &__center {
       width: 100%;
+    }
+    .el-tree-node__children {
+      .is-checked {
+        background-color: #fff !important;
+        color: #606266 !important;
+      }
+    }
+    .is-checked .el-tree-node__content:hover {
+      background: #42b983;
+    }
+    .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+      background: transparent;
     }
   }
 }

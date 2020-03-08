@@ -18,18 +18,34 @@ class DesigenerPage extends Vue {
   @Mutation('updatePageProps') updatePageProps;
   @Mutation('updatePluginsProps') updatePluginsProps;
   @Mutation('setPerviewHtml') setPerviewHtml;
+  @Mutation('updateCurrentPlugins') updateCurrentPluginsCb
 
   @Watch('plugins', { deep: true, immediate: true })
   updateComponentsTree(newValue) {
     this.componentList = [];
     if (newValue.length) {
-      newValue.map(item => {
-        this.componentList.push({
-          label: item.custom.name,
-          id: item.id,
-          isCurrent: true
+      const add = data => {
+        let componentList = [];
+        data.map(item => {
+          if (item.children) {
+            componentList.push({
+              label: item.custom.name,
+              id: item.id,
+              isCurrent: true,
+              children: add(item.children)
+            });
+          } else {
+            componentList.push({
+              label: item.custom.name,
+              id: item.id,
+              isCurrent: true
+            });
+          }
+          return componentList;
         });
-      });
+        return componentList;
+      };
+      this.componentList = add(newValue).slice();
     }
   }
   @Watch('currentPlugins', { deep: true, immediate: true })
@@ -61,6 +77,10 @@ class DesigenerPage extends Vue {
   pageOptions = {};
   updatePluginsPropsFn(data) {
     this.updatePluginsProps(data);
+  }
+
+  componentNodeClick(nodeObj) {
+    this.updateCurrentPluginsCb(this.plugins.filter(item => item.id === nodeObj.id))
   }
 
   updatePageFn(data) {

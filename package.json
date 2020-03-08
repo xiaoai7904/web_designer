@@ -10,11 +10,14 @@
   "dependencies": {
     "axios": "^0.19.0",
     "monaco-editor": "0.18.1",
-    "monaco-editor-webpack-plugin": "^1.7.0",
+    "monaco-editor-webpack-plugin": "1.7.0",
+    "v-contextmenu": "^2.9.0",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.1",
     "vue-draggable-resizable-gorkys": "^1.1.2",
+    "vue-grid-layout": "^2.3.7",
     "vue-router": "^3.0.1",
+    "vue-runtime-helpers": "^1.1.2",
     "vuedraggable": "^2.20.0",
     "vuex": "^3.0.1"
   },
@@ -33,7 +36,7 @@
     "jquery": "^3.3.1",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.21",
+    "vue-template-compiler": "^2.6.11",
     "vuex-class": "^0.3.2"
   },
   "eslintConfig": {

@@ -77,10 +77,12 @@ export default ComponentsList
       font-size: 12px;
       margin-top: 5px;
       line-height: initial;
+      color: #636363;
     }
-    &:hover {
-      background-color: #ececec;
+    &:hover,&:hover .components-list-item__des{
+      background-color: #f3f3f3;
       cursor: move;
+      color: #42b983;
     }
   }
   .iconfont {

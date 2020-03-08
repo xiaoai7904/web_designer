@@ -8,13 +8,29 @@ let ins = null;
 const DEFALUT_CONFIG = {
   style: {
     background: '#fbfbfb',
-    w: 1920,
-    h: 850
+    w: 1366,
+    h: 768,
+    layoutStyle: '1'
   },
   options: [
     {
       label: '提示:宽度大小建议为1920,1600,1366,1440,1280',
       type: 'tips'
+    },
+    {
+      id: 'style.layoutStyle',
+      label: '布局方式',
+      type: 'select',
+      list: [
+        {
+          label: '固定布局',
+          value: '1'
+        },
+        {
+          label: '自适应布局',
+          value: '2'
+        }
+      ]
     },
     {
       id: 'style.w',

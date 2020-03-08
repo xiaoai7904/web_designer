@@ -21,9 +21,9 @@
       background-color: $--color-primary;
       color: #fff;
     }
-    .el-tree-node {
-      padding: 5px 0;
-    }
+    // .el-tree-node {
+    //   padding: 5px 0;
+    // }
   }
 }
 
@@ -66,11 +66,11 @@
     justify-content: flex-start;
     align-items: center;
     &-item {
-      padding: 5px 20px;
+      padding: 5px 15px;
       border: 1px solid $--color-primary;
       border-radius: 10px;
       margin-left: 15px;
-      font-size: 16px;
+      font-size: 13px;
       color: $--color-primary;
       &:hover {
         cursor: pointer;
@@ -114,4 +114,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.v-contextmenu-item--hover {
+  background-color: #42b983 !important;
 }

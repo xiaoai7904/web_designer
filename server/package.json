@@ -1,7 +1,7 @@
 {
   "name": "ui_designer_server",
   "version": "1.0.0",
-  "description": "ui设计器服务端",
+  "description": "ui",
   "private": true,
   "egg": {
     "declarations": true
@@ -10,9 +10,9 @@
     "egg": "^2.15.1",
     "egg-scripts": "^2.11.0",
     "egg-validate": "^2.0.2",
-    "open": "^7.0.0",
     "shelljs": "^0.8.3",
-    "unzip": "^0.1.11"
+    "unzip": "^0.1.11",
+    "unzipper": "^0.10.10"
   },
   "devDependencies": {
     "autod": "^3.0.1",

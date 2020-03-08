@@ -9,14 +9,14 @@
       <el-collapse-item
         v-for="(item,index) in list"
         :key="item.id"
-        :title="item.label"
+        :title="isContainer ? item.custom.name : item.label"
         :name="item.id"
         @mouseenter.native="showDel(index)"
         @mouseleave.native="hideDel"
       >
         <template slot="title">
           <i class="el-icon-more handle-sort"></i>
-          <span class="handle-label">{{item.label}}</span>
+          <span class="handle-label">{{isContainer ? item.custom.name : item.label}}</span>
           <i
             class="el-icon-delete handle-del"
             v-show="currentIndex === index"
@@ -26,7 +26,7 @@
         <slot :data="item"></slot>
       </el-collapse-item>
     </draggable>
-    <el-button type="text" icon="el-icon-plus" @click="add">新增列表项</el-button>
+    <el-button v-if="!isContainer" type="text" icon="el-icon-plus" @click="add">新增列表项</el-button>
   </div>
 </template>
 -
@@ -39,7 +39,9 @@ export default {
   props: {
     list: Array,
     id: String,
-    ins: Object
+    ins: Object,
+    isContainer: Boolean,
+    cutomDelCallback: Function
   },
   data() {
     return {
@@ -67,6 +69,14 @@ export default {
       this.currentIndex = -1
     },
     del(data) {
+      if (this.isContainer && this.cutomDelCallback) {
+        let del = this.list.find(item => item.id === data.id)
+        this.cutomDelCallback({
+          id: this.ins.options.id,
+          modify: { id: this.id, value: extend(true, [], this.list).filter(item => data.id !== item.id) }
+        }, del)
+        return false
+      }
       if (this.list.length === 1) {
         this.$message({
           message: '至少保留一条数据!',
@@ -142,7 +152,7 @@ export default {
     display: inline-block;
     width: 190px;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
   .el-button--text {

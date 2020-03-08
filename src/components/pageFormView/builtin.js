@@ -7,7 +7,7 @@ export const createItem = (h, item, vm) => {
       renderDom = (
         <el-input
           value={vm.handlerData(item.id, 'get')}
-          size="small"
+          size="mini"
           placeholder="请输入"
           disabled={item.options && item.options.disabled !== undefined ? item.options.disabled : false}
           on-input={value => {
@@ -22,7 +22,7 @@ export const createItem = (h, item, vm) => {
       renderDom = (
         <el-input-number
           value={vm.handlerData(item.id, 'get')}
-          size="small"
+          size="mini"
           disabled={item.options && item.options.disabled !== undefined ? item.options.disabled : false}
           min={item.options && item.options.min !== void 0 ? item.options.min : 0}
           max={item.options && item.options.max !== void 0 ? item.options.max : Infinity}
@@ -37,7 +37,7 @@ export const createItem = (h, item, vm) => {
       renderDom = (
         <el-select
           value={vm.handlerData(item.id, 'get')}
-          size="small"
+          size="mini"
           on-input={value => {
             vm.handlerData({ id: item.id, value }, 'set');
           }}

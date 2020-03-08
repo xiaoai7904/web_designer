@@ -22,6 +22,8 @@ import xaLink from './link/link.vue';
 import xaTable from './table/table.vue';
 import xaTree from './tree/tree.vue';
 import xaMenu from './menu/menu.vue';
+import xaHorizontalLayout from './horizontalLayout/horizontalLayout.vue';
+import xaContainerLayout from './containerLayout/containerLayout.vue';
 
 const plugins = {
   xaInput,
@@ -45,7 +47,9 @@ const plugins = {
   xaLink,
   xaTable,
   xaTree,
-  xaMenu
+  xaMenu,
+  xaHorizontalLayout,
+  xaContainerLayout
 };
 
 const installComponents = function() {
