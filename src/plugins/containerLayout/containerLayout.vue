@@ -23,8 +23,14 @@
         :key="item.i"
         :minW="1"
         :minH="1"
+        @resized="resizedEvent"
       >
-        <component :is="item.component" :options="item.options" class="drag-cancel"></component>
+        <component
+          :is="item.component"
+          :options="item.options"
+          :custom="item.custom"
+          class="drag-cancel"
+        ></component>
       </grid-item>
     </grid-layout>
   </div>
@@ -98,13 +104,30 @@ export default {
             h: 2,
             i: item.id,
             component: item.key,
-            options: item.props
+            options: item.props,
+            custom: item.custom
           })
         }
       })
 
       this.layout = [...this.layout, ...layout]
     },
+    resizedEvent(i, newH, newW, newHPx, newWPx) {
+      if (!!~i.indexOf('chart')) {
+        let resizeItem = this.layout.find(item => item.i === i)
+
+        let [j, len, currentIndex] = [0, this.layout.length, -1];
+
+        for (; j < len; j++) {
+          if (this.layout[j].i === i) {
+            currentIndex = j;
+            break;
+          }
+        }
+
+        currentIndex >= 0 && this.$set(this.layout[currentIndex], 'custom', { width: newWPx, height: newHPx })
+      }
+    }
   },
 
   computed: {
@@ -121,6 +144,9 @@ export default {
 
 <style lang="scss">
 .xa-container-layout {
+  .vue-grid-item {
+    overflow: auto;
+  }
   .vue-grid-item > .vue-resizable-handle {
     z-index: 1;
   }

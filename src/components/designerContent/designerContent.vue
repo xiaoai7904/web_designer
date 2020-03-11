@@ -284,7 +284,7 @@ class designerArea extends Vue {
   createComponentsItem(h) {
     let items = []
     items = this.plugins.map(item => {
-      return this.createRoot(h, item, h(item.key, { props: { options: item.props, children: item.children }, directives: [{ name: 'contextmenu', arg: 'contextmenu' }] }))
+      return this.createRoot(h, item, h(item.key, { props: { options: item.props, children: item.children, custom: item.custom }, directives: [{ name: 'contextmenu', arg: 'contextmenu' }] }))
     })
     return items
   }
@@ -311,7 +311,7 @@ class designerArea extends Vue {
       y={item.custom.y}
       active={currentPluginsId === item.id}
       parent
-      snap={false}
+      snap={true}
       minHeight={10}
       parentSelector=".page-canvas__components"
       drag-handle={item.children ? ".drag-handle" : ""}
@@ -329,6 +329,13 @@ class designerArea extends Vue {
       </div>
     </VueDraggableResizable>
   }
+  mounted() {
+    _this = this
+    this.bindEvent()
+  }
+  destroyed() {
+    this.pageEvent && this.pageEvent.destroyedEvent()
+  }
   render(h) {
     return <div class="designer-content" >
       {this.createRuler(h)}
@@ -337,13 +344,6 @@ class designerArea extends Vue {
       {this.createAuxiliaryLineY(h)}
       {this.createLeftMenu(h)}
     </div>
-  }
-  mounted() {
-    _this = this
-    this.bindEvent()
-  }
-  destroyed() {
-    this.pageEvent && this.pageEvent.destroyedEvent()
   }
 }
 export default designerArea

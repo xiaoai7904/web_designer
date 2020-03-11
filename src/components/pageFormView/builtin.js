@@ -148,6 +148,37 @@ export const createItem = (h, item, vm) => {
         </div>
       );
       break;
+    case 'chartStyleSetting':
+      let { chartConfig } = vm.handlerData('props', 'get');
+      let key = vm.$store.state.currentPlugins[0].key;
+
+      renderDom = (
+        <div
+          class="style-setting"
+          on-click={() => {
+            vm.$refs.styleSettingDialogView.showDialog();
+          }}
+        >
+          <el-button size="mini" type="primary">
+            图表样式设置
+          </el-button>
+          <pageDialogView
+            ref="styleSettingDialogView"
+            options={{ title: '图表样式设置', width: '1100px', classname: 'chart-style-setting' }}
+            on-confirmDialog={id => {
+              let { chartConfig } = vm.handlerData('props', 'get');
+              let currentPlugins = vm.$store.state.currentPlugins[0];
+              vm.$store.commit('updatePluginsProps', { id: currentPlugins.id, modify: { id: 'props.chartConfig', value: chartConfig } });
+            }}
+          >
+            <StyleSetting options={chartConfig} type={key} />
+          </pageDialogView>
+        </div>
+      );
+      break;
+    case 'padding':
+      renderDom = <span style="font-size:12px">--</span>;
+      break;
     case 'title':
       renderDom = <span class="attributs-setting__title">{item.label} :</span>;
       break;

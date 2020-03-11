@@ -152,13 +152,13 @@ export default class PageCanvas extends Vue {
   &__wrap {
     position: relative;
     background: #fbfbfb;
-    background-image: linear-gradient(
-        rgba(255, 255, 255, 0.5) 1px,
-        transparent 0
-      ),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 0),
-      linear-gradient(#ababab 1px, transparent 0),
-      linear-gradient(90deg, #ababab 1px, transparent 0);
+    // background-image: linear-gradient(
+    //     rgba(255, 255, 255, 0.5) 1px,
+    //     transparent 0
+    //   ),
+    //   linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 0),
+    //   linear-gradient(#909399 1px, transparent 0),
+    //   linear-gradient(90deg, #909399 1px, transparent 0);
     background-size: 11px 11px, 11px 11px, 11px 11px, 11px 11px;
   }
   &__components {
@@ -168,7 +168,7 @@ export default class PageCanvas extends Vue {
   }
   .ruler {
     background: rgba(255, 255, 255, 1);
-    color: #444;
+    color: #909399;
     font-family: source code pro, "Arial Narrow", "Helvetica Neue", Helvetica,
       Arial, Veranda, sans-serif;
     font-size: 12px;
@@ -178,7 +178,7 @@ export default class PageCanvas extends Vue {
   }
 
   .ruler > div {
-    background: #444;
+    background: #909399;
   }
 
   .hRule {

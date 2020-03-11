@@ -11,6 +11,7 @@ import { createItem } from './builtin'
 })
 export default class PageFormView extends Vue {
   @Prop(Object) options
+  @Prop(Object) model
 
   @Watch('options', { deep: true, immediate: true })
   updateOptionsFn(newValue) {
@@ -27,7 +28,7 @@ export default class PageFormView extends Vue {
   createRules() { }
   createModel() {
     if (Object.keys(this.options).length) {
-      let _model = { props: this.options.props, style: this.options.style, custom: this.options.custom, children: this.options.children }
+      let _model = { props: this.options.props, style: this.options.style, custom: this.options.custom, children: this.options.children, chartOptions: this.options.chartOptions }
       this.formMode = Object.assign({}, _model)
     }
   }
@@ -76,7 +77,7 @@ export default class PageFormView extends Vue {
           props: {
             model: this.formMode,
             rules: this.formRules,
-            'label-width': '90px'
+            'label-width': this.options.labelWidth || '90px'
           }
         }, this.createFormItem(h))
       ])

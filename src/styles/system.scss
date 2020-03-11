@@ -7,6 +7,8 @@
   }
   .el-collapse-item__content {
     padding: 10px;
+    font-size: 12px;
+    color: #848484;
   }
   .el-collapse-item__header {
     padding: 0 5px;
@@ -21,9 +23,9 @@
       background-color: $--color-primary;
       color: #fff;
     }
-    // .el-tree-node {
-    //   padding: 5px 0;
-    // }
+  }
+  .el-tree__empty-text {
+    font-size: 13px;
   }
 }
 

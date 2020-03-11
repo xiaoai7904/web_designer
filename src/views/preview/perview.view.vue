@@ -57,5 +57,8 @@ export default perview
   .drag-handle {
     display: none;
   }
+  .xa-container-layout .vue-grid-item > .vue-resizable-handle {
+    display: none;
+  }
 }
 </style>
