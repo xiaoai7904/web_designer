@@ -11,6 +11,7 @@ import { createItem } from './builtin'
 })
 export default class PageFormView extends Vue {
   @Prop(Object) options
+  @Prop(Object) model
 
   @Watch('options', { deep: true, immediate: true })
   updateOptionsFn(newValue) {
@@ -27,7 +28,7 @@ export default class PageFormView extends Vue {
   createRules() { }
   createModel() {
     if (Object.keys(this.options).length) {
-      let _model = { props: this.options.props, style: this.options.style, custom: this.options.custom }
+      let _model = { props: this.options.props, style: this.options.style, custom: this.options.custom, children: this.options.children, chartOptions: this.options.chartOptions }
       this.formMode = Object.assign({}, _model)
     }
   }
@@ -68,13 +69,6 @@ export default class PageFormView extends Vue {
 
   }
   render(h) {
-    // Tips: 注释的代码运行会报 Invalid handler for event "input": got undefined 暂不知道原因，感觉是jsx配置不对...
-
-    // if (this.currentPlugins.length) {
-    //   return <div class="attributs-setting">
-    //     <el-form ref="formComponent" model={this.formMode} rules={this.formRules} label-width="80">{this.createFormItem(h)}</el-form>
-    //   </div>
-    // }
     if (Object.keys(this.options).length) {
       return h('div', {
         class: ['attributs-setting']
@@ -83,7 +77,7 @@ export default class PageFormView extends Vue {
           props: {
             model: this.formMode,
             rules: this.formRules,
-            'label-width': '90px'
+            'label-width': this.options.labelWidth || '90px'
           }
         }, this.createFormItem(h))
       ])
@@ -99,7 +93,7 @@ export default class PageFormView extends Vue {
     display: inline-block;
     width: 100%;
     border-bottom: 2px solid $--color-primary;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 900;
     margin-bottom: 10px;
   }
@@ -125,11 +119,14 @@ export default class PageFormView extends Vue {
     }
   }
   .el-form-item {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
   .el-select,
   .el-input-number {
     width: 100%;
+  }
+  .el-form-item__label {
+    font-size: 12px;
   }
 }
 

@@ -1,20 +1,20 @@
 <template>
   <div class="home">
-    <page3713a37c4d5b7e7d />
+    <page467f6cfc6f4227ab />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue';
-import page3713a37c4d5b7e7d from '@/components/page_3713a37c4d5b7e7d.vue';
+import page467f6cfc6f4227ab from '@/components/page_467f6cfc6f4227ab.vue';
 
 
 export default {
   name: 'home',
   components: {
     HelloWorld,
-    page3713a37c4d5b7e7d,
+    page467f6cfc6f4227ab,
 
   }
 }

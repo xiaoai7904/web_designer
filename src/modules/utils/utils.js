@@ -133,3 +133,6 @@ export const debounce = (func, wait, immediate) => {
 export const isMobile750 = (function() {
   return !!navigator.userAgent.match(/(phone|pod|iPhone|iPod|ios|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i) && document.body.offsetWidth <= 750;
 })();
+
+// 驼峰转换下划线
+export const toLine = (name) => name.replace(/([A-Z])/g,"-$1").toLowerCase()

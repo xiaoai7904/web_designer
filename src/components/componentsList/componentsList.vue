@@ -1,27 +1,40 @@
 <script>
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import Configuration from '@/modules/configuration/configuration'
+// import Configuration from '@/modules/configuration/configuration'
 import { uuid } from '@/modules/utils/utils'
 
-@Component({})
+@Component({
+  props: {
+    options: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  }
+})
 class ComponentsList extends Vue {
-  componentsList = new Configuration().getDefaultConfig()
+  // componentsList = new Configuration().getDefaultConfig()
 
   createComponentsItem(h) {
     let items = []
 
-    items = this.componentsList.map(item => {
+    items = this.options.map(item => {
       return this.createRoot(h, item.key, item.custom.name, h('i', { class: ['iconfont', item.custom.iconname] }))
     })
     return items
   }
   createRoot(h, componentsName, titleName, children) {
-    return h('div', { class: ['components-list-item'], attrs: { draggable: true, id: `${componentsName}_${uuid()}` }, on: { dragover: this.dragover, dragstart: this.dragstart } }, [children, h('span', { class: ['components-list-item__des'] }, titleName)])
-    // return h('div', { class: ['components-list-item'], attrs: { draggable: true, id: `${componentsName}_${uuid()}` }, on: { dragover: this.dragover, dragstart: this.dragstart } }, [this.createTitle(h, { name: titleName }), children])
-  }
-  createTitle(h, data) {
-    return h('div', { class: ['components-list-item__title'] }, data.name)
+    return <div
+      id={`${componentsName}_${uuid()}`}
+      class="components-list-item"
+      draggable
+      onDragover={this.dragover}
+      onDragstart={this.dragstart}>
+      {children}
+      <span class="components-list-item__des">{titleName}</span>
+    </div>
   }
   detectCreateElementParams(obj) {
     let _params = {}
@@ -38,7 +51,7 @@ class ComponentsList extends Vue {
     event.preventDefault()
   }
   render(h) {
-    return h('div', { class: ['components-list'], attrs: { id: 'ui-designer-components-list' } }, this.createComponentsItem(h))
+    return <div id="ui-designer-components-list" class="components-list">{this.createComponentsItem(h)}</div>
   }
 }
 export default ComponentsList
@@ -77,10 +90,13 @@ export default ComponentsList
       font-size: 12px;
       margin-top: 5px;
       line-height: initial;
+      color: #636363;
     }
-    &:hover {
-      background-color: #ececec;
+    &:hover,
+    &:hover .components-list-item__des {
+      background-color: #f3f3f3;
       cursor: move;
+      color: $--color-primary;
     }
   }
   .iconfont {

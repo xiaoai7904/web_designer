@@ -4,7 +4,7 @@ import { extend } from '@/modules/utils/utils';
 import Page from '@/modules/page/page';
 let pageIns = new Page();
 
-(window.Uidesigner || (window.Uidesigner = {})) && (window.Uidesigner.pageIns = pageIns)
+(window.Uidesigner || (window.Uidesigner = {})) && (window.Uidesigner.pageIns = pageIns);
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -14,7 +14,7 @@ export default new Vuex.Store({
     currentPlugins: [],
     perviewHtml: '',
     defaultThemeColor: '#42b983',
-    clipboard: [] // 存储剪贴板数据
+    clipboard: [], // 存储剪贴板数据
   },
   mutations: {
     updatePageProps(state, options) {
@@ -45,4 +45,3 @@ export default new Vuex.Store({
   },
   actions: {}
 });
-

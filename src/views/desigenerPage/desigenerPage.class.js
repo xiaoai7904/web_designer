@@ -6,6 +6,9 @@ import pageFormView from '@/components/pageFormView/pageFormView.vue';
 import { State, Mutation } from 'vuex-class';
 import { Watch } from '@/modules/vuePropertyDecorator/vuePropertyDecorator';
 import { extend } from '@/modules/utils/utils';
+import Configuration from '@/modules/configuration/configuration';
+
+let componentConfig = new Configuration().getDefaultConfig();
 
 @Component({
   components: { designerArea, componentsList, pageFormView }
@@ -18,18 +21,34 @@ class DesigenerPage extends Vue {
   @Mutation('updatePageProps') updatePageProps;
   @Mutation('updatePluginsProps') updatePluginsProps;
   @Mutation('setPerviewHtml') setPerviewHtml;
+  @Mutation('updateCurrentPlugins') updateCurrentPluginsCb;
 
   @Watch('plugins', { deep: true, immediate: true })
   updateComponentsTree(newValue) {
     this.componentList = [];
     if (newValue.length) {
-      newValue.map(item => {
-        this.componentList.push({
-          label: item.custom.name,
-          id: item.id,
-          isCurrent: true
+      const add = data => {
+        let componentList = [];
+        data.map(item => {
+          if (item.children) {
+            componentList.push({
+              label: item.custom.name,
+              id: item.id,
+              isCurrent: true,
+              children: add(item.children)
+            });
+          } else {
+            componentList.push({
+              label: item.custom.name,
+              id: item.id,
+              isCurrent: true
+            });
+          }
+          return componentList;
         });
-      });
+        return componentList;
+      };
+      this.componentList = add(newValue).slice();
     }
   }
   @Watch('currentPlugins', { deep: true, immediate: true })
@@ -59,8 +78,18 @@ class DesigenerPage extends Vue {
   componentList = [];
   currentPluginOptions = {};
   pageOptions = {};
+  componentData = {};
+  componentTitleMap = {
+    basis: '基础组件',
+    chart: '图表组件'
+  };
+
   updatePluginsPropsFn(data) {
     this.updatePluginsProps(data);
+  }
+
+  componentNodeClick(nodeObj) {
+    this.updateCurrentPluginsCb(this.plugins.filter(item => item.id === nodeObj.id));
   }
 
   updatePageFn(data) {
@@ -74,12 +103,6 @@ class DesigenerPage extends Vue {
     this.$router.push({ name: 'perview' });
   }
   release() {
-    console.log(this.$store.state.page);
-    // this.$http.post('/api/install').then((data) => {
-    //   console.log(data);
-    //   this.$http.post('/api/run')
-    // });
-    // return
     this.save('release').then(() => {
       let loadingNotify = this.$notify.info({
         title: '提示',
@@ -90,17 +113,13 @@ class DesigenerPage extends Vue {
 
       this.$http.post('/api/release', { page: JSON.stringify(this.$store.state.page), terminal: navigator.platform.indexOf('Mac') > -1 ? 'mac' : 'windows' }).then(
         data => {
-          console.log(data);
           loadingNotify.close();
           this.$notify({
             title: '成功',
             message: '模版生成成功',
             type: 'success'
           });
-          this.$http.post('/api/install').then(data => {
-            console.log(data);
-            // this.$http.post('/api/run')
-          });
+          this.$http.post('/api/install');
         },
         err => {
           loadingNotify.close();
@@ -129,6 +148,24 @@ class DesigenerPage extends Vue {
         });
       resolve();
     });
+  }
+
+  mounted() {
+    let obj = {};
+    componentConfig.map(item => {
+      if (item.type) {
+        if (!obj[item.type]) {
+          obj[item.type] = [];
+        }
+        obj[item.type].push(item);
+      } else {
+        if (!obj.basis) {
+          obj.basis = [];
+        }
+        obj.basis.push(item);
+      }
+    });
+    this.componentData = Object.assign({}, obj);
   }
 }
 

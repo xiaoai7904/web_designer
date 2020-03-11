@@ -7,7 +7,7 @@ export const createItem = (h, item, vm) => {
       renderDom = (
         <el-input
           value={vm.handlerData(item.id, 'get')}
-          size="small"
+          size="mini"
           placeholder="请输入"
           disabled={item.options && item.options.disabled !== undefined ? item.options.disabled : false}
           on-input={value => {
@@ -22,7 +22,7 @@ export const createItem = (h, item, vm) => {
       renderDom = (
         <el-input-number
           value={vm.handlerData(item.id, 'get')}
-          size="small"
+          size="mini"
           disabled={item.options && item.options.disabled !== undefined ? item.options.disabled : false}
           min={item.options && item.options.min !== void 0 ? item.options.min : 0}
           max={item.options && item.options.max !== void 0 ? item.options.max : Infinity}
@@ -37,7 +37,7 @@ export const createItem = (h, item, vm) => {
       renderDom = (
         <el-select
           value={vm.handlerData(item.id, 'get')}
-          size="small"
+          size="mini"
           on-input={value => {
             vm.handlerData({ id: item.id, value }, 'set');
           }}
@@ -147,6 +147,37 @@ export const createItem = (h, item, vm) => {
           </pageDialogView>
         </div>
       );
+      break;
+    case 'chartStyleSetting':
+      let { chartConfig } = vm.handlerData('props', 'get');
+      let key = vm.$store.state.currentPlugins[0].key;
+
+      renderDom = (
+        <div
+          class="style-setting"
+          on-click={() => {
+            vm.$refs.styleSettingDialogView.showDialog();
+          }}
+        >
+          <el-button size="mini" type="primary">
+            图表样式设置
+          </el-button>
+          <pageDialogView
+            ref="styleSettingDialogView"
+            options={{ title: '图表样式设置', width: '1100px', classname: 'chart-style-setting' }}
+            on-confirmDialog={id => {
+              let { chartConfig } = vm.handlerData('props', 'get');
+              let currentPlugins = vm.$store.state.currentPlugins[0];
+              vm.$store.commit('updatePluginsProps', { id: currentPlugins.id, modify: { id: 'props.chartConfig', value: chartConfig } });
+            }}
+          >
+            <StyleSetting options={chartConfig} type={key} />
+          </pageDialogView>
+        </div>
+      );
+      break;
+    case 'padding':
+      renderDom = <span style="font-size:12px">--</span>;
       break;
     case 'title':
       renderDom = <span class="attributs-setting__title">{item.label} :</span>;

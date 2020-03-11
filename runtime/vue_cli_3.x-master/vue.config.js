@@ -21,6 +21,7 @@ module.exports = {
       // subpage: "src/subpage/main.ts"
     },
     productionSourceMap: false,
+    lintOnSave: false
     // devServer: {
     //   port: 8081,
     //   proxy: {

@@ -1,6 +1,6 @@
 # ui_designer_server
 
-ui设计器服务端
+ui
 
 ## QuickStart
 

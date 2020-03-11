@@ -1,13 +1,14 @@
 import { extend } from '../utils/utils';
+// 组件基础通用配置
 const commonConfig = {
   style: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 5,
-    paddingRight: 5,
-    borderWidth: 1,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    borderWidth: 0,
     borderStyle: 'solid',
-    borderColor: '#000',
+    borderColor: '#EBEEF5',
     backgroundColor: '#fff'
   },
   custom: {
@@ -146,6 +147,531 @@ const commonConfig = {
     }
   ]
 };
+// 图表标题通用配置
+const chartTitle = {
+  show: true,
+  text: 'chart图',
+  link: '',
+  target: 'blank',
+  textStyle: {
+    color: '#333',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: 18,
+    textBorderColor: 'transparent',
+    textBorderWidth: 0,
+    textShadowColor: 'transparent',
+    textShadowBlur: 0,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0
+  },
+  subtext: '',
+  sublink: '',
+  subtarget: 'blank',
+  subtextStyle: {
+    color: '#aaa',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: 12,
+    align: 'left',
+    verticalAlign: 'auto',
+    textBorderColor: 'transparent',
+    textBorderWidth: 0,
+    textShadowColor: 'transparent',
+    textShadowBlur: 0,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0
+  },
+  textAlign: 'auto',
+  textVerticalAlign: 'auto',
+  padding: [5, 5, 5, 5],
+  itemGap: 10,
+  // left: 'auto',
+  // top: 'auto',
+  // right: 'auto',
+  // bottom: 'auto',
+  backgroundColor: 'transparent',
+  borderColor: '#ccc',
+  borderWidth: 0,
+  borderRadius: [5, 5, 5, 5],
+  shadowBlur: 10,
+  shadowColor: '#fff',
+  shadowOffsetX: 0,
+  shadowOffsetY: 0
+};
+// 图表图例通用配置
+const chartLegend = {
+  show: true,
+  type: 'plain',
+  left: 'right',
+  top: 'auto',
+  right: 'auto',
+  bottom: 'auto',
+  // width: 'auto',
+  // height: 'auto',
+  orient: 'horizontal',
+  align: 'auto',
+  padding: [5, 5, 5, 5],
+  itemGap: 10,
+  itemWidth: 25,
+  itemHeight: 14,
+  selectedMode: true,
+  inactiveColor: '#ccc',
+  textStyle: {
+    color: '#333',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: 12,
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: [0, 0, 0, 0],
+    padding: [5, 5, 5, 5],
+    shadowColor: 'transparent',
+    shadowBlur: 0,
+    shadowOffsetX: 0,
+    shadowOffsetY: 0,
+    textBorderColor: 'transparent',
+    textBorderWidth: 0,
+    textShadowColor: 'transparent',
+    textShadowBlur: 0,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0
+  },
+  icon: '',
+  // data: [],
+  backgroundColor: 'transparent',
+  borderColor: '#ccc',
+  borderWidth: 0,
+  borderRadius: [0, 0, 0, 0],
+  shadowBlur: 10,
+  shadowColor: '#fff',
+  shadowOffsetX: 0,
+  shadowOffsetY: 0,
+  pageButtonItemGap: 5,
+  pageButtonGap: 5,
+  pageButtonPosition: 'end',
+  pageIconColor: '#2f4554',
+  pageIconInactiveColor: '#aaa',
+  pageIconSize: 15,
+  pageTextStyle: {
+    color: '#333',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: 12,
+    textBorderColor: 'transparent',
+    textBorderWidth: 0,
+    textShadowColor: 'transparent',
+    textShadowBlur: 0,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0
+  },
+  animation: true,
+  animationDurationUpdate: 800,
+  selectorLabel: {
+    show: true,
+    distance: 5,
+    // rotate: 0,
+    // offset: [0,0],
+    color: '#fff',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: 12,
+    align: 'auto',
+    verticalAlign: 'auto',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: [0, 0, 0, 0],
+    padding: [0, 0, 0, 0],
+    shadowColor: 'transparent',
+    shadowBlur: 0,
+    shadowOffsetX: 0,
+    shadowOffsetY: 0,
+    textBorderColor: 'transparent',
+    textBorderWidth: 0,
+    textShadowColor: 'transparent',
+    textShadowBlur: 0,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0
+  },
+  selectorPosition: 'auto',
+  selectorItemGap: 7,
+  selectorButtonGap: 10
+};
+// 图表直角网格通用配置
+const chartGrid = {
+  show: false,
+  left: '10%',
+  top: '10%',
+  right: '10%',
+  bottom: '10%',
+  containLabel: false,
+  backgroundColor: 'transparent',
+  borderColor: '#ccc',
+  borderWidth: 1,
+  shadowBlur: 0,
+  shadowColor: 'transparent',
+  shadowOffsetX: 0,
+  shadowOffsetY: 0
+};
+// 图表x轴通用配置
+const chartxAxis = {
+  show: true,
+  type: 'category',
+  position: 'bottom',
+  offset: 0,
+  name: '',
+  nameLocation: 'end',
+  nameTextStyle: {
+    color: '#333',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: 12,
+    align: 'auto',
+    verticalAlign: 'auto',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderWidth: 1,
+    borderRadius: [0, 0, 0, 0],
+    padding: [0, 0, 0, 0],
+    shadowColor: 'transparent',
+    shadowBlur: 0,
+    shadowOffsetX: 0,
+    shadowOffsetY: 0,
+    textBorderColor: 'transparent',
+    textBorderWidth: 0,
+    textShadowColor: 'transparent',
+    textShadowBlur: 0,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0
+  },
+  nameGap: 15,
+  nameRotate: 0,
+  inverse: false,
+  splitNumber: 5,
+  axisLine: {
+    show: true,
+    lineStyle: {
+      color: '#333',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 0,
+      shadowColor: 'transparent',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    }
+  },
+  axisTick: {
+    show: true,
+    inside: false,
+    length: 5,
+    lineStyle: {
+      color: '#333',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 0,
+      shadowColor: 'transparent',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    }
+  },
+  minorTick: {
+    show: false,
+    splitNumber: 5,
+    length: 3,
+    lineStyle: {
+      color: '#333',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 0,
+      shadowColor: 'transparent',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    }
+  },
+  axisLabel: {
+    show: true,
+    inside: false,
+    margin: 8,
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: 12,
+    align: 'auto',
+    verticalAlign: 'auto',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderWidth: 1,
+    borderRadius: [0, 0, 0, 0],
+    padding: [0, 0, 0, 0],
+    shadowColor: 'transparent',
+    shadowBlur: 0,
+    shadowOffsetX: 0,
+    shadowOffsetY: 0,
+    textBorderColor: 'transparent',
+    textBorderWidth: 0,
+    textShadowColor: 'transparent',
+    textShadowBlur: 0,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0
+  },
+  splitLine: {
+    show: false,
+    lineStyle: {
+      color: '#333',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 0,
+      shadowColor: 'transparent',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    }
+  },
+  minorSplitLine: {
+    show: false
+  },
+  splitArea: {
+    show: false
+  },
+  // axisPointer: {
+  //   show: false,
+  //   type: 'line',
+  //   label: {
+  //     show: false,
+  //     margin: 3,
+  //     color: '#fff',
+  //     fontStyle: 'normal',
+  //     fontWeight: 'normal',
+  //     fontFamily: 'sans-serif',
+  //     fontSize: 12,
+  //     textBorderColor: 'transparent',
+  //     textBorderWidth: 0,
+  //     textShadowColor: 'transparent',
+  //     textShadowBlur: 0,
+  //     textShadowOffsetX: 0,
+  //     textShadowOffsetY: 0,
+  //     backgroundColor: 'transparent',
+  //     borderColor: 'transparent',
+  //     borderWidth: 1,
+  //     borderRadius: [0,0,0,0],
+  //     padding: [0,0,0,0],
+  //     shadowColor: 'transparent',
+  //     shadowBlur: 0,
+  //     shadowOffsetX: 0,
+  //     shadowOffsetY: 0,
+  //   },
+  //   lineStyle: {
+  //     color: '#555',
+  //     width: 1,
+  //     type: 'solid',
+  //     shadowBlur: 0,
+  //     shadowColor: 'transparent',
+  //     shadowOffsetX: 0,
+  //     shadowOffsetY: 0,
+  //     opacity: 0,
+  //   },
+  //   shadowStyle: {
+  //     color: 'rgba(150,150,150,0.3)',
+  //     shadowBlur: 0,
+  //     shadowColor: 'transparent',
+  //     shadowOffsetX: 0,
+  //     shadowOffsetY: 0,
+  //     opacity: 0,
+  //   }
+  // },
+  data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+};
+// 图表y轴通用配置
+const chartyAxis = {
+  show: true,
+  type: 'value',
+  position: 'left',
+  offset: 0,
+  name: '',
+  nameLocation: 'end',
+  nameTextStyle: {
+    color: '#333',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: 12,
+    align: 'auto',
+    verticalAlign: 'auto',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderWidth: 1,
+    borderRadius: [0, 0, 0, 0],
+    padding: [0, 0, 0, 0],
+    shadowColor: 'transparent',
+    shadowBlur: 0,
+    shadowOffsetX: 0,
+    shadowOffsetY: 0,
+    textBorderColor: 'transparent',
+    textBorderWidth: 0,
+    textShadowColor: 'transparent',
+    textShadowBlur: 0,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0
+  },
+  nameGap: 15,
+  nameRotate: 0,
+  inverse: false,
+  boundaryGap: true,
+  splitNumber: 5,
+  axisLine: {
+    show: true,
+    lineStyle: {
+      color: '#333',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 0,
+      shadowColor: 'transparent',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    }
+  },
+  axisTick: {
+    show: true,
+    inside: false,
+    length: 5,
+    lineStyle: {
+      color: '#333',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 0,
+      shadowColor: 'transparent',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    }
+  },
+  minorTick: {
+    show: false,
+    splitNumber: 5,
+    length: 3,
+    lineStyle: {
+      color: '#333',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 0,
+      shadowColor: 'transparent',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    }
+  },
+  axisLabel: {
+    show: true,
+    inside: false,
+    margin: 30,
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: 12,
+    align: 'auto',
+    verticalAlign: 'auto',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    borderWidth: 1,
+    borderRadius: [0, 0, 0, 0],
+    padding: [0, 0, 0, 0],
+    shadowColor: 'transparent',
+    shadowBlur: 0,
+    shadowOffsetX: 0,
+    shadowOffsetY: 0,
+    textBorderColor: 'transparent',
+    textBorderWidth: 0,
+    textShadowColor: 'transparent',
+    textShadowBlur: 0,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0
+  },
+  splitLine: {
+    show: true,
+    lineStyle: {
+      color: '#ccc',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 0,
+      shadowColor: 'transparent',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    }
+  },
+  minorSplitLine: {
+    show: false,
+    color: '#eee',
+    width: 1,
+    type: 'solid',
+    shadowBlur: 0,
+    shadowColor: 'transparent',
+    shadowOffsetX: 0,
+    shadowOffsetY: 0,
+    opacity: 1
+  },
+  splitArea: {
+    show: false
+  }
+  // axisPointer: {
+  //   show: false,
+  //   type: 'line',
+  //   label: {
+  //     show: false,
+  //     margin: 3,
+  //     color: '#fff',
+  //     fontStyle: 'normal',
+  //     fontWeight: 'normal',
+  //     fontFamily: 'sans-serif',
+  //     fontSize: 12,
+  //     textBorderColor: 'transparent',
+  //     textBorderWidth: 0,
+  //     textShadowColor: 'transparent',
+  //     textShadowBlur: 0,
+  //     textShadowOffsetX: 0,
+  //     textShadowOffsetY: 0,
+  //     backgroundColor: 'transparent',
+  //     borderColor: 'transparent',
+  //     borderWidth: 1,
+  //     borderRadius: [0,0,0,0],
+  //     padding: [0,0,0,0],
+  //     shadowColor: 'transparent',
+  //     shadowBlur: 0,
+  //     shadowOffsetX: 0,
+  //     shadowOffsetY: 0,
+  //   },
+  //   lineStyle: {
+  //     color: '#555',
+  //     width: 1,
+  //     type: 'solid',
+  //     shadowBlur: 0,
+  //     shadowColor: 'transparent',
+  //     shadowOffsetX: 0,
+  //     shadowOffsetY: 0,
+  //     opacity: 1,
+  //   },
+  //   shadowStyle: {
+  //     color: 'rgba(150,150,150,0.3)',
+  //     shadowBlur: 0,
+  //     shadowColor: 'transparent',
+  //     shadowOffsetX: 0,
+  //     shadowOffsetY: 0,
+  //     opacity: 1,
+  //   }
+  // },
+};
 /**
  * 组件配置信息
  */
@@ -155,7 +681,7 @@ const DEFAULT_CONFIG = [
     props: {
       type: 'text',
       value: '',
-      size: 'small',
+      size: 'mini',
       placeholder: '输入框',
       clearable: false,
       disabled: false,
@@ -298,7 +824,7 @@ const DEFAULT_CONFIG = [
     key: 'xaInputNumber',
     props: {
       value: '',
-      size: 'small',
+      size: 'mini',
       placeholder: '输入框',
       disabled: false,
       max: Infinity,
@@ -1074,7 +1600,7 @@ const DEFAULT_CONFIG = [
       hit: false,
       closable: false,
       color: '',
-      size: 'small'
+      size: 'mini'
     },
     style: Object.assign({}, commonConfig.style),
     custom: Object.assign({}, commonConfig.custom, { name: '标签', height: 40, width: 65, iconname: 'icontag' }),
@@ -1339,7 +1865,7 @@ const DEFAULT_CONFIG = [
       value: new Date()
     },
     style: Object.assign({}, commonConfig.style),
-    custom: Object.assign({}, commonConfig.custom, { name: '日历', height: 675, width: 529, iconname: 'iconrili' }),
+    custom: Object.assign({}, commonConfig.custom, { name: '日历', height: 200, width: 450, iconname: 'iconrili' }),
     options: [].concat(commonConfig.options)
   },
   {
@@ -1439,7 +1965,7 @@ const DEFAULT_CONFIG = [
     props: {
       value: '#409EFF',
       disabled: false,
-      size: 'small',
+      size: 'mini',
       showAlpha: false,
       colorFormat: 'rgb'
     },
@@ -1566,7 +2092,7 @@ const DEFAULT_CONFIG = [
       readonly: false,
       editable: false,
       clearable: false,
-      size: 'small'
+      size: 'mini'
     },
     style: Object.assign({}, commonConfig.style),
     custom: Object.assign({}, commonConfig.custom, { name: '时间选择器', height: 50, width: 230, iconname: 'iconshijian' }),
@@ -1632,7 +2158,7 @@ const DEFAULT_CONFIG = [
       readonly: false,
       editable: false,
       clearable: false,
-      size: 'small'
+      size: 'mini'
     },
     style: Object.assign({}, commonConfig.style),
     custom: Object.assign({}, commonConfig.custom, { name: '日期选择器', height: 50, width: 230, iconname: 'iconriqi' }),
@@ -1699,7 +2225,7 @@ const DEFAULT_CONFIG = [
       round: false,
       circle: false,
       plain: false,
-      size: 'small'
+      size: 'mini'
     },
     style: Object.assign({}, commonConfig.style),
     custom: Object.assign({}, commonConfig.custom, { name: '按钮', height: 50, width: 100, iconname: 'iconanniu' }),
@@ -1889,7 +2415,7 @@ const DEFAULT_CONFIG = [
       ],
       stripe: false,
       border: false,
-      size: 'small',
+      size: 'mini',
       fit: true,
       showHeader: true,
       emptyText: '暂无数据',
@@ -2157,7 +2683,7 @@ const DEFAULT_CONFIG = [
         {
           title: '导航2',
           iconClass: 'el-icon-menu',
-          index: '3',
+          index: '2',
           children: [
             {
               index: '2-1',
@@ -2284,8 +2810,218 @@ const DEFAULT_CONFIG = [
         type: 'color'
       }
     ])
+  },
+  {
+    key: 'xaContainerLayout',
+    props: {
+      colNum: 24,
+      rowHeight: 30,
+      isDraggable: true,
+      isResizeable: true,
+      verticalCompact: true,
+      marginTopBottom: 5,
+      marginLeftRight: 5,
+      userCssTransforms: true,
+      responsive: true,
+      autoSize: true
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '容器组件', iconname: 'iconrongqi' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.colNum',
+        label: '列数',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.rowHeight',
+        label: '行高',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.marginTopBottom',
+        label: '上下边距',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.marginLeftRight',
+        label: '左右边距',
+        type: 'inputNumber',
+        options: {
+          min: 0,
+          max: Infinity
+        }
+      },
+      {
+        id: 'props.isDraggable',
+        label: '否可拖动',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.isResizeable',
+        label: '调整大小',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.verticalCompact',
+        label: '垂直紧凑',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.userCssTransforms',
+        label: '使用CSS',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.responsive',
+        label: '响应窗口',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        id: 'props.autoSize',
+        label: '自动尺寸',
+        type: 'switch',
+        activeText: '是',
+        inactiveText: '否'
+      },
+      {
+        label: '子组件列表',
+        type: 'title'
+      },
+      {
+        id: 'props.children',
+        label: '',
+        type: 'custom',
+        render(h, vm) {
+          const handlerDel = (data, delData) => {
+            vm.$store.commit('updatePluginsProps', data);
+            vm.$store.commit('addPlugin', delData);
+          };
+
+          return (
+            <itemList
+              list={vm.handlerData('children', 'get')}
+              id="children"
+              ins={vm}
+              isContainer
+              cutomDelCallback={handlerDel}
+              scopedSlots={{
+                default(props) {
+                  return [
+                    <ul class="item-list__ul">
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">组件名:</span>
+                        <el-input size="mini" value={props.data.custom.name} disabled />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">组件id:</span>
+                        <el-input size="mini" value={props.data.custom.id} disabled />
+                      </li>
+                    </ul>
+                  ];
+                }
+              }}
+            />
+          );
+        }
+      }
+    ]),
+    children: []
+  },
+  {
+    key: 'xaEchartsLine',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        grid: { ...chartGrid },
+        xAxis: { ...chartxAxis },
+        yAxis: { ...chartyAxis },
+        series: [
+          {
+            name: '系列1',
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            smooth: true
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '折线图', height: 300, width: 400, iconname: 'iconzhexiantu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsBar',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        grid: { ...chartGrid },
+        xAxis: { ...chartxAxis },
+        yAxis: { ...chartyAxis },
+        series: [
+          {
+            data: [120, 200, 150, 80, 70, 110, 130],
+            type: 'bar'
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '柱状图', height: 300, width: 400, iconname: 'icontubiaozhuzhuangtu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
   }
 ];
+
 export default class Configuration {
   constructor(options) {
     if (!window.Uidesigner) {
