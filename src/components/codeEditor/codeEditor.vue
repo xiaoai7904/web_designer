@@ -43,14 +43,14 @@ export default class CodeEditor extends Vue {
         language: this.language || 'javascript',
         theme: 'vs-dark'
       })
-      console.log(monacoEditor)
-      window.Uidesigner.$event.trigger('open_code_editor', true)  
-      //   monacoEditor
+      window.Uidesigner.$event.trigger('open_code_editor', true)
+      // 格式化代码
+      this.formatDocument()
     })
   }
 
   destroyed() {
-    window.Uidesigner.$event.trigger('open_code_editor', false)    
+    window.Uidesigner.$event.trigger('open_code_editor', false)
     monacoEditor.dispose()
     monacoEditor = null
   }
@@ -71,6 +71,11 @@ export default class CodeEditor extends Vue {
     } catch (error) {
       return error
     }
+  }
+  formatDocument() {
+    setTimeout(() => {
+      monacoEditor.trigger('anyString', 'editor.action.formatDocument');
+    }, 100)
   }
 
   render(h) {

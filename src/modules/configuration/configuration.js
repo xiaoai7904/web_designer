@@ -672,6 +672,87 @@ const chartyAxis = {
   //   }
   // },
 };
+// 图表tooltip通用配置
+const chartTooltip = {
+  show: true,
+  trigger: 'item',
+  showContent: true,
+  triggerOn: 'mousemove',
+  backgroundColor: 'rgba(50,50,50,0.7)',
+  borderColor: '#333',
+  borderWidth: 0,
+  padding: [5, 5, 5, 5],
+  textStyle: {
+    color: '#fff',
+    fontStyle: 'normal',
+    fontWeight: 'normal',
+    fontFamily: 'sans-serif',
+    fontSize: 14,
+    textBorderColor: 'transparent',
+    textBorderWidth: 0,
+    textShadowColor: 'transparent',
+    textShadowBlur: 0,
+    textShadowOffsetX: 0,
+    textShadowOffsetY: 0
+  },
+  axisPointer: {
+    type: 'line',
+    label: {
+      show: false,
+      margin: 3,
+      color: '#333',
+      fontStyle: 'normal',
+      fontWeight: 'normal',
+      fontFamily: 'sans-serif',
+      fontSize: 12,
+      textBorderColor: 'transparent',
+      textBorderWidth: 0,
+      textShadowColor: 'transparent',
+      textShadowBlur: 0,
+      textShadowOffsetX: 0,
+      textShadowOffsetY: 0,
+      padding: [5, 7, 5, 7],
+      backgroundColor: 'transparent',
+      borderColor: 'transparent',
+      borderWidth: 0,
+      shadowBlur: 3,
+      shadowColor: '#aaa',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0
+    },
+    lineStyle: {
+      color: '#555',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 3,
+      shadowColor: '#aaa',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    },
+    shadowStyle: {
+      color: '#555',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 3,
+      shadowColor: '#aaa',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    },
+    crossStyle: {
+      color: '#555',
+      width: 1,
+      type: 'solid',
+      shadowBlur: 3,
+      shadowColor: '#aaa',
+      shadowOffsetX: 0,
+      shadowOffsetY: 0,
+      opacity: 1
+    },
+    animation: true
+  }
+};
 /**
  * 组件配置信息
  */
@@ -2964,6 +3045,7 @@ const DEFAULT_CONFIG = [
         grid: { ...chartGrid },
         xAxis: { ...chartxAxis },
         yAxis: { ...chartyAxis },
+        tooltip: { ...chartTooltip },
         series: [
           {
             name: '系列1',
@@ -2998,6 +3080,7 @@ const DEFAULT_CONFIG = [
         grid: { ...chartGrid },
         xAxis: { ...chartxAxis },
         yAxis: { ...chartyAxis },
+        tooltip: { ...chartTooltip },
         series: [
           {
             data: [120, 200, 150, 80, 70, 110, 130],
@@ -3018,6 +3101,824 @@ const DEFAULT_CONFIG = [
         label: '',
         type: 'chartStyleSetting'
       }
+    ])
+  },
+  {
+    key: 'xaEchartsBarStack',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        grid: { ...chartGrid },
+        xAxis: { ...chartxAxis },
+        yAxis: { ...chartyAxis },
+        tooltip: { ...chartTooltip },
+        series: [
+          {
+            name: '数据1',
+            type: 'bar',
+            stack: 'all',
+            data: [320, 332, 301, 334, 390, 330, 320]
+          },
+          {
+            name: '数据2',
+            type: 'bar',
+            stack: 'all',
+            data: [120, 132, 101, 134, 90, 230, 210]
+          },
+          {
+            name: '数据3',
+            type: 'bar',
+            stack: 'all',
+            data: [220, 182, 191, 234, 290, 330, 310]
+          },
+          {
+            name: '数据4',
+            type: 'bar',
+            stack: 'all',
+            data: [150, 232, 201, 154, 190, 330, 410]
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '堆叠柱状图', height: 300, width: 400, iconname: 'iconduidiezhuzhuangtu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsPie',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        tooltip: { ...chartTooltip },
+        series: [
+          {
+            name: '饼图数据统计',
+            type: 'pie',
+            radius: '55%',
+            center: ['50%', '60%'],
+            data: [
+              { value: 335, name: '数据1' },
+              { value: 310, name: '数据2' },
+              { value: 234, name: '数据3' },
+              { value: 135, name: '数据4' },
+              { value: 1548, name: '数据5' }
+            ],
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '饼图', height: 300, width: 400, iconname: 'iconbingtu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsScatter',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        grid: { ...chartGrid },
+        xAxis: { ...chartxAxis },
+        yAxis: { ...chartyAxis },
+        tooltip: { ...chartTooltip },
+        series: [
+          {
+            symbolSize: 20,
+            data: [
+              [10.0, 8.04],
+              [8.0, 6.95],
+              [13.0, 7.58],
+              [9.0, 8.81],
+              [11.0, 8.33],
+              [14.0, 9.96],
+              [6.0, 7.24],
+              [4.0, 4.26],
+              [12.0, 10.84],
+              [7.0, 4.82],
+              [5.0, 5.68]
+            ],
+            type: 'scatter'
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '散点图', height: 300, width: 400, iconname: 'iconsandiantu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsMap',
+    type: 'chart',
+    props: {
+      chartConfig: {}
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '地图', height: 300, width: 500, iconname: 'iconditu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsRadar',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        tooltip: { ...chartTooltip },
+        radar: {
+          name: {
+            textStyle: {
+              color: '#fff',
+              backgroundColor: '#999',
+              borderRadius: 3,
+              padding: [3, 5]
+            }
+          },
+          indicator: [
+            { name: '销售（sales）', max: 6500 },
+            { name: '管理（Administration）', max: 16000 },
+            { name: '信息技术（Information Techology）', max: 30000 },
+            { name: '客服（Customer Support）', max: 38000 },
+            { name: '研发（Development）', max: 52000 },
+            { name: '市场（Marketing）', max: 25000 }
+          ]
+        },
+        series: [
+          {
+            name: '预算 vs 开销（Budget vs spending）',
+            type: 'radar',
+            data: [
+              {
+                value: [4300, 10000, 28000, 35000, 50000, 19000],
+                name: '预算分配（Allocated Budget）'
+              },
+              {
+                value: [5000, 14000, 28000, 31000, 42000, 21000],
+                name: '实际开销（Actual Spending）'
+              }
+            ]
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '雷达图', height: 300, width: 400, iconname: 'iconleidatu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsBoxplot',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        grid: { ...chartGrid },
+        xAxis: { ...chartxAxis },
+        yAxis: { ...chartyAxis },
+        tooltip: { ...chartTooltip },
+        series: [
+          {
+            name: 'boxplot',
+            type: 'boxplot',
+            data: [
+              [655, 850, 940, 980, 1070],
+              [760, 800, 845, 885, 960],
+              [780, 840, 855, 880, 940],
+              [720, 767.5, 815, 865, 920],
+              [740, 807.5, 810, 870, 950]
+            ]
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '盒须图', height: 300, width: 400, iconname: 'iconxiangxiantu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsTree',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        tooltip: { ...chartTooltip },
+        series: [
+          {
+            type: 'tree',
+
+            data: [
+              {
+                name: 'flare',
+                children: [
+                  {
+                    name: 'analytics',
+                    children: [
+                      {
+                        name: 'cluster',
+                        children: [
+                          { name: 'AgglomerativeCluster', value: 3938 },
+                          { name: 'CommunityStructure', value: 3812 },
+                          { name: 'HierarchicalCluster', value: 6714 },
+                          { name: 'MergeEdge', value: 743 }
+                        ]
+                      },
+                      {
+                        name: 'graph',
+                        children: [
+                          { name: 'BetweennessCentrality', value: 3534 },
+                          { name: 'LinkDistance', value: 5731 },
+                          { name: 'MaxFlowMinCut', value: 7840 },
+                          { name: 'ShortestPaths', value: 5914 },
+                          { name: 'SpanningTree', value: 3416 }
+                        ]
+                      },
+                      { name: 'optimization', children: [{ name: 'AspectRatioBanker', value: 7074 }] }
+                    ]
+                  },
+                  {
+                    name: 'animate',
+                    children: [
+                      { name: 'Easing', value: 17010 },
+                      { name: 'FunctionSequence', value: 5842 },
+                      {
+                        name: 'interpolate',
+                        children: [
+                          { name: 'ArrayInterpolator', value: 1983 },
+                          { name: 'ColorInterpolator', value: 2047 },
+                          { name: 'DateInterpolator', value: 1375 },
+                          { name: 'Interpolator', value: 8746 }
+                        ]
+                      },
+                      { name: 'ISchedulable', value: 1041 },
+                      { name: 'Parallel', value: 5176 },
+                      { name: 'Pause', value: 449 }
+                    ]
+                  },
+                  {
+                    name: 'data',
+                    children: [
+                      {
+                        name: 'converters',
+                        children: [
+                          { name: 'Converters', value: 721 },
+                          { name: 'DelimitedTextConverter', value: 4294 }
+                        ]
+                      },
+                      { name: 'DataField', value: 1759 },
+                      { name: 'DataSchema', value: 2165 }
+                    ]
+                  },
+                  {
+                    name: 'display',
+                    children: [
+                      { name: 'DirtySprite', value: 8833 },
+                      { name: 'LineSprite', value: 1732 }
+                    ]
+                  },
+                  { name: 'flex', children: [{ name: 'FlareVis', value: 4116 }] },
+
+                  {
+                    name: 'vis',
+                    children: [
+                      {
+                        name: 'axis',
+                        children: [
+                          { name: 'Axes', value: 1302 },
+                          { name: 'Axis', value: 24593 },
+                          { name: 'AxisGridLine', value: 652 },
+                          { name: 'AxisLabel', value: 636 },
+                          { name: 'CartesianAxes', value: 6703 }
+                        ]
+                      },
+                      {
+                        name: 'controls',
+                        children: [
+                          { name: 'AnchorControl', value: 2138 },
+                          { name: 'ClickControl', value: 3824 },
+                          { name: 'Control', value: 1353 },
+                          { name: 'ControlList', value: 4665 }
+                        ]
+                      },
+                      {
+                        name: 'data',
+                        children: [
+                          { name: 'Data', value: 20544 },
+                          { name: 'DataList', value: 19788 },
+                          { name: 'DataSprite', value: 10349 },
+                          { name: 'EdgeSprite', value: 3301 },
+                          { name: 'NodeSprite', value: 19382 },
+                          {
+                            name: 'render',
+                            children: [
+                              { name: 'ArrowType', value: 698 },
+                              { name: 'EdgeRenderer', value: 5569 },
+                              { name: 'IRenderer', value: 353 },
+                              { name: 'ShapeRenderer', value: 2247 }
+                            ]
+                          },
+                          { name: 'ScaleBinding', value: 11275 },
+                          { name: 'Tree', value: 7147 },
+                          { name: 'TreeBuilder', value: 9930 }
+                        ]
+                      },
+                      {
+                        name: 'events',
+                        children: [
+                          { name: 'DataEvent', value: 2313 },
+                          { name: 'SelectionEvent', value: 1880 },
+                          { name: 'TooltipEvent', value: 1701 },
+                          { name: 'VisualizationEvent', value: 1117 }
+                        ]
+                      },
+                      {
+                        name: 'legend',
+                        children: [
+                          { name: 'Legend', value: 20859 },
+                          { name: 'LegendItem', value: 4614 },
+                          { name: 'LegendRange', value: 10530 }
+                        ]
+                      },
+                      { name: 'Visualization', value: 16540 }
+                    ]
+                  }
+                ]
+              }
+            ],
+
+            top: '1%',
+            left: '7%',
+            bottom: '1%',
+            right: '20%',
+
+            symbolSize: 7,
+
+            label: {
+              position: 'left',
+              verticalAlign: 'middle',
+              align: 'right',
+              fontSize: 9
+            },
+
+            leaves: {
+              label: {
+                position: 'right',
+                verticalAlign: 'middle',
+                align: 'left'
+              }
+            },
+
+            expandAndCollapse: true,
+            animationDuration: 550,
+            animationDurationUpdate: 750
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '树图', height: 300, width: 400, iconname: 'iconshutu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsTreeMap',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        tooltip: { ...chartTooltip },
+        series: [
+          {
+            name: 'Disk Usage',
+            type: 'treemap',
+            visibleMin: 300,
+            label: {
+              show: true,
+              formatter: '{b}'
+            },
+            itemStyle: {
+              borderColor: '#fff'
+            },
+            levels: [
+              {
+                itemStyle: {
+                  borderWidth: 0,
+                  gapWidth: 5
+                }
+              },
+              {
+                itemStyle: {
+                  gapWidth: 1
+                }
+              },
+              {
+                colorSaturation: [0.35, 0.5],
+                itemStyle: {
+                  gapWidth: 1,
+                  borderColorSaturation: 0.6
+                }
+              }
+            ],
+            data: [
+              { value: 40, name: 'Accessibility', path: 'Accessibility' },
+              {
+                value: 180,
+                name: 'Accounts',
+                path: 'Accounts',
+                children: [
+                  {
+                    value: 76,
+                    name: 'Access',
+                    path: 'Accounts/Access',
+                    children: [
+                      { value: 12, name: 'DefaultAccessPlugin.bundle', path: 'Accounts/Access/DefaultAccessPlugin.bundle' },
+                      { value: 28, name: 'FacebookAccessPlugin.bundle', path: 'Accounts/Access/FacebookAccessPlugin.bundle' },
+                      { value: 20, name: 'LinkedInAccessPlugin.bundle', path: 'Accounts/Access/LinkedInAccessPlugin.bundle' },
+                      { value: 16, name: 'TencentWeiboAccessPlugin.bundle', path: 'Accounts/Access/TencentWeiboAccessPlugin.bundle' }
+                    ]
+                  },
+                  {
+                    value: 92,
+                    name: 'Authentication',
+                    path: 'Accounts/Authentication',
+                    children: [
+                      { value: 24, name: 'FacebookAuthenticationPlugin.bundle', path: 'Accounts/Authentication/FacebookAuthenticationPlugin.bundle' },
+                      { value: 16, name: 'LinkedInAuthenticationPlugin.bundle', path: 'Accounts/Authentication/LinkedInAuthenticationPlugin.bundle' },
+                      { value: 20, name: 'TencentWeiboAuthenticationPlugin.bundle', path: 'Accounts/Authentication/TencentWeiboAuthenticationPlugin.bundle' },
+                      { value: 16, name: 'TwitterAuthenticationPlugin.bundle', path: 'Accounts/Authentication/TwitterAuthenticationPlugin.bundle' },
+                      { value: 16, name: 'WeiboAuthenticationPlugin.bundle', path: 'Accounts/Authentication/WeiboAuthenticationPlugin.bundle' }
+                    ]
+                  },
+                  { value: 12, name: 'Notification', path: 'Accounts/Notification', children: [{ value: 12, name: 'SPAAccountsNotificationPlugin.bundle', path: 'Accounts/Notification/SPAAccountsNotificationPlugin.bundle' }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '矩形树图', height: 500, width: 500, iconname: 'iconjuxingshutu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsSunburst',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        tooltip: { ...chartTooltip },
+        series: {
+          type: 'sunburst',
+          data: [
+            {
+              name: 'Grandpa',
+              children: [
+                {
+                  name: 'Uncle Leo',
+                  value: 15,
+                  children: [
+                    {
+                      name: 'Cousin Jack',
+                      value: 2
+                    },
+                    {
+                      name: 'Cousin Mary',
+                      value: 5,
+                      children: [
+                        {
+                          name: 'Jackson',
+                          value: 2
+                        }
+                      ]
+                    },
+                    {
+                      name: 'Cousin Ben',
+                      value: 4
+                    }
+                  ]
+                },
+                {
+                  name: 'Father',
+                  value: 10,
+                  children: [
+                    {
+                      name: 'Me',
+                      value: 5
+                    },
+                    {
+                      name: 'Brother Peter',
+                      value: 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              name: 'Nancy',
+              children: [
+                {
+                  name: 'Uncle Nike',
+                  children: [
+                    {
+                      name: 'Cousin Betty',
+                      value: 1
+                    },
+                    {
+                      name: 'Cousin Jenny',
+                      value: 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          radius: [0, '90%'],
+          label: {
+            rotate: 'radial'
+          }
+        }
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '旭日图', height: 500, width: 500, iconname: 'iconxuritu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsFunnel',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        tooltip: { ...chartTooltip },
+        series: [
+          {
+            name: '漏斗图',
+            type: 'funnel',
+            left: '10%',
+            top: 60,
+            bottom: 60,
+            width: '80%',
+            min: 0,
+            max: 100,
+            minSize: '0%',
+            maxSize: '100%',
+            sort: 'descending',
+            gap: 2,
+            label: {
+              show: true,
+              position: 'inside'
+            },
+            labelLine: {
+              length: 10,
+              lineStyle: {
+                width: 1,
+                type: 'solid'
+              }
+            },
+            itemStyle: {
+              borderColor: '#fff',
+              borderWidth: 1
+            },
+            emphasis: {
+              label: {
+                fontSize: 20
+              }
+            },
+            data: [
+              { value: 60, name: '访问' },
+              { value: 40, name: '咨询' },
+              { value: 20, name: '订单' },
+              { value: 80, name: '点击' },
+              { value: 100, name: '展现' }
+            ]
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '漏斗图', height: 350, width: 500, iconname: 'iconloudoutu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsGauge',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        title: { ...chartTitle },
+        legend: { ...chartLegend },
+        tooltip: { ...chartTooltip },
+        series: [
+          {
+            name: '业务指标',
+            type: 'gauge',
+            detail: { formatter: '{value}%' },
+            data: [{ value: 50, name: '完成率' }]
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '仪表盘', height: 350, width: 500, iconname: 'iconyibiaopan' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      {
+        id: 'props.chartConfig',
+        label: '',
+        type: 'chartStyleSetting'
+      }
+    ])
+  },
+  {
+    key: 'xaEchartsBarD',
+    type: 'chart',
+    props: {
+      chartConfig: {
+        tooltip: { ...chartTooltip },
+        visualMap: {
+          max: 20,
+          inRange: {
+            color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+          }
+        },
+        xAxis3D: {
+          type: 'category',
+          data: ['12a', '1a', '2a', '3a', '4a', '5a', '6a', '7a', '8a', '9a', '10a', '11a', '12p', '1p', '2p', '3p', '4p', '5p', '6p', '7p', '8p', '9p', '10p', '11p']
+        },
+        yAxis3D: {
+          type: 'category',
+          data: ['Saturday', 'Friday', 'Thursday', 'Wednesday', 'Tuesday', 'Monday', 'Sunday']
+        },
+        zAxis3D: {
+          type: 'value'
+        },
+        grid3D: {
+          boxWidth: 200,
+          boxDepth: 80,
+          viewControl: {
+            // projection: 'orthographic'
+          },
+          light: {
+            main: {
+              intensity: 1.2,
+              shadow: true
+            },
+            ambient: {
+              intensity: 0.3
+            }
+          }
+        },
+        series: [
+          {
+            type: 'bar3D',
+            data: [{ value: [0, 0, 5] }, { value: [1, 0, 1] }, { value: [2, 0, 0] }, { value: [3, 0, 0] }, { value: [4, 0, 0] }, { value: [5, 0, 0] }, { value: [6, 0, 0] }, { value: [7, 0, 0] }, { value: [8, 0, 0] }, { value: [9, 0, 0] }, { value: [10, 0, 0] }, { value: [11, 0, 2] }, { value: [12, 0, 4] }, { value: [13, 0, 1] }, { value: [14, 0, 1] }, { value: [15, 0, 3] }, { value: [16, 0, 4] }],
+            shading: 'lambert',
+
+            label: {
+              textStyle: {
+                fontSize: 16,
+                borderWidth: 1
+              }
+            },
+
+            emphasis: {
+              label: {
+                textStyle: {
+                  fontSize: 20,
+                  color: '#900'
+                }
+              },
+              itemStyle: {
+                color: '#900'
+              }
+            }
+          }
+        ]
+      }
+    },
+    style: Object.assign({}, commonConfig.style),
+    custom: Object.assign({}, commonConfig.custom, { name: '3D柱状图', height: 350, width: 500, iconname: 'icontubiaozhuzhuangtu' }),
+    options: [].concat(commonConfig.options, [
+      {
+        label: '属性配置',
+        type: 'title'
+      },
+      // {
+      //   id: 'props.chartConfig',
+      //   label: '',
+      //   type: 'chartStyleSetting'
+      // }
     ])
   }
 ];

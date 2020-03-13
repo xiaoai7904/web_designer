@@ -5,6 +5,7 @@ import { extend, throttle } from '@/modules/utils/utils'
 import { isEqual } from 'lodash'
 let _this = null
 
+// 折线图
 export default {
   name: 'xaEchartsLine',
 

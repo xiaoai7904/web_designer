@@ -6,6 +6,7 @@ import { isEqual } from 'lodash'
 
 let _this = null
 
+// 柱状图
 export default {
   name: 'xaEchartsBar',
 

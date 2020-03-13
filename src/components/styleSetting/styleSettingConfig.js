@@ -458,7 +458,7 @@ const titleConfig = [
     id: 'chartOptions.title.subtextStyle.textShadowOffsetY',
     label: '副标题阴影Y',
     type: 'inputNumber'
-  },
+  }
 ];
 // 图例通用配置
 const legendConfig = [
@@ -2980,6 +2980,597 @@ const yAxis = [
   }
 ];
 
+// tooltip通用配置
+const tooltip = [
+  {
+    id: 'chartOptions.tooltip.show',
+    label: '显示提示框组件',
+    type: 'switch'
+  },
+  {
+    id: 'chartOptions.tooltip.showContent',
+    label: '显示提示框浮层',
+    type: 'switch'
+  },
+  {
+    id: 'chartOptions.tooltip.trigger',
+    label: '触发类型',
+    type: 'select',
+    list: [
+      {
+        label: '数据项图形触发',
+        value: 'item'
+      },
+      {
+        label: '坐标轴触发',
+        value: 'axis'
+      },
+      {
+        label: '不触发',
+        value: 'none'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.backgroundColor',
+    label: '提示框背景颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.borderWidth',
+    label: '提示框边框宽',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.padding',
+    label: '提示框内边距',
+    type: 'padding'
+  },
+  {
+    label: '提示框浮层的文本样式',
+    type: 'title'
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.color',
+    label: '文字颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.fontStyle',
+    label: '文字字体风格',
+    type: 'select',
+    list: [
+      {
+        label: 'normal',
+        value: 'normal'
+      },
+      {
+        label: 'italic',
+        value: 'italic'
+      },
+      {
+        label: 'oblique',
+        value: 'oblique'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.fontWeight',
+    label: '文字字体粗细',
+    type: 'select',
+    list: [
+      {
+        label: 'normal',
+        value: 'normal'
+      },
+      {
+        label: 'bold',
+        value: 'bold'
+      },
+      {
+        label: 'bolder',
+        value: 'bolder'
+      },
+      {
+        label: 'lighter',
+        value: 'lighter'
+      },
+      {
+        label: '100',
+        value: '100'
+      },
+      {
+        label: '200',
+        value: '200'
+      },
+      {
+        label: '300',
+        value: '300'
+      },
+      {
+        label: '400',
+        value: '400'
+      },
+      {
+        label: '500',
+        value: '500'
+      },
+      {
+        label: '600',
+        value: '600'
+      },
+      {
+        label: '700',
+        value: '700'
+      },
+      {
+        label: '800',
+        value: '800'
+      },
+      {
+        label: '900',
+        value: '900'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.fontFamily',
+    label: '文字字体系列',
+    type: 'select',
+    list: [
+      {
+        label: 'sans-serif',
+        value: 'sans-serif'
+      },
+      {
+        label: 'monospace',
+        value: 'monospace'
+      },
+      {
+        label: 'Arial',
+        value: 'Arial'
+      },
+      {
+        label: 'Courier New',
+        value: 'Courier New'
+      },
+      {
+        label: 'Microsoft YaHei',
+        value: 'Microsoft YaHei'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.fontSize',
+    label: '文字字体大小',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.textBorderColor',
+    label: '文字边框颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.textBorderWidth',
+    label: '文字边框宽度',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.textShadowColor',
+    label: '文字阴影颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.textShadowBlur',
+    label: '文字阴影长度',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.textShadowOffsetX',
+    label: '文字阴影X偏移',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.textStyle.textShadowOffsetY',
+    label: '文字阴影Y偏移',
+    type: 'inputNumber'
+  },
+  {
+    label: '坐标轴指示器配置项',
+    type: 'title'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.type',
+    label: '指示器类型',
+    type: 'select',
+    list: [
+      {
+        label: '直线指示器',
+        value: 'line'
+      },
+      {
+        label: '阴影指示器',
+        value: 'shadow'
+      },
+      {
+        label: '无指示器',
+        value: 'none'
+      },
+      {
+        label: '十字准星指示器',
+        value: 'cross'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.animation',
+    label: '开启动画',
+    type: 'switch'
+  },
+  {
+    label: '坐标轴指示器的文本标签',
+    type: 'title'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.show',
+    label: '显示文本标签',
+    type: 'switch'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.margin',
+    label: 'label距离轴距离',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.color',
+    label: 'label文字颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.fontStyle',
+    label: 'label文字字体风格',
+    type: 'select',
+    list: [
+      {
+        label: 'normal',
+        value: 'normal'
+      },
+      {
+        label: 'italic',
+        value: 'italic'
+      },
+      {
+        label: 'oblique',
+        value: 'oblique'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.fontWeight',
+    label: 'label文字字体粗细',
+    type: 'select',
+    list: [
+      {
+        label: 'normal',
+        value: 'normal'
+      },
+      {
+        label: 'bold',
+        value: 'bold'
+      },
+      {
+        label: 'bolder',
+        value: 'bolder'
+      },
+      {
+        label: 'lighter',
+        value: 'lighter'
+      },
+      {
+        label: '100',
+        value: '100'
+      },
+      {
+        label: '200',
+        value: '200'
+      },
+      {
+        label: '300',
+        value: '300'
+      },
+      {
+        label: '400',
+        value: '400'
+      },
+      {
+        label: '500',
+        value: '500'
+      },
+      {
+        label: '600',
+        value: '600'
+      },
+      {
+        label: '700',
+        value: '700'
+      },
+      {
+        label: '800',
+        value: '800'
+      },
+      {
+        label: '900',
+        value: '900'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.fontFamily',
+    label: 'label文字字体系列',
+    type: 'select',
+    list: [
+      {
+        label: 'sans-serif',
+        value: 'sans-serif'
+      },
+      {
+        label: 'monospace',
+        value: 'monospace'
+      },
+      {
+        label: 'Arial',
+        value: 'Arial'
+      },
+      {
+        label: 'Courier New',
+        value: 'Courier New'
+      },
+      {
+        label: 'Microsoft YaHei',
+        value: 'Microsoft YaHei'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.fontSize',
+    label: 'label文字字体大小',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.textBorderColor',
+    label: 'label文字边框颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.textBorderWidth',
+    label: 'label文字边框宽度',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.padding',
+    label: 'label文字内边距',
+    type: 'padding'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.textShadowColor',
+    label: 'label文字描边颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.textShadowBlur',
+    label: 'label文字描边长度',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.textShadowOffsetX',
+    label: 'label文字描边X',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.textShadowOffsetY',
+    label: 'label文字描边Y',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.shadowColor',
+    label: 'label文字阴影颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.shadowBlur',
+    label: 'label文字阴影长度',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.shadowOffsetX',
+    label: 'label文字阴影X',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.shadowOffsetY',
+    label: 'label文字阴影Y',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.label.backgroundColor',
+    label: 'label文字背景色',
+    type: 'color'
+  },
+  {
+    label: '坐标轴类型为line时有效',
+    type: 'title'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.lineStyle.color',
+    label: '颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.lineStyle.width',
+    label: '线宽',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.lineStyle.type',
+    label: '类型',
+    type: 'select',
+    list: [
+      {
+        label: 'solid',
+        value: 'solid'
+      },
+      {
+        label: 'dashed',
+        value: 'dashed'
+      },
+      {
+        label: 'dotted',
+        value: 'dotted'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.lineStyle.shadowBlur',
+    label: '阴影模糊大小',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.lineStyle.shadowColor',
+    label: '阴影颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.lineStyle.shadowOffsetX',
+    label: '阴影X偏移',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.lineStyle.shadowOffsetY',
+    label: '阴影Y偏移',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.lineStyle.opacity',
+    label: '透明度',
+    type: 'inputNumber'
+  },
+  {
+    label: '坐标轴类型为shadow时有效',
+    type: 'title'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.shadowStyle.color',
+    label: '颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.shadowStyle.width',
+    label: '线宽',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.shadowStyle.type',
+    label: '类型',
+    type: 'select',
+    list: [
+      {
+        label: 'solid',
+        value: 'solid'
+      },
+      {
+        label: 'dashed',
+        value: 'dashed'
+      },
+      {
+        label: 'dotted',
+        value: 'dotted'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.shadowStyle.shadowBlur',
+    label: '阴影模糊大小',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.shadowStyle.shadowColor',
+    label: '阴影颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.shadowStyle.shadowOffsetX',
+    label: '阴影X偏移',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.shadowStyle.shadowOffsetY',
+    label: '阴影Y偏移',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.shadowStyle.opacity',
+    label: '透明度',
+    type: 'inputNumber'
+  },
+  {
+    label: '坐标轴类型为cross时有效',
+    type: 'title'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.crossStyle.color',
+    label: '颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.crossStyle.width',
+    label: '线宽',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.crossStyle.type',
+    label: '类型',
+    type: 'select',
+    list: [
+      {
+        label: 'solid',
+        value: 'solid'
+      },
+      {
+        label: 'dashed',
+        value: 'dashed'
+      },
+      {
+        label: 'dotted',
+        value: 'dotted'
+      }
+    ]
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.crossStyle.shadowBlur',
+    label: '阴影模糊大小',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.crossStyle.shadowColor',
+    label: '阴影颜色',
+    type: 'color'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.crossStyle.shadowOffsetX',
+    label: '阴影X偏移',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.crossStyle.shadowOffsetY',
+    label: '阴影Y偏移',
+    type: 'inputNumber'
+  },
+  {
+    id: 'chartOptions.tooltip.axisPointer.crossStyle.opacity',
+    label: '透明度',
+    type: 'inputNumber'
+  }
+];
 // 折线图配置
 export const xaEchartsLineConfig = [
   {
@@ -3006,39 +3597,294 @@ export const xaEchartsLineConfig = [
     label: 'Y轴',
     id: 'yAxis',
     children: [...yAxis]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
   }
 ];
 
 // 柱状图配置
 export const xaEchartsBarConfig = [
-    {
-      label: '标题',
-      id: 'title',
-      children: [...titleConfig]
-    },
-    {
-      label: '图例',
-      id: 'legend',
-      children: [...legendConfig]
-    },
-    {
-      label: '网格',
-      id: 'grid',
-      children: [...grid]
-    },
-    {
-      label: 'X轴',
-      id: 'xAxis',
-      children: [...xAxis]
-    },
-    {
-      label: 'Y轴',
-      id: 'yAxis',
-      children: [...yAxis]
-    }
-  ];
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '网格',
+    id: 'grid',
+    children: [...grid]
+  },
+  {
+    label: 'X轴',
+    id: 'xAxis',
+    children: [...xAxis]
+  },
+  {
+    label: 'Y轴',
+    id: 'yAxis',
+    children: [...yAxis]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
+
+// 堆叠柱状图配置
+export const xaEchartsBarStackConfig = [
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '网格',
+    id: 'grid',
+    children: [...grid]
+  },
+  {
+    label: 'X轴',
+    id: 'xAxis',
+    children: [...xAxis]
+  },
+  {
+    label: 'Y轴',
+    id: 'yAxis',
+    children: [...yAxis]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
+
+// 饼图配置
+export const xaEchartsPieConfig = [
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
+
+// 散点图配置
+export const xaEchartsScatterConfig = [
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '网格',
+    id: 'grid',
+    children: [...grid]
+  },
+  {
+    label: 'X轴',
+    id: 'xAxis',
+    children: [...xAxis]
+  },
+  {
+    label: 'Y轴',
+    id: 'yAxis',
+    children: [...yAxis]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
+
+// 雷达图配置
+export const xaEchartsRadarConfig = [
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
+
+// 盒须图配置
+export const xaEchartsBoxplotConfig = [
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '网格',
+    id: 'grid',
+    children: [...grid]
+  },
+  {
+    label: 'X轴',
+    id: 'xAxis',
+    children: [...xAxis]
+  },
+  {
+    label: 'Y轴',
+    id: 'yAxis',
+    children: [...yAxis]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
+
+// 树图配置
+export const xaEchartsTreeConfig = [
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
+
+// 矩形树图配置
+export const xaEchartsTreeMapConfig = [
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
+
+// 旭日图配置
+export const xaEchartsSunburstConfig = [
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
+
+// 漏斗图配置
+export const xaEchartsFunnelConfig = [
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
+
+// 仪表盘配置
+export const xaEchartsGaugeConfig = [
+  {
+    label: '标题',
+    id: 'title',
+    children: [...titleConfig]
+  },
+  {
+    label: '图例',
+    id: 'legend',
+    children: [...legendConfig]
+  },
+  {
+    label: '提示框',
+    id: 'tooltip',
+    children: [...tooltip]
+  }
+];
 
 export default {
   xaEchartsLineConfig,
-  xaEchartsBarConfig
+  xaEchartsBarConfig,
+  xaEchartsBarStackConfig,
+  xaEchartsPieConfig,
+  xaEchartsScatterConfig,
+  xaEchartsRadarConfig,
+  xaEchartsBoxplotConfig,
+  xaEchartsTreeConfig,
+  xaEchartsTreeMapConfig,
+  xaEchartsSunburstConfig,
+  xaEchartsFunnelConfig,
+  xaEchartsGaugeConfig
 };
