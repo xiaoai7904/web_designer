@@ -3,12 +3,13 @@ import itemList from './itemList/itemList';
 import pageIconsView from './pageIconsView/pageIconsView';
 import pageDialogView from './pageDialogView/pageDialogView'
 import StyleSetting from './styleSetting/styleSetting'
-
+import CodeEditor from '@/components/codeEditor/codeEditor';
 const components = {
   itemList,
   pageIconsView,
   pageDialogView,
-  StyleSetting
+  StyleSetting,
+  CodeEditor
 };
 
 export const installFn = function() {

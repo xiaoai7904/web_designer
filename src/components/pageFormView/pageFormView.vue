@@ -44,6 +44,9 @@ export default class PageFormView extends Vue {
       })
     }
   }
+  updateFormMode(_model) {
+    this.formMode = Object.assign({}, this.formMode, _model)
+  }
   handlerData(id, type) {
     const _this = this
     const handlerType = {

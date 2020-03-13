@@ -164,14 +164,18 @@ export const createItem = (h, item, vm) => {
           </el-button>
           <pageDialogView
             ref="styleSettingDialogView"
-            options={{ title: '图表样式设置', width: '1100px', classname: 'chart-style-setting' }}
+            options={{ title: '图表样式设置', width: '1200px', classname: 'chart-style-setting' }}
             on-confirmDialog={id => {
-              let { chartConfig } = vm.handlerData('props', 'get');
+              let chartConfig
+              chartConfig = vm.$refs.styleSettingRef.getValue()
+              if(!chartConfig) {
+                chartConfig = vm.handlerData('props', 'get').chartConfig;
+              }
               let currentPlugins = vm.$store.state.currentPlugins[0];
               vm.$store.commit('updatePluginsProps', { id: currentPlugins.id, modify: { id: 'props.chartConfig', value: chartConfig } });
             }}
           >
-            <StyleSetting options={chartConfig} type={key} />
+            <StyleSetting options={chartConfig} type={key} ref="styleSettingRef"/>
           </pageDialogView>
         </div>
       );

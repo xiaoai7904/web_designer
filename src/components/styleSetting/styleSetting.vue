@@ -28,11 +28,14 @@ export default {
   methods: {
     updateChartData(data) {
       this.echartsIns.setOption(data)
+    },
+    getValue() {
+      return this.$refs.styleSettingParamsEditRef.getValue()
     }
   },
   render(h) {
     return <div class="style-setting">
-      <StyleSettingParamsEdit type={this.type} chartData={this.options} class="style-setting__edit" onUpdateChart={this.updateChartData} />
+      <StyleSettingParamsEdit ref="styleSettingParamsEditRef" type={this.type} chartData={this.options} class="style-setting__edit" onUpdateChart={this.updateChartData} />
       <div class="style-setting__chart"></div>
     </div>
   }

@@ -25,6 +25,18 @@ import xaMenu from './menu/menu.vue';
 import xaContainerLayout from './containerLayout/containerLayout.vue';
 import xaEchartsLine from './echartsLine/echartsLine.vue';
 import xaEchartsBar from './echartsBar/echartsBar.vue';
+import xaEchartsBarStack from './echartsBarStack/echartsBarStack.vue';
+import xaEchartsPie from './echartsPie/echartsPie.vue';
+import xaEchartsScatter from './echartsScatter/echartsScatter.vue'
+import xaEchartsMap from './echartsMap/echartsMap.vue'
+import xaEchartsRadar from './echartsRadar/echartsRadar.vue'
+import xaEchartsBoxplot from './echartsBoxplot/echartsBoxplot.vue'
+import xaEchartsTree from './echartsTree/echartsTree.vue'
+import xaEchartsTreeMap from './echartsTreeMap/echartsTreeMap.vue'
+import xaEchartsSunburst from './echartsSunburst/echartsSunburst.vue'
+import xaEchartsFunnel from './echartsFunnel/echartsFunnel.vue'
+import xaEchartsGauge from './echartsGauge/echartsGauge.vue'
+import xaEchartsBarD from './echartsBarD/echartsBarD.vue'
 
 const plugins = {
   xaInput,
@@ -51,7 +63,19 @@ const plugins = {
   xaMenu,
   xaContainerLayout,
   xaEchartsLine,
-  xaEchartsBar
+  xaEchartsBar,
+  xaEchartsBarStack,
+  xaEchartsPie,
+  xaEchartsScatter,
+  xaEchartsMap,
+  xaEchartsRadar,
+  xaEchartsBoxplot,
+  xaEchartsTree,
+  xaEchartsTreeMap,
+  xaEchartsSunburst,
+  xaEchartsFunnel,
+  xaEchartsGauge,
+  xaEchartsBarD
 };
 
 const installComponents = function() {
