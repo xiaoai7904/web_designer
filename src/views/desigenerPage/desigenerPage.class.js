@@ -53,13 +53,25 @@ class DesigenerPage extends Vue {
   }
   @Watch('currentPlugins', { deep: true, immediate: true })
   updateCurrentPluginsFn(newValue) {
+    const ids = ['custom.width', 'custom.height', 'custom.x', 'custom.y', 'style.paddingTop', 'style.paddingBottom', 'style.paddingLeft', 'style.paddingRight', 'style.borderWidth', 'style.borderStyle', 'style.borderColor', 'style.backgroundColor'];
+    const labels = ['尺寸', '位置', '样式配置'];
     if (newValue[0]) {
       newValue[0].options.map(item => {
-        if (item.type === 'inputNumber' && item.options) {
-          item.id === 'custom.x' && (item.options.max = this.pageState.style.w);
-          item.id === 'custom.y' && (item.options.max = this.pageState.style.h);
-          item.id === 'custom.width' && (item.options.max = this.pageState.style.w);
-          item.id === 'custom.height' && (item.options.max = this.pageState.style.h);
+        // 自适应布局
+        if (this.pageState.style.layoutStyle === '2') {
+          if (ids.indexOf(item.id) > -1 || labels.indexOf(item.label) > -1) {
+            item.hidden = true;
+          }
+        } else {
+          if (item.type === 'inputNumber' && item.options) {
+            item.id === 'custom.x' && (item.options.max = this.pageState.style.w);
+            item.id === 'custom.y' && (item.options.max = this.pageState.style.h);
+            item.id === 'custom.width' && (item.options.max = this.pageState.style.w);
+            item.id === 'custom.height' && (item.options.max = this.pageState.style.h);
+          }
+          if (ids.indexOf(item.id) > -1 || labels.indexOf(item.label) > -1) {
+            item.hidden = false;
+          }
         }
       });
       this.currentPluginOptions = extend(true, {}, newValue[0]);
@@ -71,6 +83,23 @@ class DesigenerPage extends Vue {
   }
   @Watch('pageState', { deep: true, immediate: true })
   updatePage(newValue) {
+    if (this.pageState.style.layoutStyle === '2') {
+      newValue.options.map(item => {
+        if (['style.w', 'style.h'].includes(item.id)) {
+          item.hidden = true;
+        }
+        if (item.type === 'tips') {
+          item.label = '提示:页面宽度将使用浏览器窗口大小';
+        }
+      });
+    } else {
+      newValue.options.map(item => {
+        item.hidden = false;
+        if (item.type === 'tips') {
+          item.label = '提示:宽度大小建议为1920,1600,1366,1440,1280';
+        }
+      });
+    }
     this.pageOptions = extend(true, {}, newValue);
   }
 
@@ -93,6 +122,10 @@ class DesigenerPage extends Vue {
   }
 
   updatePageFn(data) {
+    // 切换布局方式 重置选中组件, 让右侧属性面板重新刷新
+    if (data.modify.id === 'style.layoutStyle') {
+      this.updateCurrentPluginsCb([]);
+    }
     this.updatePageProps(data);
   }
 

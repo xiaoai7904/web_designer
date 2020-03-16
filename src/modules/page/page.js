@@ -15,7 +15,8 @@ const DEFALUT_CONFIG = {
   options: [
     {
       label: '提示:宽度大小建议为1920,1600,1366,1440,1280',
-      type: 'tips'
+      type: 'tips',
+      hidden: false
     },
     {
       id: 'style.layoutStyle',
@@ -35,11 +36,13 @@ const DEFALUT_CONFIG = {
     {
       id: 'style.w',
       label: '宽',
+      hidden: false,
       type: 'inputNumber'
     },
     {
       id: 'style.h',
       label: '高',
+      hidden: false,
       type: 'inputNumber'
     },
     {

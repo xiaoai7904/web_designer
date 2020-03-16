@@ -4,7 +4,8 @@ import Component from 'vue-class-component';
 import { Prop } from '@/modules/vuePropertyDecorator/vuePropertyDecorator'
 
 @Component()
-export default class PageCanvas extends Vue {
+class PageCanvas extends Vue {
+
   @Prop(Number) xw
   @Prop(Number) yw
   @Prop(Number) xh
@@ -15,9 +16,16 @@ export default class PageCanvas extends Vue {
   scrollY = 0
 
   get wrapStyle() {
+    if (this.$store.state.page.style.layoutStyle === '1') {
+      return {
+        width: this.xw + 'px',
+        height: this.yw + 'px',
+        backgroundColor: this.background
+      }
+    }
     return {
-      width: this.xw + 'px',
-      height: this.yw + 'px',
+      width: '100%',
+      height: '100%',
       backgroundColor: this.background
     }
   }
@@ -38,11 +46,19 @@ export default class PageCanvas extends Vue {
     }
   }
   get componentsWrapStyle() {
+    if (this.$store.state.page.style.layoutStyle === '1') {
+      return {
+        top: this.xh + 'px',
+        left: this.yh + 'px',
+        width: `calc(100% - ${this.xh}px)`,
+        height: `calc(100% - ${this.yh}px)`
+      }
+    }
     return {
-      top: this.xh + 'px',
-      left: this.yh + 'px',
-      width: `calc(100% - ${this.xh}px)`,
-      height: `calc(100% - ${this.yh}px)`
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%'
     }
   }
   bindEvent() {
@@ -131,10 +147,12 @@ export default class PageCanvas extends Vue {
     }
   }
   render(h) {
+    let layoutStyle = this.$store.state.page.style.layoutStyle;
+    
     return <div class="page-canvas" id="pageCanvasContainer">
       <div class="page-canvas__wrap" style={this.wrapStyle} on-drop={($event) => this.drop($event)} on-dragover={($event) => this.dragover($event)} on-dragend={($event) => this.dragend($event)}>
-        {this.renderChildren()['createVrule'](h)}
-        {this.renderChildren()['createHrule'](h)}
+        {layoutStyle === '1' && this.renderChildren()['createVrule'](h)}
+        {layoutStyle === '1' && this.renderChildren()['createHrule'](h)}
         <div class="page-canvas__components" style={this.componentsWrapStyle}>
           {this.$slots.default}
         </div>
@@ -142,6 +160,7 @@ export default class PageCanvas extends Vue {
     </div>
   }
 }
+export default PageCanvas
 </script>
 
 <style lang="scss">
