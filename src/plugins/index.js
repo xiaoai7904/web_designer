@@ -37,6 +37,10 @@ import xaEchartsSunburst from './echartsSunburst/echartsSunburst.vue'
 import xaEchartsFunnel from './echartsFunnel/echartsFunnel.vue'
 import xaEchartsGauge from './echartsGauge/echartsGauge.vue'
 import xaEchartsBarD from './echartsBarD/echartsBarD.vue'
+import xaEchartsMapD from './echartsMapD/echartsMapD.vue'
+import xaEchartsScatterD from './echartsScatterD/echartsScatterD.vue'
+import xaEchartsSurfaceD from './echartsSurfaceD/echartsSurfaceD.vue'
+import xaEchartsLineD from './echartsLineD/echartsLineD.vue'
 
 const plugins = {
   xaInput,
@@ -75,7 +79,11 @@ const plugins = {
   xaEchartsSunburst,
   xaEchartsFunnel,
   xaEchartsGauge,
-  xaEchartsBarD
+  xaEchartsBarD,
+  xaEchartsMapD,
+  xaEchartsScatterD,
+  xaEchartsSurfaceD,
+  xaEchartsLineD
 };
 
 const installComponents = function() {

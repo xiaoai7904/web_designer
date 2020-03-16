@@ -10,11 +10,12 @@ import pageCanvas from '@/components/pageCanvas/pageCanvas.vue'
 import { uuid, throttle, extend, toLine } from '@/modules/utils/utils'
 import { Watch } from '@/modules/vuePropertyDecorator/vuePropertyDecorator'
 import PageEventManage from '@/modules/pageEventManage/pageEventManage'
+import PageAutoView from '@/components/pageAutoView/pageAutoView.vue';
 
 let configuration = new Configuration()
 let _this = null
 @Component({
-  components: { VueDraggableResizable, pageCanvas }
+  components: { VueDraggableResizable, pageCanvas, PageAutoView }
 })
 class designerArea extends Vue {
   @State('page') page
@@ -245,7 +246,7 @@ class designerArea extends Vue {
   }
   createSetting(h) {
     return <div class="designer-content-setting">
-      {this.currentPlugins[0] && <ul class="designer-content-setting__ul">
+      {this.currentPlugins[0] && this.page.style.layoutStyle === '1' && <ul class="designer-content-setting__ul">
         <li>
           <span>Y:</span>
           <span>{this.currentPlugins[0].custom.y}</span>
@@ -282,11 +283,17 @@ class designerArea extends Vue {
     </v-contextmenu>
   }
   createComponentsItem(h) {
-    let items = []
-    items = this.plugins.map(item => {
-      return this.createRoot(h, item, h(item.key, { props: { options: item.props, children: item.children, custom: item.custom }, directives: [{ name: 'contextmenu', arg: 'contextmenu' }] }))
-    })
-    return items
+    // 固定布局
+    if (this.page.style.layoutStyle === '1') {
+      let items = []
+      items = this.plugins.map(item => {
+        return this.createRoot(h, item, h(item.key, { props: { options: item.props, children: item.children, custom: item.custom }, directives: [{ name: 'contextmenu', arg: 'contextmenu' }] }))
+      })
+      return items
+    }
+
+    // 自适应布局
+    return <PageAutoView children={this.plugins} onLeftMenuClick={(item) => this.handleLeftMenuClick(null, null, item)} />
   }
   createRoot(h, item, children) {
     const style = {

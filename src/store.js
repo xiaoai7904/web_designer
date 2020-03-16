@@ -29,7 +29,7 @@ export default new Vuex.Store({
     },
     updatePluginsProps(state, options) {
       state.plugins = pageIns.updatePlugin({ pageId: state.page.id, options });
-      state.currentPlugins = state.plugins.filter(item => item.id === state.currentPlugins[0].id);
+      state.currentPlugins[0] && (state.currentPlugins = state.plugins.filter(item => item.id === state.currentPlugins[0].id));
     },
     updateCurrentPlugins(state, options) {
       state.currentPlugins = [];
