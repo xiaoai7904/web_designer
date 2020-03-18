@@ -8,7 +8,7 @@ const eventKeycodeMap = {
   90: 'Z',
   67: 'C',
   86: 'V',
-  8: 'DELETE'
+  // 8: 'DELETE'
 };
 export default class PageEventManage extends Observer {
   constructor() {
