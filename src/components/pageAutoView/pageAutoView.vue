@@ -4,8 +4,8 @@
       :layout.sync="layout"
       :col-num="24"
       :row-height="30"
-      :is-draggable="true"
-      :is-resizable="true"
+      :is-draggable="isRuntime ? false : true"
+      :is-resizable="isRuntime ? false : true"
       :is-mirrored="false"
       :vertical-compact="true"
       :margin="[5, 5]"
@@ -82,7 +82,8 @@ export default {
 
   props: {
     options: Object,
-    children: Array
+    children: Array,
+    isRuntime: Boolean
   },
 
   watch: {
