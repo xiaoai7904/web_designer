@@ -35,7 +35,7 @@
         ></component>
       </grid-item>
     </grid-layout>
-    <v-contextmenu ref="contextmenu" @contextmenu="contextmenuEvent" @hide="hideEvent">
+    <v-contextmenu v-if="!isRuntime" ref="contextmenu" @contextmenu="contextmenuEvent" @hide="hideEvent">
       <v-contextmenu-item
         v-for="item in leftMenuList"
         :divider="item.isDivider"
