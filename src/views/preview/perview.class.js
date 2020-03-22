@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { State, Mutation } from 'vuex-class';
-import PageAutoView from '@/components/pageAutoView/pageAutoView.vue'
+import PageAutoView from '@/components/pageAutoView/pageAutoView.vue';
 
 @Component({})
 export default class Perview extends Vue {
@@ -21,7 +21,53 @@ export default class Perview extends Vue {
   back() {
     this.$router.push({ name: 'home' });
   }
-  release() {}
+  save(type) {
+    return new Promise(resolve => {
+      window.localStorage.setItem(
+        'pagePlugins',
+        JSON.stringify(this.$store.state.plugins, (key, value) => {
+          if (typeof value === 'function') {
+            return value.toString();
+          }
+          return value;
+        })
+      );
+      type !== 'release' &&
+        this.$alert('数据保存成功', '提示', {
+          confirmButtonText: '确定'
+        });
+      resolve();
+    });
+  }
+  release() {
+    this.save('release').then(() => {
+      let loadingNotify = this.$notify.info({
+        title: '提示',
+        duration: 0,
+        showClose: false,
+        message: '模版生成中,请稍后...'
+      });
+
+      this.$http.post('/api/release', { page: JSON.stringify(this.$store.state.page), terminal: navigator.platform.indexOf('Mac') > -1 ? 'mac' : 'windows' }).then(
+        data => {
+          loadingNotify.close();
+          this.$notify({
+            title: '成功',
+            message: '模版生成成功',
+            type: 'success'
+          });
+          this.$http.post('/api/install');
+        },
+        err => {
+          loadingNotify.close();
+          this.$notify.error({
+            title: '错误',
+            message: '模版生成失败,' + err.data.msg
+          });
+        }
+      );
+    });
+  }
   getComponentStyle(item) {
     return {
       paddingTop: item.style.paddingTop + 'px',
@@ -49,7 +95,7 @@ export default class Perview extends Vue {
         );
       });
     }
-    return <PageAutoView children={this.plugins} isRuntime/>
+    return <PageAutoView children={this.plugins} isRuntime />;
   }
   mounted() {}
   render(h) {

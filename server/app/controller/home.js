@@ -148,7 +148,7 @@ class ReleaseController extends Controller {
       // 运行态组件目录路径
       const runtimeDirectoryPath = path.join(path.resolve('../'), `${RUNTIMEPATH}src/plugins`);
       // 递归查询组件
-      let usePlugins = []
+      let usePlugins = [];
       const findPlugin = plugins => {
         plugins.map(item => {
           if (item.children) {
@@ -157,7 +157,7 @@ class ReleaseController extends Controller {
           usePlugins.push(item.key.replace(/xa/g, '').replace(/^\S/, str => str.toLocaleLowerCase()));
         });
       };
-      findPlugin(requestParams.plugins)
+      findPlugin(requestParams.plugins);
       // 运行态已使用组件名字集合
       const runtimeUsePluginNames = Array.from(new Set(usePlugins));
 
@@ -184,10 +184,16 @@ class ReleaseController extends Controller {
         }
       });
 
-      // 拷贝文件
-      let result = shelljs.cp('-Rf', path.join(path.resolve('../'), 'src/modules'), path.join(path.resolve('../'), `${RUNTIMEPATH}src/modules`));
-      if (result && result.code === 0) {
+      // 拷贝modules文件
+      let copymodulesResult = shelljs.cp('-Rf', path.join(path.resolve('../'), 'src/modules'), path.join(path.resolve('../'), `${RUNTIMEPATH}src/modules`));
+      if (copymodulesResult && copymodulesResult.code === 0) {
         ctx.logger.info(`modules文件夹拷贝完成`);
+      }
+
+      // 拷贝runtimeComponents文件
+      let copyRuntimeComponentsResult = shelljs.cp('-Rf', path.join(path.resolve('../'), 'src/rumtimeComponents'), path.join(path.resolve('../'), `${RUNTIMEPATH}src/rumtimeComponents`));
+      if (copyRuntimeComponentsResult && copyRuntimeComponentsResult.code === 0) {
+        ctx.logger.info(`rumtimeComponents文件夹拷贝完成`);
       }
 
       const getFileContent = () => `${pluginImportCode}${pluginVarCode}${pluginInstallComponentsCode}`;
@@ -212,52 +218,68 @@ class ReleaseController extends Controller {
   writeCode(requestParams) {
     return new Promise((resolve, reject) => {
       const { ctx } = this;
+      const isAutoLayout = requestParams.style.layoutStyle === '2';
+      // 生成template
       const generatePageComponentsTemplateCode = () => {
         let plugins = requestParams.plugins;
         let componentsTpl = '\n';
 
-        plugins.forEach(item => {
-          let styles = Object.assign({}, item.custom, item.style);
-          let componentsStyle = 'position:absolute;';
-          let key;
-          for (let i in styles) {
-            if (['iconname', 'id', 'name'].includes(i)) {
-              delete styles[i];
-              continue;
+        // 页面固定布局模式
+        if (!isAutoLayout) {
+          plugins.forEach(item => {
+            let styles = Object.assign({}, item.custom, item.style);
+            let componentsStyle = 'position:absolute;';
+            let key;
+            for (let i in styles) {
+              if (['iconname', 'id', 'name'].includes(i)) {
+                delete styles[i];
+                continue;
+              }
+
+              key = i;
+              if (i === 'x') i = 'left';
+              if (i === 'y') i = 'top';
+
+              componentsStyle += `${i.replace(/([A-Z])/g, '-$1').toLowerCase()}:${typeof styles[key] === 'number' ? styles[key] + 'px' : styles[key]};`;
             }
 
-            key = i;
-            if (i === 'x') i = 'left';
-            if (i === 'y') i = 'top';
-
-            componentsStyle += `${i.replace(/([A-Z])/g, '-$1').toLowerCase()}:${typeof styles[key] === 'number' ? styles[key] + 'px' : styles[key]};`;
-          }
-
-          componentsTpl += `<div class="${item.id}" style="${componentsStyle}"><${item.key} :options="componentsOptions.${item.id}" :custom="componentsOptions.${item.id}.custom" :children="componentsOptions.${item.id}.children"/></div>\n`;
-        });
+            componentsTpl += `<div class="${item.id}" style="${componentsStyle}"><${item.key} :options="componentsOptions.${item.id}" :custom="componentsOptions.${item.id}.custom" :children="componentsOptions.${item.id}.children"/></div>\n`;
+          });
+        } else {
+          // 页面自适应布局模式
+          componentsTpl += `<RumtimePageAutoView :children="componentsOptions.plugins"/>`;
+        }
         let tpl = `<template>\n<div class="${requestParams.id}">${componentsTpl}</div>\n</template>\n\n`;
 
         return tpl;
       };
+      // 生成script
       const generatePageComponentsScriptCode = () => {
         let plugins = requestParams.plugins;
         let componentsOptions = `componentsOptions: {\n`;
 
-        plugins.forEach((item, index) => {
-          item.props['children'] = item.children || [];
-          item.props['custom'] = item.custom || {};
+        if (!isAutoLayout) {
+          plugins.forEach((item, index) => {
+            item.props['children'] = item.children || [];
+            item.props['custom'] = item.custom || {};
 
-          componentsOptions += `${item.id}:${JSON.stringify(item.props)}${index === plugins.length - 1 ? '\n}\n' : ',\n'}`;
-        });
-
+            componentsOptions += `${item.id}:${JSON.stringify(item.props)}${index === plugins.length - 1 ? '\n}\n' : ',\n'}`;
+          });
+        }else {
+          componentsOptions += `plugins: ${JSON.stringify(plugins)}\n}\n`
+        }
         return `<script>\n/** 组件逻辑代码 */\nexport default {\nname: '${requestParams.id.replace(/_/g, '')}',\ndata() {\nreturn {\n${componentsOptions}}\n}\n}\n</script>\n\n`;
       };
+      // 生成style
       const generatePageComponentsStyleCode = () => {
+        if(isAutoLayout) {
+          return `<style>\n/** 组件样式 */\nbody{ margin:0;padding:0 }\n.${requestParams.id} {\nposition:relative;\nwidth: 100vw;\nheight: 100vh;\n background: ${requestParams.style.background};\n margin: 0 auto;\n}</style>`;
+        }
         return `<style>\n/** 组件样式 */\nbody{ margin:0;padding:0 }\n.${requestParams.id} {\nposition:relative;\nwidth: ${requestParams.style.w}px;\nheight: ${requestParams.style.h}px;\n background: ${requestParams.style.background};\n margin: 0 auto;\n}</style>`;
       };
 
       const mainJsPath = path.join(path.resolve('../', `${RUNTIMEPATH}src/main.js`));
-      const mainJsCode = `import ElementUI from 'element-ui';\nimport '@/plugins';\nimport 'element-ui/lib/theme-chalk/index.css';\n\nVue.use(ElementUI);\n`;
+      const mainJsCode = `import ElementUI from 'element-ui';\nimport '@/plugins';\nimport '@/rumtimeComponents';\nimport 'element-ui/lib/theme-chalk/index.css';\n\nVue.use(ElementUI);\n`;
 
       const homeVuePath = path.join(path.resolve('../', `${RUNTIMEPATH}src/views/Home.vue`));
 
