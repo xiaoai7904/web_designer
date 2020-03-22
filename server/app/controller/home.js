@@ -147,8 +147,19 @@ class ReleaseController extends Controller {
       const originalDirectoryPath = path.join(path.resolve('../'), 'src/plugins');
       // 运行态组件目录路径
       const runtimeDirectoryPath = path.join(path.resolve('../'), `${RUNTIMEPATH}src/plugins`);
+      // 递归查询组件
+      let usePlugins = []
+      const findPlugin = plugins => {
+        plugins.map(item => {
+          if (item.children) {
+            findPlugin(item.children);
+          }
+          usePlugins.push(item.key.replace(/xa/g, '').replace(/^\S/, str => str.toLocaleLowerCase()));
+        });
+      };
+      findPlugin(requestParams.plugins)
       // 运行态已使用组件名字集合
-      const runtimeUsePluginNames = Array.from(new Set(requestParams.plugins.map(item => item.key.replace(/xa/g, '').replace(/^\S/, str => str.toLocaleLowerCase()))));
+      const runtimeUsePluginNames = Array.from(new Set(usePlugins));
 
       fs.mkdirSync(runtimeDirectoryPath);
 
@@ -172,6 +183,12 @@ class ReleaseController extends Controller {
           ctx.logger.info(`${item}组件拷贝完成`);
         }
       });
+
+      // 拷贝文件
+      let result = shelljs.cp('-Rf', path.join(path.resolve('../'), 'src/modules'), path.join(path.resolve('../'), `${RUNTIMEPATH}src/modules`));
+      if (result && result.code === 0) {
+        ctx.logger.info(`modules文件夹拷贝完成`);
+      }
 
       const getFileContent = () => `${pluginImportCode}${pluginVarCode}${pluginInstallComponentsCode}`;
 
@@ -216,7 +233,7 @@ class ReleaseController extends Controller {
             componentsStyle += `${i.replace(/([A-Z])/g, '-$1').toLowerCase()}:${typeof styles[key] === 'number' ? styles[key] + 'px' : styles[key]};`;
           }
 
-          componentsTpl += `<div class="${item.id}" style="${componentsStyle}"><${item.key} :options="componentsOptions.${item.id}" /></div>\n`;
+          componentsTpl += `<div class="${item.id}" style="${componentsStyle}"><${item.key} :options="componentsOptions.${item.id}" :custom="componentsOptions.${item.id}.custom" :children="componentsOptions.${item.id}.children"/></div>\n`;
         });
         let tpl = `<template>\n<div class="${requestParams.id}">${componentsTpl}</div>\n</template>\n\n`;
 
@@ -227,13 +244,16 @@ class ReleaseController extends Controller {
         let componentsOptions = `componentsOptions: {\n`;
 
         plugins.forEach((item, index) => {
+          item.props['children'] = item.children || [];
+          item.props['custom'] = item.custom || {};
+
           componentsOptions += `${item.id}:${JSON.stringify(item.props)}${index === plugins.length - 1 ? '\n}\n' : ',\n'}`;
         });
 
         return `<script>\n/** 组件逻辑代码 */\nexport default {\nname: '${requestParams.id.replace(/_/g, '')}',\ndata() {\nreturn {\n${componentsOptions}}\n}\n}\n</script>\n\n`;
       };
       const generatePageComponentsStyleCode = () => {
-        return `<style>\n/** 组件样式 */\n.${requestParams.id} {\nposition:relative;\nwidth: ${requestParams.style.w}px;\nheight: ${requestParams.style.h}px;\n background: ${requestParams.style.background};\n}</style>`;
+        return `<style>\n/** 组件样式 */\nbody{ margin:0;padding:0 }\n.${requestParams.id} {\nposition:relative;\nwidth: ${requestParams.style.w}px;\nheight: ${requestParams.style.h}px;\n background: ${requestParams.style.background};\n margin: 0 auto;\n}</style>`;
       };
 
       const mainJsPath = path.join(path.resolve('../', `${RUNTIMEPATH}src/main.js`));
