@@ -26,6 +26,59 @@ npm install
 npm run dev
 ```
 
+### 项目目录结构
+``` bash
+│
+├── README.md                           <=  项目介绍
+├── src                                 <=  项目主目录
+│   ├── assets                          <=  静态资源
+│   ├── components                      <=  公共组件
+│   │   ├── codeEditor                  <=  代码编辑组件  
+│   │   ├── componentsList              <=  左侧组件列表组件
+│   │   ├── designerContent             <=  中间设计区
+│   │   ├── draggableResizable          <=  组件拖拽组件
+│   │   ├── itemList                    <=  组件属性配置组件(参考下拉菜单,单选框,复现框属性配置)
+│   │   ├── pageAutoView                <=  页面自适应组件
+│   │   ├── pageCanvas                  <=  中间设计区
+│   │   ├── pageDialogView              <=  系统弹窗代理组件
+│   │   ├── pageFormView                <=  系统表单组合组件 
+│   │   ├── pageIconsView               <=  系统icon图标组件
+│   │   ├── pageSwitch                  <=  系统开关组件
+│   │   ├── styleSetting                <=  图表样式设置组件
+│   │   ├── index.js                    <=  公共组件入口文件     
+│   ├── directive                       <=  系统内置指令
+│   │   ├── dragDialog                  <=  拖拽弹窗
+│   │   ├── index.js                    <=  指令入口文件
+│   ├── modules                         <=  系统模块
+│   │   ├── configuration               <=  组件配置
+│   │   ├── echartBase                  <=  图表基类
+│   │   ├── http                        <=  请求模块
+│   │   ├── observer                    <=  事件监听模块
+│   │   ├── page                        <=  页面基类
+│   │   ├── pageEventManage             <=  页面事件处理模块
+│   │   ├── plugins                     <=  组件基类
+│   │   ├── systemLoader                <=  系统加载器
+│   │   ├── utils                       <=  工具类
+│   │   ├── vuePropertyDecorator        <=  vue属性装饰器
+│   ├── plguins                         <=  系统内置组件
+│   ├── rumtimeComponents               <=  运行态组件
+│   ├── styles                          <=  系统样式
+│   ├── views                           <=  页面
+│   │   ├── designerPage                <=  设计器页面
+│   │   ├── preview                     <=  预览页面
+│   ├── App.vue                         <=  页面组件文件
+│   ├── main.js                         <=  系统主入口文件
+│   ├── router.js                       <=  路由配置文件
+│   ├── store.js                        <=  数据管理
+├── server                              <=  服务器主目录(详细参考 https://eggjs.org/zh-cn/)
+├── publilc                             <=  项目静态文件目录
+│   ├── index.html                      <=  项目主页面入口
+│   ├── favicon.ico                     <=  浏览器页签logo
+├── vue.config.js                       <=  vue打包,启动等配置(详细参数 https://cli.vuejs.org/zh/config/)  
+├── package.js                          <=  项目跟踪依赖关系和元数据配置文件
+│
+```
+
 ### 项目使用介绍
 * 通过拖拽左侧组件图标,放置中间画布区,进行页面排版,设计区右侧面板可以对组件属性进行设置
 * 点击右侧顶部保存按钮(数据保存在本地浏览器`localStorage`)可以进行数据保存
