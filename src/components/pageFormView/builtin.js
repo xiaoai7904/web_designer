@@ -180,6 +180,38 @@ export const createItem = (h, item, vm) => {
         </div>
       );
       break;
+      case 'eventSetting':
+        let { eventListeners } = vm.handlerData('props', 'get');
+        let componentKey = vm.$store.state.currentPlugins[0].key;
+  
+        renderDom = (
+          <div
+            class="style-setting"
+            on-click={() => {
+              vm.$refs.eventSettingDialogView.showDialog();
+            }}
+          >
+            <el-button size="mini" type="primary">
+              事件设置
+            </el-button>
+            <pageDialogView
+              ref="eventSettingDialogView"
+              options={{ title: '事件设置', width: '1200px', classname: 'chart-style-setting' }}
+              on-confirmDialog={id => {
+                // let chartConfig
+                // chartConfig = vm.$refs.styleSettingRef.getValue()
+                // if(!chartConfig) {
+                //   chartConfig = vm.handlerData('props', 'get').chartConfig;
+                // }
+                // let currentPlugins = vm.$store.state.currentPlugins[0];
+                // vm.$store.commit('updatePluginsProps', { id: currentPlugins.id, modify: { id: 'props.chartConfig', value: chartConfig } });
+              }}
+            >
+              <EventSetting options={eventListeners} type={componentKey} ref="eventSettingRef"/>
+            </pageDialogView>
+          </div>
+        );
+        break;  
     case 'padding':
       renderDom = <span style="font-size:12px">--</span>;
       break;
