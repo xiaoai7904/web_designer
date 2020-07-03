@@ -410,6 +410,7 @@ export default designerArea
       border-left: 1px solid red;
       transition: translateX 0.3s;
       display: none;
+      z-index: 999;
     }
     &__y {
       top: 0;
@@ -419,6 +420,7 @@ export default designerArea
       border-top: 1px solid red;
       transition: translateY 0.3s;
       display: none;
+      z-index: 999;
     }
   }
   .container-components {
