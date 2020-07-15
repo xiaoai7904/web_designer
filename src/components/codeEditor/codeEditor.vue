@@ -41,7 +41,7 @@ export default class CodeEditor extends Vue {
       monacoEditor = monaco.editor.create(document.getElementById('codeEditor'), {
         value: this.setValue(this.codeContent || ''),
         language: this.language || 'javascript',
-        theme: 'vs-dark'
+        // theme: 'vs-dark'
       })
       window.Uidesigner.$event.trigger('open_code_editor', true)
       // 格式化代码
@@ -58,14 +58,20 @@ export default class CodeEditor extends Vue {
     if (this.language === 'json') {
       value = '// Tips:请严格按照json数据格式进行编写\n' + value
     } else if (this.language === 'javascript') {
-      value = '// Tips:请严格按照Javascript语法进行编写\n "use strict";\n' + value
+      value = '// Tips:请严格按照Javascript语法进行编写\n' + value
     }
     return value
   }
   getValue() {
     try {
       if (monacoEditor) {
-        return JSON.parse(monacoEditor.getValue().replace(singleLineComment, '').replace(multiLineComment, ''));
+        const codeValue = monacoEditor.getValue().replace(singleLineComment, '').replace(multiLineComment, '')
+        // 返回函数类型
+        if(this.type === '[object Function]') {
+          return new Function(`return ${codeValue}`)()
+        }
+        // 返回对象 数组类型
+        return JSON.parse(codeValue);
       }
       return dataTypeMap[this.type]
     } catch (error) {

@@ -325,7 +325,7 @@ class designerArea extends Vue {
       onResizing={this.resizing}
       onDragging={this.dragging}
       onActivated={() => this.activatedFn(item.id)}
-      deactivated={this.deactivatedFn}
+      onDeactivated={this.deactivatedFn}
     >
       {item.children && <div class="drag-handle">
         <i class="iconfont icontuozhuai" />
@@ -410,7 +410,7 @@ export default designerArea
       border-left: 1px solid red;
       transition: translateX 0.3s;
       display: none;
-      z-index: 999;
+      z-index: 1;
     }
     &__y {
       top: 0;
@@ -420,7 +420,7 @@ export default designerArea
       border-top: 1px solid red;
       transition: translateY 0.3s;
       display: none;
-      z-index: 999;
+      z-index: 1;
     }
   }
   .container-components {
