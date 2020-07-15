@@ -197,7 +197,7 @@ export default {
     border-right: 7px solid #e0f8ed !important;
   }
   .triangle2 {
-    border-right: 7px solid #1e1e1e !important;
+    border-right: 7px solid #fff !important;
   }
 }
 </style>

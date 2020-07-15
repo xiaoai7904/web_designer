@@ -35,18 +35,22 @@ export default class PageFormView extends Vue {
   createFormItem(h) {
     if (Object.keys(this.options).length) {
       return this.options.options.map(item => {
-        if (item.hidden && typeof item.hidden === 'function' && item.hidden()) {
+        try {
+          if (item.hidden && typeof item.hidden === 'function' && item.hidden()) {
+            return ''
+          }
+          if (item.hidden) {
+            return ''
+          }
+          if (item.type === 'title' || item.type === 'tips' || !item.label) {
+            return createItem(h, item, this)
+          }
+          return <el-form-item label={item.label + ': '} prop={item.id}>
+            {createItem(h, item, this)}
+          </el-form-item>
+        } catch (error) {
           return ''
         }
-        if (item.hidden) {
-          return ''
-        }
-        if (item.type === 'title' || item.type === 'tips' || !item.label) {
-          return createItem(h, item, this)
-        }
-        return <el-form-item label={item.label + ': '} prop={item.id}>
-          {createItem(h, item, this)}
-        </el-form-item>
       })
     }
   }

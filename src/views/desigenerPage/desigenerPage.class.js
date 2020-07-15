@@ -7,11 +7,13 @@ import { State, Mutation } from 'vuex-class';
 import { Watch } from '@/modules/vuePropertyDecorator/vuePropertyDecorator';
 import { extend } from '@/modules/utils/utils';
 import Configuration from '@/modules/configuration/configuration';
+import EventSetting from '@/components/eventSetting/eventSetting';
 
 let componentConfig = new Configuration().getDefaultConfig();
 
 @Component({
-  components: { designerArea, componentsList, pageFormView }
+  name: 'desigenerPage',
+  components: { designerArea, componentsList, pageFormView, EventSetting },
 })
 class DesigenerPage extends Vue {
   @State('plugins') plugins;
@@ -27,21 +29,21 @@ class DesigenerPage extends Vue {
   updateComponentsTree(newValue) {
     this.componentList = [];
     if (newValue.length) {
-      const add = data => {
+      const add = (data) => {
         let componentList = [];
-        data.map(item => {
+        data.map((item) => {
           if (item.children) {
             componentList.push({
               label: item.custom.name,
               id: item.id,
               isCurrent: true,
-              children: add(item.children)
+              children: add(item.children),
             });
           } else {
             componentList.push({
               label: item.custom.name,
               id: item.id,
-              isCurrent: true
+              isCurrent: true,
             });
           }
           return componentList;
@@ -52,39 +54,43 @@ class DesigenerPage extends Vue {
     }
   }
   @Watch('currentPlugins', { deep: true, immediate: true })
-  updateCurrentPluginsFn(newValue) {
+  updateCurrentPluginsFn(newValue, oldValue) {
     const ids = ['custom.width', 'custom.height', 'custom.x', 'custom.y', 'style.paddingTop', 'style.paddingBottom', 'style.paddingLeft', 'style.paddingRight', 'style.borderWidth', 'style.borderStyle', 'style.borderColor', 'style.backgroundColor'];
     const labels = ['尺寸', '位置', '样式配置'];
     if (newValue[0]) {
-      newValue[0].options.map(item => {
+      newValue[0].options.map((item) => {
         // 自适应布局
         if (this.pageState.style.layoutStyle === '2') {
           if (ids.indexOf(item.id) > -1 || labels.indexOf(item.label) > -1) {
             item.hidden = true;
           }
         } else {
-          if (item.type === 'inputNumber' && item.options) {
+          if (item && item.type === 'inputNumber' && item.options) {
             item.id === 'custom.x' && (item.options.max = this.pageState.style.w);
             item.id === 'custom.y' && (item.options.max = this.pageState.style.h);
             item.id === 'custom.width' && (item.options.max = this.pageState.style.w);
             item.id === 'custom.height' && (item.options.max = this.pageState.style.h);
           }
-          if (ids.indexOf(item.id) > -1 || labels.indexOf(item.label) > -1) {
+          if (item && (ids.indexOf(item.id) > -1 || labels.indexOf(item.label) > -1)) {
             item.hidden = false;
           }
         }
       });
       this.currentPluginOptions = extend(true, {}, newValue[0]);
-      this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys(newValue.map(item => item.id));
+      this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys(newValue.map((item) => item.id));
+      this.collapseValue = '2';
+      this.componentTabs = '1';
     } else {
       this.currentPluginOptions = {};
       this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys([]);
+      this.collapseValue = '1';
+      this.componentTabs = '1';
     }
   }
   @Watch('pageState', { deep: true, immediate: true })
   updatePage(newValue) {
     if (this.pageState.style.layoutStyle === '2') {
-      newValue.options.map(item => {
+      newValue.options.map((item) => {
         if (['style.w', 'style.h'].includes(item.id)) {
           item.hidden = true;
         }
@@ -93,7 +99,7 @@ class DesigenerPage extends Vue {
         }
       });
     } else {
-      newValue.options.map(item => {
+      newValue.options.map((item) => {
         item.hidden = false;
         if (item.type === 'tips') {
           item.label = '提示:宽度大小建议为1920,1600,1366,1440,1280';
@@ -104,13 +110,15 @@ class DesigenerPage extends Vue {
   }
 
   logo = require('../../assets/logo1.png');
+  componentTabs = '1';
+  collapseValue = '1';
   componentList = [];
   currentPluginOptions = {};
   pageOptions = {};
   componentData = {};
   componentTitleMap = {
     basis: '基础组件',
-    chart: '图表组件'
+    chart: '图表组件',
   };
 
   updatePluginsPropsFn(data) {
@@ -118,7 +126,7 @@ class DesigenerPage extends Vue {
   }
 
   componentNodeClick(nodeObj) {
-    this.updateCurrentPluginsCb(this.plugins.filter(item => item.id === nodeObj.id));
+    this.updateCurrentPluginsCb(this.plugins.filter((item) => item.id === nodeObj.id));
   }
 
   updatePageFn(data) {
@@ -141,31 +149,31 @@ class DesigenerPage extends Vue {
         title: '提示',
         duration: 0,
         showClose: false,
-        message: '模版生成中,请稍后...'
+        message: '模版生成中,请稍后...',
       });
 
       this.$http.post('/api/release', { page: JSON.stringify(this.$store.state.page), terminal: navigator.platform.indexOf('Mac') > -1 ? 'mac' : 'windows' }).then(
-        data => {
+        (data) => {
           loadingNotify.close();
           this.$notify({
             title: '成功',
             message: '模版生成成功',
-            type: 'success'
+            type: 'success',
           });
           this.$http.post('/api/install');
         },
-        err => {
+        (err) => {
           loadingNotify.close();
           this.$notify.error({
             title: '错误',
-            message: '模版生成失败,' + err.data.msg
+            message: '模版生成失败,' + err.data.msg,
           });
         }
       );
     });
   }
   save(type) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       window.localStorage.setItem(
         'pagePlugins',
         JSON.stringify(this.$store.state.plugins, (key, value) => {
@@ -177,15 +185,18 @@ class DesigenerPage extends Vue {
       );
       type !== 'release' &&
         this.$alert('数据保存成功', '提示', {
-          confirmButtonText: '确定'
+          confirmButtonText: '确定',
         });
       resolve();
     });
   }
+  handleClick() {
+    // this.$refs.pageComponentBasisScrollbar.update()
+  }
 
   mounted() {
     let obj = {};
-    componentConfig.map(item => {
+    componentConfig.map((item) => {
       if (item.type) {
         if (!obj[item.type]) {
           obj[item.type] = [];

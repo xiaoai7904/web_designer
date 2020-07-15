@@ -17,33 +17,66 @@
       <div class="desigener-page__item desigener-page__left">
         <h3 class="desigener-page__title">布局层级树:</h3>
         <div class="desigener-page-layout__wrap">
-          <el-tree
-            ref="componentTree"
-            node-key="id"
-            :data="componentList"
-            :highlight-current="true"
-            @node-click="componentNodeClick"
-          ></el-tree>
+          <PageScrollbar
+            ref="pageLayoutLeftScrollbar"
+            :options="{scrollX: false}"
+            customClassName="desigener-page-layout-left--scrollbar"
+          >
+            <el-tree
+              ref="componentTree"
+              node-key="id"
+              :data="componentList"
+              :highlight-current="true"
+              @node-click="componentNodeClick"
+            ></el-tree>
+          </PageScrollbar>
         </div>
         <h3 class="desigener-page__title">组件列表:</h3>
+
         <div class="desigener-page-component__wrap">
-          <div v-for="(item,index) in Object.keys(componentData)">
-            <div class="desigener-page__subtitle">{{componentTitleMap[item]}}</div>
-            <componentsList :options="componentData[item]" />
-          </div>
+          <PageScrollbar
+            ref="pageComponentLeftScrollbar"
+            :options="{ scrollX: false }"
+            customClassName="desigener-page-component-left--scrollbar"
+          >
+            <div>
+              <div v-for="(item,index) in Object.keys(componentData)">
+                <div class="desigener-page__subtitle">{{componentTitleMap[item]}}</div>
+                <componentsList :options="componentData[item]" />
+              </div>
+            </div>
+          </PageScrollbar>
         </div>
       </div>
       <div class="desigener-page__item desigener-page__right">
-        <el-collapse class="desigener-page__collapse" :value="['1','2', '3']">
+        <el-collapse class="desigener-page__collapse" v-model="collapseValue" accordion>
           <el-collapse-item name="1" title="页面属性:">
             <pageFormView :options="pageOptions" @updateOptions="updatePageFn" />
           </el-collapse-item>
-          <el-collapse-item name="2" title="组件属性:">
-            <pageFormView :options="currentPluginOptions" @updateOptions="updatePluginsPropsFn" />
+          <el-collapse-item name="2" title="组件属性:" class="component-props">
+            <el-tabs v-model="componentTabs" @tab-click="handleClick" stretch type="border-card">
+              <el-tab-pane label="基础配置" name="1">
+                <div class="desigener-page-basis">
+                  <PageScrollbar
+                    ref="pageComponentBasisScrollbar"
+                    :options="{ scrollX: false }"
+                    customClassName="desigener-page-component-basis--scrollbar"
+                  >
+                    <div>
+                      <pageFormView
+                        :options="currentPluginOptions"
+                        @updateOptions="updatePluginsPropsFn"
+                      />
+                    </div>
+                  </PageScrollbar>
+                </div>
+              </el-tab-pane>
+              <el-tab-pane label="事件配置" name="2">
+                <EventSetting :options="currentPluginOptions"/>
+              </el-tab-pane>
+              <el-tab-pane label="数据配置" name="3">数据配置</el-tab-pane>
+            </el-tabs>
           </el-collapse-item>
-          <!-- <el-collapse-item name="3" title="组件列表:">
-            <componentsList/>
-          </el-collapse-item>-->
         </el-collapse>
       </div>
     </div>
@@ -83,7 +116,7 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
       margin-left: -300px;
       right: -300px;
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: hidden;
     }
     &__center {
       width: 100%;
@@ -98,13 +131,13 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
     &-layout__wrap {
       height: 200px;
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: hidden;
       padding: 5px;
     }
     &-component__wrap {
       height: calc(100vh - 340px);
       overflow-x: hidden;
-      overflow-y: auto;
+      overflow-y: hidden;
     }
     &__subtitle {
       display: inline-block;
@@ -114,6 +147,10 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
       font-weight: 900;
       margin-bottom: 10px;
       padding: 5px 5px 5px 10px;
+    }
+    &-basis {
+      height: calc(100vh - 200px);
+      overflow: hidden;
     }
     .el-tree-node__children {
       .is-checked {
@@ -140,6 +177,20 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
       .el-button {
         width: 100%;
       }
+    }
+  }
+  .component-props {
+    .el-tabs__item {
+      // padding: 0 20px !important;
+    }
+    .el-collapse-item__content {
+      padding: 0;
+    }
+    .el-tabs__header {
+      margin: 0;
+    }
+    .el-tabs__content {
+      padding: 10px;
     }
   }
 }
