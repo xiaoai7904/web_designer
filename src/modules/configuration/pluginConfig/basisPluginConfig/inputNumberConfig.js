@@ -7,15 +7,52 @@ export const inputNumberConfig = {
     size: 'mini',
     placeholder: '输入框',
     disabled: false,
-    max: Infinity,
-    min: -Infinity,
+    max: Number.MAX_SAFE_INTEGER,
+    min: -Number.MAX_SAFE_INTEGER,
     step: 1,
     size: '',
     controls: true,
     controlsPosition: '',
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '计数器', height: 50, iconname: 'iconfuhao-shuzishurukuang' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '计数器',
+    height: 50,
+    iconname: 'iconfuhao-shuzishurukuang',
+    linkageEventConfig: [].concat(
+      [
+        {
+          id: 'getCurrentValue',
+          label: '获取组件当前值',
+        },
+        {
+          id: 'setCurrentValue',
+          label: '设置组件当前值',
+        },
+      ],
+      [...commonConfig.custom.linkageEventConfig]
+    ),
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1',
+          eventName: 'blur',
+          eventDes: '失去焦点触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'focus',
+          eventDes: '获得焦点触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'change',
+          eventDes: '失去焦点或回车触发',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',
@@ -56,7 +93,7 @@ export const inputNumberConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {

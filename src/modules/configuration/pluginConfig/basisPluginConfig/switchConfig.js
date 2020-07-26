@@ -12,7 +12,22 @@ export const switchConfig = {
     inactiveColor: '#909399',
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '开关', height: 35, width: 70, iconname: 'iconkaiguan' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '开关',
+    height: 35,
+    width: 70,
+    iconname: 'iconkaiguan',
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1',
+          eventName: 'change',
+          eventDes: '值改变触发',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',

@@ -86,16 +86,16 @@ class PageCanvas extends Vue {
     });
   }
   showVruleLine(e) {
-    this.$emit('showVruleLine', e)
+    // this.$emit('showVruleLine', e)
   }
   hideVruleLine(e) {
-    this.$emit('hideVruleLine', e)
+    // this.$emit('hideVruleLine', e)
   }
   showHruleLine(e) {
-    this.$emit('showHruleLine', e)
+    // this.$emit('showHruleLine', e)
   }
   hideHruleLine(e) {
-    this.$emit('hideHruleLine', e)
+    // this.$emit('hideHruleLine', e)
   }
   dragover(event) {
     this.$emit('dragover', event)

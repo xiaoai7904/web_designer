@@ -65,7 +65,7 @@ export default class CodeEditor extends Vue {
   getValue() {
     try {
       if (monacoEditor) {
-        const codeValue = monacoEditor.getValue().replace(singleLineComment, '').replace(multiLineComment, '')
+        const codeValue = monacoEditor.getValue().replace(singleLineComment, '')/*.replace(multiLineComment, '')*/
         // 返回函数类型
         if(this.type === '[object Function]') {
           return new Function(`return ${codeValue}`)()

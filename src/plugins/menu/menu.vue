@@ -1,18 +1,10 @@
 <script>
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaMenu',
-  props: {
-    options: Object
-  },
-  methods: {},
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
-      }
-    }
-  },
+
+  mixins: [pluginsMixins],
+
   render(h) {
     return <div class="xa-menu" style={this.styles}>
       <el-menu

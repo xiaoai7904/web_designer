@@ -15,6 +15,7 @@ export default new Vuex.Store({
     perviewHtml: '',
     defaultThemeColor: '#42b983',
     clipboard: [], // 存储剪贴板数据
+    pluginsRefs: {}, // 存储组件ref引用
   },
   mutations: {
     updatePageProps(state, options) {
@@ -41,6 +42,9 @@ export default new Vuex.Store({
     setClipboard(state, data) {
       state.clipboard = [];
       state.clipboard = extend(true, [], data);
+    },
+    setPluginsRef(state, data) {
+      state.pluginsRefs = data
     }
   },
   actions: {}

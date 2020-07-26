@@ -79,7 +79,6 @@ class DesigenerPage extends Vue {
       this.currentPluginOptions = extend(true, {}, newValue[0]);
       this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys(newValue.map((item) => item.id));
       this.collapseValue = '2';
-      this.componentTabs = '1';
     } else {
       this.currentPluginOptions = {};
       this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys([]);
@@ -210,6 +209,19 @@ class DesigenerPage extends Vue {
       }
     });
     this.componentData = Object.assign({}, obj);
+
+    this.$nextTick(() => {
+      let $$desigenerPage = document.querySelector('.desigener-page');
+      let minW = $$desigenerPage.offsetWidth;
+      let minH = $$desigenerPage.offsetHeight;
+      // 当前屏幕尺寸大于页面设置默认值就使用当前屏幕值作为默认值使用
+      if (this.pageState.style.w < minW || this.pageState.style.h < minH) {
+        this.updatePageProps({
+          id: this.pageState.id,
+          modify: { id: 'style', value: Object.assign({}, this.pageState.style, { w: minW, h: minH }) },
+        });
+      }
+    });
   }
 }
 

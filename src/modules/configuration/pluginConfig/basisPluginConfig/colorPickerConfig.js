@@ -10,7 +10,27 @@ export const colorPickerConfig = {
     colorFormat: 'rgb',
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '颜色选择器', height: 50, width: 50, iconname: 'iconyanse' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '颜色选择器',
+    height: 50,
+    width: 50,
+    iconname: 'iconyanse',
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1', // 组件事件
+          eventName: 'change',
+          eventDes: '当绑定值变化时触发',
+        },
+        {
+          eventType: '1', // 组件事件
+          eventName: 'activeChange',
+          eventDes: '显示颜色改变时触发',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',

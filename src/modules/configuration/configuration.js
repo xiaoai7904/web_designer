@@ -1,5 +1,5 @@
 import { extend } from '../utils/utils';
-import DEFAULT_CONFIG from './config';
+import DEFAULT_CONFIG from './defaultConfig';
 
 /**
  * 系统组件配置

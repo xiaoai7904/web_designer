@@ -10,7 +10,7 @@ export const createItem = (h, item, vm) => {
           size="mini"
           placeholder="请输入"
           disabled={item.options && item.options.disabled !== undefined ? item.options.disabled : false}
-          on-input={value => {
+          on-input={(value) => {
             vm.handlerData({ id: item.id, value }, 'set');
           }}
         >
@@ -24,10 +24,10 @@ export const createItem = (h, item, vm) => {
           value={vm.handlerData(item.id, 'get')}
           size="mini"
           disabled={item.options && item.options.disabled !== undefined ? item.options.disabled : false}
-          min={item.options && item.options.min !== void 0 ? item.options.min : 0}
-          max={item.options && item.options.max !== void 0 ? item.options.max : Infinity}
+          min={item.options && item.options.min !== void 0 && item.options.min !== null ? item.options.min : 0}
+          max={item.options && item.options.max !== void 0 && item.options.max !== null ? item.options.max : Number.MAX_SAFE_INTEGER}
           placeholder="请输入"
-          on-input={value => {
+          on-input={(value) => {
             vm.handlerData({ id: item.id, value }, 'set');
           }}
         />
@@ -38,7 +38,7 @@ export const createItem = (h, item, vm) => {
         <el-select
           value={vm.handlerData(item.id, 'get')}
           size="mini"
-          on-input={value => {
+          on-input={(value) => {
             vm.handlerData({ id: item.id, value }, 'set');
           }}
         >
@@ -52,7 +52,7 @@ export const createItem = (h, item, vm) => {
       renderDom = (
         <PageSwitch
           value={vm.handlerData(item.id, 'get')}
-          on-change={value => {
+          on-change={(value) => {
             vm.handlerData({ id: item.id, value }, 'set');
           }}
           disabled={item.disabled}
@@ -67,7 +67,7 @@ export const createItem = (h, item, vm) => {
       renderDom = (
         <el-color-picker
           value={vm.handlerData(item.id, 'get')}
-          on-change={value => {
+          on-change={(value) => {
             vm.handlerData({ id: item.id, value }, 'set');
           }}
           show-alpha
@@ -90,13 +90,13 @@ export const createItem = (h, item, vm) => {
           <pageDialogView
             ref="iconsDialogView"
             options={{ width: '1100px', title: '选择Icon图标', id: item.id }}
-            on-confirmDialog={id => {
+            on-confirmDialog={(id) => {
               _currentCheckIcon && vm.handlerData({ id, value: _currentCheckIcon }, 'set');
             }}
           >
             <pageIconsView
               checkIcons={vm.currentIcons}
-              on-check={value => {
+              on-check={(value) => {
                 _currentCheckIcon = value;
               }}
             />
@@ -130,16 +130,16 @@ export const createItem = (h, item, vm) => {
                   let _value = vm.$refs.codeEditorRef.getValue();
                   if (types(_value) === '[object Error]') {
                     vm.$alert('代码存在语法错误!', '错误', {
-                      confirmButtonText: '确定'
+                      confirmButtonText: '确定',
                     });
                     reject(_value);
                   } else {
                     resolve(_value);
                   }
                 });
-              }
+              },
             }}
-            on-confirmDialog={id => {
+            on-confirmDialog={(id) => {
               vm.handlerData({ id, value: vm.$refs.codeEditorRef.getValue() }, 'set');
             }}
           >
@@ -165,53 +165,53 @@ export const createItem = (h, item, vm) => {
           <pageDialogView
             ref="styleSettingDialogView"
             options={{ title: '图表样式设置', width: '1200px', classname: 'chart-style-setting' }}
-            on-confirmDialog={id => {
-              let chartConfig
-              chartConfig = vm.$refs.styleSettingRef.getValue()
-              if(!chartConfig) {
+            on-confirmDialog={(id) => {
+              let chartConfig;
+              chartConfig = vm.$refs.styleSettingRef.getValue();
+              if (!chartConfig) {
                 chartConfig = vm.handlerData('props', 'get').chartConfig;
               }
               let currentPlugins = vm.$store.state.currentPlugins[0];
               vm.$store.commit('updatePluginsProps', { id: currentPlugins.id, modify: { id: 'props.chartConfig', value: chartConfig } });
             }}
           >
-            <StyleSetting options={chartConfig} type={key} ref="styleSettingRef"/>
+            <StyleSetting options={chartConfig} type={key} ref="styleSettingRef" />
           </pageDialogView>
         </div>
       );
       break;
-      case 'eventSetting':
-        let { eventListeners } = vm.handlerData('props', 'get');
-        let componentKey = vm.$store.state.currentPlugins[0].key;
-  
-        renderDom = (
-          <div
-            class="style-setting"
-            on-click={() => {
-              vm.$refs.eventSettingDialogView.showDialog();
+    case 'eventSetting':
+      let { eventListeners } = vm.handlerData('props', 'get');
+      let componentKey = vm.$store.state.currentPlugins[0].key;
+
+      renderDom = (
+        <div
+          class="style-setting"
+          on-click={() => {
+            vm.$refs.eventSettingDialogView.showDialog();
+          }}
+        >
+          <el-button size="mini" type="primary">
+            事件设置
+          </el-button>
+          <pageDialogView
+            ref="eventSettingDialogView"
+            options={{ title: '事件设置', width: '1200px', classname: 'chart-style-setting' }}
+            on-confirmDialog={(id) => {
+              // let chartConfig
+              // chartConfig = vm.$refs.styleSettingRef.getValue()
+              // if(!chartConfig) {
+              //   chartConfig = vm.handlerData('props', 'get').chartConfig;
+              // }
+              // let currentPlugins = vm.$store.state.currentPlugins[0];
+              // vm.$store.commit('updatePluginsProps', { id: currentPlugins.id, modify: { id: 'props.chartConfig', value: chartConfig } });
             }}
           >
-            <el-button size="mini" type="primary">
-              事件设置
-            </el-button>
-            <pageDialogView
-              ref="eventSettingDialogView"
-              options={{ title: '事件设置', width: '1200px', classname: 'chart-style-setting' }}
-              on-confirmDialog={id => {
-                // let chartConfig
-                // chartConfig = vm.$refs.styleSettingRef.getValue()
-                // if(!chartConfig) {
-                //   chartConfig = vm.handlerData('props', 'get').chartConfig;
-                // }
-                // let currentPlugins = vm.$store.state.currentPlugins[0];
-                // vm.$store.commit('updatePluginsProps', { id: currentPlugins.id, modify: { id: 'props.chartConfig', value: chartConfig } });
-              }}
-            >
-              <EventSetting options={eventListeners} type={componentKey} ref="eventSettingRef"/>
-            </pageDialogView>
-          </div>
-        );
-        break;  
+            <EventSetting options={eventListeners} type={componentKey} ref="eventSettingRef" />
+          </pageDialogView>
+        </div>
+      );
+      break;
     case 'padding':
       renderDom = <span style="font-size:12px">--</span>;
       break;

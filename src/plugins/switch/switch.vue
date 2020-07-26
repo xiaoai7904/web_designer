@@ -1,28 +1,18 @@
 <script>
+import pluginsMixins from '../pluginsMixins';
 import PageSwitch from './pageSwitch';
 
 export default {
   name: 'xaSwitch',
 
+  mixins: [pluginsMixins],
+
   components: { PageSwitch },
 
-  data() { return {} },
-
-  props: {
-    options: Object
-  },
-
-  mounted() { },
-
-  methods: {},
-
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
-      }
-    }
+  methods: {
+    changeEvent(value) {
+      this.eventFunctionHandler('change', value)
+    },
   },
 
   render(h) {
@@ -35,6 +25,7 @@ export default {
         inactiveText={this.options.inactiveText}
         activeColor={this.options.activeColor}
         inactiveColor={this.options.inactiveColor}
+        onChange={this.changeEvent}
       ></page-switch>
     </div>
   }

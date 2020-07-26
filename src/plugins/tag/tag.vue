@@ -1,19 +1,10 @@
 <script>
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaTag',
-  data() { return {} },
-  props: {
-    options: Object
-  },
-  methods: {},
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
-      }
-    }
-  },
+
+  mixins: [pluginsMixins],
+
   render(h) {
     return <div class="xa-tag" style={this.styles}>
       <el-tag
@@ -29,5 +20,4 @@ export default {
 </script>
 
 <style lang="scss">
-
 </style>

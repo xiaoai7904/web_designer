@@ -1,23 +1,40 @@
 <script>
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaProgress',
-  data() { return {} },
-  props: {
-    options: Object
-  },
-  methods: {},
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
-      }
+
+  mixins: [pluginsMixins],
+
+  data() {
+    return {
+      percentage: 50,
     }
   },
+
+  watch: {
+    'options.percentage': {
+      handler() {
+        this.percentage = this.options.percentage
+      },
+      immediate: true
+    }
+  },
+
+  methods: {
+    // 获取组件当前值
+    getCurrentValue() {
+      return this.percentage
+    },
+    // 设置组件当前值 
+    setCurrentValue(value) {
+      this.percentage = value
+    },
+  },
+
   render(h) {
     return <div class="xa-progress" style={this.styles}>
       <el-progress
-        percentage={this.options.percentage}
+        percentage={this.percentage}
         type={this.options.type}
         stroke-width={this.options.strokeWidth}
         show-text={this.options.showText}

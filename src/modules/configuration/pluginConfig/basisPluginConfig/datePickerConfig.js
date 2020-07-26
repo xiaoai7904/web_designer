@@ -11,7 +11,46 @@ export const datePickerConfig = {
     size: 'mini',
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '日期选择器', height: 50, width: 230, iconname: 'iconriqi' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '日期选择器',
+    height: 50,
+    width: 230,
+    iconname: 'iconriqi',
+    linkageEventConfig: [].concat(
+      [
+        {
+          id: 'getCurrentValue',
+          label: '获取组件当前值',
+        },
+        {
+          id: 'setCurrentValue',
+          label: '设置组件当前值',
+        },
+      ],
+      [...commonConfig.custom.linkageEventConfig]
+    ),
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1',
+          eventName: 'blur',
+          eventDes: '失去焦点触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'focus',
+          eventDes: '获得焦点触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'change',
+          eventDes: '值改变时触发',
+        },
+
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',

@@ -25,7 +25,46 @@ export const selectConfig = {
     ],
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '下拉框', height: 50, iconname: 'iconxialakuang' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '下拉框',
+    height: 50,
+    iconname: 'iconxialakuang',
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1', // 组件事件
+          eventName: 'change',
+          eventDes: '选中值变化时触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'visibleChange',
+          eventDes: '下拉框出现/隐藏时触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'removeTag',
+          eventDes: '移除tag时触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'blur',
+          eventDes: '失去焦点触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'focus',
+          eventDes: '获得焦点触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'clear',
+          eventDes: '清空按钮触发',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',
@@ -68,7 +107,7 @@ export const selectConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {

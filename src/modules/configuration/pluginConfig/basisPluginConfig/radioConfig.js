@@ -26,7 +26,21 @@ export const radioConfig = {
     ],
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '单选框', height: 35, iconname: 'icondanxuananniuzu' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '单选框',
+    height: 35,
+    iconname: 'icondanxuananniuzu',
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1', // 组件事件
+          eventName: 'change',
+          eventDes: '当绑定值变化时触发的事件',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',

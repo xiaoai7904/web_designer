@@ -1,19 +1,65 @@
 <script>
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaTree',
-  data() { return {} },
-  props: {
-    options: Object
+
+  mixins: [pluginsMixins],
+
+  methods: {
+    // 节点被点击时的回调
+    nodeClickEvent(data, node, currentNode) {
+      this.eventFunctionHandler('nodeClick', data, node, currentNode)
+    },
+    // 当某一节点被鼠标右键点击时会触发该事件
+    nodeContextmenuEvent(event, data, node, currentNode) {
+      this.eventFunctionHandler('nodeContextmenu', event, data, node, currentNode)
+    },
+    // 节点选中状态发生变化时的回调
+    checkChangeEvent(data, isCheck, isChildCheck) {
+      this.eventFunctionHandler('checkChange', data, isCheck, isChildCheck)
+    },
+    // 当复选框被点击的时候触发
+    checkEvent(data, checked) {
+      this.eventFunctionHandler('check', data, checked)
+    },
+    // 当前选中节点变化时触发的事件
+    currentChangeEvent(data, node) {
+      this.eventFunctionHandler('currentChange', data, node)
+    },
+    // 节点被展开时触发的事件
+    nodeExpandEvent(data, node, currentNode) {
+      this.eventFunctionHandler('nodeExpand', data, node, currentNode)
+    },
+    // 节点被关闭时触发的事件
+    nodeCollapseEvent(data, node, currentNode) {
+      this.eventFunctionHandler('nodeCollapse', data, node, currentNode)
+    },
+    // 节点开始拖拽时触发的事件
+    nodeDragStartEvent(node, event) {
+      this.eventFunctionHandler('nodeDragStart', node, event)
+    },
+    // 拖拽进入其他节点时触发的事件
+    nodeDragEnterEvent(dargNode, node, event) {
+      this.eventFunctionHandler('nodeDragEnter', dargNode, node, event)
+    },
+    // 拖拽离开某个节点时触发的事件
+    nodeDragLeaveEvent(dargNode, node, event) {
+      this.eventFunctionHandler('nodeDragLeave', dargNode, node, event)
+    },
+    // 在拖拽节点时触发的事件
+    nodeDragOverEvent(dargNode, node, event) {
+      this.eventFunctionHandler('nodeDragOver', dargNode, node, event)
+    },
+    // 拖拽结束时（可能未成功）触发的事件
+    nodeDragEndEvent(dargNode, node1, node2, event) {
+      this.eventFunctionHandler('nodeDragEnd', dargNode, node1, node2, event)
+    },
+    // 拖拽成功完成时触发的事件
+    nodeDropEvent(dargNode, node1, node2, event) {
+      this.eventFunctionHandler('nodeDrop', dargNode, node1, node2, event)
+    },
   },
-  methods: {},
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
-      }
-    }
-  },
+
   render(h) {
     return <div class="xa-tree" style={this.styles}>
       <el-tree
@@ -29,6 +75,19 @@ export default {
         icon-class={this.options.iconClass}
         lazy={this.options.lazy}
         draggable={this.options.draggable}
+        onNodeClick={this.nodeClickEvent}
+        onNodeContextmenu={this.nodeContextmenuEvent}
+        onCheckChange={this.checkChangeEvent}
+        onCheck={this.checkEvent}
+        onCurrentChange={this.currentChangeEvent}
+        onNodeExpand={this.nodeExpandEvent}
+        onNodeCollapse={this.nodeCollapseEvent}
+        onNodeDragStart={this.nodeDragStartEvent}
+        onNodeDragEnter={this.nodeDragEnterEvent}
+        onNodeDragLeave={this.nodeDragLeaveEvent}
+        onNodeDragOver={this.nodeDragOverEvent}
+        onNodeDragEnd={this.nodeDragEndEvent}
+        onNodeDrop={this.nodeDropEvent}
       >
       </el-tree>
     </div>

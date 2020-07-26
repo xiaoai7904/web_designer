@@ -9,7 +9,22 @@ export const rateConfig = {
     allowHalf: false,
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '评分', height: 50, width: 150, iconname: 'iconpingfen' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '评分',
+    height: 50,
+    width: 150,
+    iconname: 'iconpingfen',
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1', // 组件事件
+          eventName: 'change',
+          eventDes: '当绑定值变化时触发的事件',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',
@@ -40,7 +55,7 @@ export const rateConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
   ]),

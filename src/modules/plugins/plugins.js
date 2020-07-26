@@ -46,9 +46,7 @@ export default class Plugins extends Observer {
         ary = option.modify.id.match(/\w+|\d+/g);
         last = ary.pop();
 
-        let obj = ary.reduce((a, b) => {
-          return a[b];
-        }, item);
+        let obj = ary.reduce((a, b) => a[b], item);
 
         if (obj) {
           obj[last] = option.modify.value;

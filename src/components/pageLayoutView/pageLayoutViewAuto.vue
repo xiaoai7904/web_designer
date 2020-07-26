@@ -50,7 +50,7 @@
 import VueGridLayout from 'vue-grid-layout';
 
 export default {
-  name: 'PageAutoView',
+  name: 'PageLayoutViewAuto',
 
   components: {
     GridLayout: VueGridLayout.GridLayout,
@@ -79,7 +79,7 @@ export default {
       }]
     }
   },
-
+  
   props: {
     options: Object,
     children: Array,

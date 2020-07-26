@@ -38,9 +38,11 @@
 
 <script>
 import VueGridLayout from 'vue-grid-layout';
-
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaContainerLayout',
+
+  mixins: [pluginsMixins],
 
   components: {
     GridLayout: VueGridLayout.GridLayout,
@@ -126,15 +128,6 @@ export default {
         }
 
         currentIndex >= 0 && this.$set(this.layout[currentIndex], 'custom', { width: newWPx, height: newHPx })
-      }
-    }
-  },
-
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
       }
     }
   },

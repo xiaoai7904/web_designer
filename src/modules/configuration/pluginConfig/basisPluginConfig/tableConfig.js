@@ -51,7 +51,102 @@ export const tableConfig = {
     ],
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '表格', height: 240, width: 675, iconname: 'iconbiaoge' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '表格',
+    height: 240,
+    width: 675,
+    iconname: 'iconbiaoge',
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1',
+          eventName: 'select',
+          eventDes: '勾选Checkbox触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'selectAll',
+          eventDes: '勾选全选Checkbox',
+        },
+        {
+          eventType: '1',
+          eventName: 'selectionChange',
+          eventDes: '选择项发生变化',
+        },
+        {
+          eventType: '1',
+          eventName: 'cellMouseEnter',
+          eventDes: '单元格hover触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'cellMouseLeave',
+          eventDes: '单元格hover离开',
+        },
+        {
+          eventType: '1',
+          eventName: 'cellClick',
+          eventDes: '单元格点击触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'cellDblclick',
+          eventDes: '单元格双击触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'rowClick',
+          eventDes: '行点击触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'rowDblclick',
+          eventDes: '行双击触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'rowContextmenu',
+          eventDes: '行鼠标右键点击',
+        },
+        {
+          eventType: '1',
+          eventName: 'headerClick',
+          eventDes: '表头点击触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'headerContextmenu',
+          eventDes: '表头鼠标右键',
+        },
+        {
+          eventType: '1',
+          eventName: 'sortChange',
+          eventDes: '排序条件变化触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'filterChange',
+          eventDes: '筛选条件变化触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'currentChange',
+          eventDes: '当前行发生变化',
+        },
+        {
+          eventType: '1',
+          eventName: 'headerDragend',
+          eventDes: '拖动表头改变列宽度',
+        },
+        {
+          eventType: '1',
+          eventName: 'expandChange',
+          eventDes: '行展开或者关闭',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',
