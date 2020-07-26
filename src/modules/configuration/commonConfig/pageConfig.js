@@ -3,7 +3,7 @@ export const pageConfig = {
     background: '#fbfbfb',
     w: 1366,
     h: 768,
-    layoutStyle: '1',
+    layoutStyle: '1', // 1 固定布局 2: 自适应布局
   },
   options: [
     {

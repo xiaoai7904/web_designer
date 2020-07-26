@@ -1,25 +1,51 @@
 <script>
 /* eslint-disable no-unused-vars */
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaInputNumber',
-  data() { return {} },
-  props: {
-    options: Object
-  },
-  methods: {},
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
-      }
+
+  mixins: [pluginsMixins],
+
+  data() {
+    return {
+      inputValue: '',
     }
   },
+
+  watch: {
+    'options.value': {
+      handler() {
+        this.inputValue = this.options.value
+      },
+      immediate: true
+    }
+  },
+
+  methods: {
+    blurEvent(event) {
+      this.eventFunctionHandler('blur', event)
+    },
+    focusEvent(event) {
+      this.eventFunctionHandler('focus', event)
+    },
+    changeEvent(value) {
+      this.eventFunctionHandler('change', value)
+    },
+    // 获取组件当前值
+    getCurrentValue() {
+      return this.inputValue
+    },
+    // 设置组件当前值 
+    setCurrentValue(value) {
+      this.inputValue = value
+    },
+  },
+
   render(h) {
     return <div class="xa-input-number" style={this.styles}>
       <el-input-number
         class={this.options.controlsPosition === 'right' ? 'xa-input-number__isRight' : ''}
-        value={this.options.value}
+        value={this.inputValue}
         placeholder={this.options.placeholder}
         min={this.options.min}
         max={this.options.max}
@@ -28,6 +54,9 @@ export default {
         disabled={this.options.disabled}
         controls={this.options.controls}
         controls-position={this.options.controlsPosition}
+        on-blur={this.blurEvent}
+        on-focus={this.focusEvent}
+        on-change={this.changeEvent}
       ></el-input-number>
     </div>
   }

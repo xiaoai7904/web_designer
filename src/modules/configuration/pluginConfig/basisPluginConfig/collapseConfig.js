@@ -19,7 +19,22 @@ export const collapseConfig = {
     ],
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '折叠面板', height: 130, width: 200, iconname: 'iconzhediemianban' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '折叠面板',
+    height: 130,
+    width: 200,
+    iconname: 'iconzhediemianban',
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1', // 组件事件
+          eventName: 'change',
+          eventDes: '当前激活面板改变时触发',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',

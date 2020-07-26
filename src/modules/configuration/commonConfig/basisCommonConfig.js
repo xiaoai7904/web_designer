@@ -21,6 +21,27 @@ export const basisCommonConfig = {
       w: 24,
       h: 2,
     },
+    // 联动事件配置
+    linkageEventConfig: [
+      {
+        id: 'setDisplay',
+        label: '获取组件显示隐藏',
+      },
+    ],
+    // 组件事件配置
+    eventConfig: [
+      {
+        eventType: '1',
+        eventName: 'created',
+        eventDes: '组件实例初始化完成',
+      },
+      {
+        eventType: '1',
+        eventName: 'mounted',
+        eventDes: '组件元素挂载完成',
+      },
+    ],
+    eventListener: {}, // 组件监听事件数据
   },
   options: [
     {
@@ -50,7 +71,7 @@ export const basisCommonConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {
@@ -59,7 +80,7 @@ export const basisCommonConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {

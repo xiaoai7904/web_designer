@@ -26,7 +26,21 @@ export const checkBoxConfig = {
     ],
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '复选框', height: 50, iconname: 'iconfuxuankuang' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '复选框',
+    height: 50,
+    iconname: 'iconfuxuankuang',
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1', // 组件事件
+          eventName: 'change',
+          eventDes: '当绑定值变化时触发的事件',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',
@@ -93,7 +107,7 @@ export const checkBoxConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {
@@ -102,7 +116,7 @@ export const checkBoxConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {

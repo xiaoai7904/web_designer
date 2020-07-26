@@ -15,7 +15,6 @@ export default class PageFormView extends Vue {
 
   @Watch('options', { deep: true, immediate: true })
   updateOptionsFn(newValue) {
-    // console.log(newValue)
     this.createModel()
     this.createRules()
   }
@@ -144,30 +143,30 @@ export default class PageFormView extends Vue {
 }
 
 .code-dialog {
-  background-color: rgb(28, 31, 37) !important;
-  .el-dialog__header {
-    background-color: rgb(28, 31, 37) !important;
-    border-bottom: 1px solid #3a3939 !important;
-  }
-  .el-dialog__title {
-    color: #fff;
-  }
+  // background-color: rgb(28, 31, 37) !important;
+  // .el-dialog__header {
+  //   // background-color: rgb(28, 31, 37) !important;
+  //   // border-bottom: 1px solid #3a3939 !important;
+  // }
+  // .el-dialog__title {
+  //   // color: #fff;
+  // }
   .el-dialog__body {
     height: 80vh;
     box-sizing: border-box;
     padding: 0;
   }
-  .el-dialog__footer {
-    border-top: 1px solid #3a3939 !important;
-    .el-button--default {
-      background: #4a4949;
-      border-color: #4a4949;
-      color: #fff;
-    }
-    .el-button--primary {
-      background-color: #569bd5;
-      border-color: #569bd5;
-    }
-  }
+  // .el-dialog__footer {
+  //   border-top: 1px solid #3a3939 !important;
+  //   .el-button--default {
+  //     background: #4a4949;
+  //     border-color: #4a4949;
+  //     color: #fff;
+  //   }
+  //   .el-button--primary {
+  //     background-color: #569bd5;
+  //     border-color: #569bd5;
+  //   }
+  // }
 }
 </style>

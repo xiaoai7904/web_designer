@@ -12,7 +12,36 @@ export const buttonConfig = {
     size: 'mini',
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '按钮', height: 50, width: 100, iconname: 'iconanniu' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '按钮',
+    height: 50,
+    width: 100,
+    iconname: 'iconanniu',
+    linkageEventConfig: [
+      {
+        id: 'setDisplay',
+        label: '获取组件显示隐藏',
+      },
+    ],
+    eventConfig: [
+      {
+        eventType: '1', // 组件事件
+        eventName: 'click',
+        eventDes: '点击触发',
+      },
+      {
+        eventType: '1',
+        eventName: 'created',
+        eventDes: '组件实例初始化完成',
+      },
+      {
+        eventType: '1',
+        eventName: 'mounted',
+        eventDes: '组件元素挂载完成',
+      },
+    ],
+    eventListener: {},
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',

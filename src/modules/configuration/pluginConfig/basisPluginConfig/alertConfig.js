@@ -13,7 +13,36 @@ export const alertConfig = {
     effect: 'light',
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '警告', height: 70, width: 450, iconname: 'iconjinggao' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '警告',
+    height: 70,
+    width: 450,
+    iconname: 'iconjinggao',
+    linkageEventConfig: [].concat(
+      [
+        {
+          id: 'setTitle',
+          label: '设置组件标题',
+        },
+        {
+          id: 'setDescription',
+          label: '设置组件描述文字',
+        },
+      ],
+      [...commonConfig.custom.linkageEventConfig]
+    ),
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1', // 组件事件
+          eventName: 'close',
+          eventDes: '关闭alert时触发的事件',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+    eventListener: {},
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',

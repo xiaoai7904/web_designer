@@ -1,18 +1,16 @@
 <script>
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaRadio',
-  props: {
-    options: Object
-  },
-  methods: {},
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
-      }
+
+  mixins: [pluginsMixins],
+
+  methods: {
+    changeEvent() {
+      this.eventFunctionHandler('change')
     }
   },
+
   render(h) {
     return <div class="xa-radio">
       <el-radio-group
@@ -21,6 +19,7 @@ export default {
         size={this.options.size}
         text-color={this.options.textColor}
         fill={this.options.fill}
+        onChange={this.changeEvent}
       >
         {this.options.buttomStyle && this.options.children.map(item => {
           return <el-radio-button label={item.value} disabled={item.disabled}>{item.label}</el-radio-button>

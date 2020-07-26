@@ -1,22 +1,13 @@
 <script>
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaInput',
 
+  mixins: [pluginsMixins],
+
   data() {
     return {
-      inputValue: ''
-    }
-  },
-
-  props: {
-    options: Object,
-    custom: {
-      type: Object,
-      default() {
-        return {
-          eventListener: {}
-        }
-      }
+      inputValue: '',
     }
   },
 
@@ -31,19 +22,27 @@ export default {
 
   methods: {
     blurEvent(event) {
-      this.custom.eventListener.blur && this.custom.eventListener.blur(event)
+      this.eventFunctionHandler('blur', event)
     },
     focusEvent(event) {
-      this.custom.eventListener.focus && this.custom.eventListener.focus(event)
+      this.eventFunctionHandler('focus', event)
     },
-    changEvent(value) {
-      this.custom.eventListener.chang && this.custom.eventListener.chang(value)
+    changeEvent(value) {
+      this.eventFunctionHandler('change', value)
     },
     inputEvent(value) {
-      this.custom.eventListener.input && this.custom.eventListener.input(value)
+      this.eventFunctionHandler('input', value)
     },
     clearEvent() {
-      this.custom.eventListener.clear && this.custom.eventListener.clear()
+      this.eventFunctionHandler('clear')
+    },
+    // 获取组件当前值
+    getCurrentValue() {
+      return this.inputValue
+    },
+    // 设置组件当前值 
+    setCurrentValue(value) {
+      this.inputValue = value
     },
   },
 
@@ -53,16 +52,12 @@ export default {
         width: '100%',
         height: '100%',
         fontSize: this.options.fontSize + 'px',
-        color: this.options.fontColor
+        color: this.options.fontColor,
+        display: this.show ? 'block' : 'none',
       }
     }
   },
-  created() {
-    this.custom.eventListener.created && this.custom.eventListener.created()
-  },
-  mounted() {
-    this.custom.eventListener.mounted && this.custom.eventListener.mounted()
-  },
+
   render(h) {
     return <div class="xa-input" style={this.styles}>
       <el-input
@@ -85,7 +80,7 @@ export default {
         autocomplete={this.options.autocomplete}
         on-blur={this.blurEvent}
         on-focus={this.focusEvent}
-        on-change={this.changEvent}
+        on-change={this.changeEvent}
         on-input={this.inputEvent}
         on-clear={this.clearEvent}
       ></el-input>

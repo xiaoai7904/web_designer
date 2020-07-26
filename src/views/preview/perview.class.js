@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import { State, Mutation } from 'vuex-class';
-import PageAutoView from '@/components/pageAutoView/pageAutoView.vue';
+import PageLayoutViewAuto from '@/components/pageLayoutView/pageLayoutViewAuto.vue';
+import PageLayoutViewDefault from '@/components/pageLayoutView/pgaeLayoutViewDefault.vue';
 
 @Component({})
 export default class Perview extends Vue {
@@ -15,14 +16,14 @@ export default class Perview extends Vue {
       width: this.page.style.layoutStyle === '1' ? this.page.style.w + 'px' : '100%',
       height: this.page.style.layoutStyle === '1' ? this.page.style.h + 'px' : '100%',
       background: this.page.style.background,
-      margin: '0 auto'
+      margin: '0 auto',
     };
   }
   back() {
     this.$router.push({ name: 'home' });
   }
   save(type) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       window.localStorage.setItem(
         'pagePlugins',
         JSON.stringify(this.$store.state.plugins, (key, value) => {
@@ -34,7 +35,7 @@ export default class Perview extends Vue {
       );
       type !== 'release' &&
         this.$alert('数据保存成功', '提示', {
-          confirmButtonText: '确定'
+          confirmButtonText: '确定',
         });
       resolve();
     });
@@ -45,57 +46,38 @@ export default class Perview extends Vue {
         title: '提示',
         duration: 0,
         showClose: false,
-        message: '模版生成中,请稍后...'
+        message: '模版生成中,请稍后...',
       });
 
       this.$http.post('/api/release', { page: JSON.stringify(this.$store.state.page), terminal: navigator.platform.indexOf('Mac') > -1 ? 'mac' : 'windows' }).then(
-        data => {
+        (data) => {
           loadingNotify.close();
           this.$notify({
             title: '成功',
             message: '模版生成成功',
-            type: 'success'
+            type: 'success',
           });
           this.$http.post('/api/install');
         },
-        err => {
+        (err) => {
           loadingNotify.close();
           this.$notify.error({
             title: '错误',
-            message: '模版生成失败,' + err.data.msg
+            message: '模版生成失败,' + err.data.msg,
           });
         }
       );
     });
   }
-  getComponentStyle(item) {
-    return {
-      paddingTop: item.style.paddingTop + 'px',
-      paddingBottom: item.style.paddingBottom + 'px',
-      paddingLeft: item.style.paddingLeft + 'px',
-      paddingRight: item.style.paddingRight + 'px',
-      borderWidth: item.style.borderWidth + 'px',
-      borderStyle: item.style.borderStyle,
-      borderColor: item.style.borderColor,
-      backgroundColor: item.style.backgroundColor,
-      position: 'absolute',
-      left: item.custom.x + 'px',
-      top: item.custom.y + 'px',
-      width: item.custom.width + 'px',
-      height: item.custom.height + 'px'
-    };
-  }
   getPage(h) {
-    if (this.page.style.layoutStyle === '1') {
-      return this.plugins.map(item => {
-        return (
-          <div id={item.id} style={this.getComponentStyle(item)}>
-            {h(item.key, { props: { options: item.props, children: item.children, custom: item.custom } })}
-          </div>
-        );
-      });
-    }
-    return <PageAutoView children={this.plugins} isRuntime />;
+    const LayoutView = {
+      1: (h) => <PageLayoutViewDefault isRuntime />,
+      2: (h) => <PageLayoutViewAuto children={this.plugins} isRuntime />,
+    };
+
+    if (LayoutView[this.page.style.layoutStyle]) return LayoutView[this.page.style.layoutStyle](h);
+
+    return [];
   }
   mounted() {}
   render(h) {

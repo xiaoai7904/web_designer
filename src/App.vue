@@ -10,6 +10,9 @@ export default {
   name: 'app',
 
   mounted() {
+    // 挂载app组件实例
+    window.appComponentInstace = this
+    
     let pagePlugins = window.localStorage.getItem('pagePlugins')
 
     let plugins = JSON.parse(pagePlugins, (key, value) => {

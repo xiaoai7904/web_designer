@@ -1,23 +1,22 @@
 <script>
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaCollapse',
-  props: {
-    options: Object
-  },
-  methods: {},
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
-      }
+
+  mixins: [pluginsMixins],
+
+  methods: {
+    changeEvent() {
+      this.eventFunctionHandler('change')
     }
   },
+
   render(h) {
     return <div class="xa-collapse" style={this.styles}>
       <el-collapse
         value={this.options.value}
         accordion={this.options.accordion}
+        onChange={this.changeEvent}
       >
         {this.options.children.map(item => {
           return <el-collapse-item title={item.label} name={item.id}>

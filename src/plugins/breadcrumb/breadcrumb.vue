@@ -1,19 +1,10 @@
 <script>
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaBreadcrumb',
-  data() { return {} },
-  props: {
-    options: Object
-  },
-  methods: {},
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
-      }
-    }
-  },
+  
+  mixins: [pluginsMixins],
+
   render(h) {
     return <div class="xa-breadcrumb" style={this.styles}>
       <el-breadcrumb separator={this.options.separator}>

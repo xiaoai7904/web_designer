@@ -22,50 +22,55 @@ export const inputConfig = {
     autocomplete: 'off',
     fontSize: 14,
     fontColor: '#606266',
-    eventListeners: {},
   },
   style: Object.assign({}, commonConfig.style),
   custom: Object.assign({}, commonConfig.custom, {
     name: '输入框',
     height: 50,
     iconname: 'iconinput',
-    eventConfig: [
-      {
-        eventType: '1', // 组件事件
-        eventName: 'input',
-        eventDes: '值改变触发',
-      },
-      {
-        eventType: '1',
-        eventName: 'blur',
-        eventDes: '失去焦点触发',
-      },
-      {
-        eventType: '1',
-        eventName: 'focus',
-        eventDes: '获得焦点触发',
-      },
-      {
-        eventType: '1',
-        eventName: 'change',
-        eventDes: '失去焦点或回车触发',
-      },
-      {
-        eventType: '1',
-        eventName: 'clear',
-        eventDes: '清空按钮触发',
-      },
-      {
-        eventType: '1',
-        eventName: 'created',
-        eventDes: '组件实例初始化完成',
-      },
-      {
-        eventType: '1',
-        eventName: 'mounted',
-        eventDes: '组件元素挂载完成',
-      },
-    ],
+    linkageEventConfig: [].concat(
+      [
+        {
+          id: 'getCurrentValue',
+          label: '获取组件当前值',
+        },
+        {
+          id: 'setCurrentValue',
+          label: '设置组件当前值',
+        },
+      ],
+      [...commonConfig.custom.linkageEventConfig]
+    ),
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1', // 组件事件
+          eventName: 'input',
+          eventDes: '值改变触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'blur',
+          eventDes: '失去焦点触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'focus',
+          eventDes: '获得焦点触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'change',
+          eventDes: '失去焦点或回车触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'clear',
+          eventDes: '清空按钮触发',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
     eventListener: {},
   }),
   options: [].concat(commonConfig.options, [
@@ -166,10 +171,9 @@ export const inputConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
-    ,
     {
       id: 'props.fontColor',
       label: '文字颜色',

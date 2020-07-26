@@ -76,7 +76,82 @@ export const treeConfig = {
     draggable: false,
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '树形控件', height: 160, width: 150, iconname: 'iconjuxingkaobei' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '树形控件',
+    height: 160,
+    width: 150,
+    iconname: 'iconjuxingkaobei',
+    eventConfig: [].concat(
+      [
+        {
+          eventType: '1',
+          eventName: 'nodeClick',
+          eventDes: '节点点击时触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'nodeContextmenu',
+          eventDes: '节点鼠标右键点击',
+        },
+        {
+          eventType: '1',
+          eventName: 'checkChange',
+          eventDes: '节点选中变化',
+        },
+        {
+          eventType: '1',
+          eventName: 'check',
+          eventDes: '复选框点击触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'currentChange',
+          eventDes: '当前选中节点变化',
+        },
+        {
+          eventType: '1',
+          eventName: 'nodeExpand',
+          eventDes: '节点展开触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'nodeCollapse',
+          eventDes: '节点关闭触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'nodeDragStart',
+          eventDes: '拖拽开始触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'nodeDragEnter',
+          eventDes: '拖拽进入其他节点',
+        },
+        {
+          eventType: '1',
+          eventName: 'nodeDragLeave',
+          eventDes: '拖拽离开某个节点',
+        },
+        {
+          eventType: '1',
+          eventName: 'nodeDragOver',
+          eventDes: '拖拽节点触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'nodeDragEnd',
+          eventDes: '拖拽结束触发',
+        },
+        {
+          eventType: '1',
+          eventName: 'nodeDrop',
+          eventDes: '拖拽成功触发',
+        },
+      ],
+      ...commonConfig.custom.eventConfig
+    ),
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',
@@ -101,7 +176,7 @@ export const treeConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {

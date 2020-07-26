@@ -27,7 +27,7 @@ export const containerLayoutConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {
@@ -36,7 +36,7 @@ export const containerLayoutConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {
@@ -45,7 +45,7 @@ export const containerLayoutConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {
@@ -54,7 +54,7 @@ export const containerLayoutConfig = {
       type: 'inputNumber',
       options: {
         min: 0,
-        max: Infinity,
+        max: Number.MAX_SAFE_INTEGER,
       },
     },
     {
