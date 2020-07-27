@@ -98,12 +98,15 @@ npm run dev
 ##### 组件事件配置
 
 1.点击组件事件按钮进行配置
+<br/>
 <img src="src/assets/8.png" width=400 height=300 />
 <br/>
 2.选择对应组件事件进行
+<br/>
 <img src="src/assets/9.png" width=400 height=500 />
 <br/>
 3.编写对应事件处理函数
+<br/>
 <img src="src/assets/6.png" width=700 height=600 />
 <br/>
 - 函数接受多个参数,默认第一个参数是当前组件实例对象,可以通过该参数调用组件方法和修改组件属性,
@@ -147,12 +150,15 @@ export default {
 ##### 组件联动事件配置
 
 1.点击组件联动事件按钮进行配置
+<br/>
 <img src="src/assets/10.png" width=400 height=300 />
 <br/>
 2.选择联动关系
+<br/>
 <img src="src/assets/7.png" width=400 height=300 />
 <br/>
 3.编写对应事件处理函数
+<br/>
 <img src="src/assets/6.png" width=700 height=600 />
 <br/>
 
