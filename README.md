@@ -99,12 +99,13 @@ npm run dev
 
 1.点击组件事件按钮进行配置
 <img src="src/assets/8.png" width=400 height=300 />
-
+<br/>
 2.选择对应组件事件进行
 <img src="src/assets/9.png" width=400 height=500 />
-
+<br/>
 3.编写对应事件处理函数
-<img src="src/assets/6.png" width=600 height=500 />
+<img src="src/assets/6.png" width=700 height=600 />
+<br/>
 - 函数接受多个参数,默认第一个参数是当前组件实例对象,可以通过该参数调用组件方法和修改组件属性,
 
 - `currentComponentInstance.$store.state.pluginsRefs`可以访问页面上面所有组件实例
@@ -147,10 +148,13 @@ export default {
 
 1.点击组件联动事件按钮进行配置
 <img src="src/assets/10.png" width=400 height=300 />
+<br/>
 2.选择联动关系
 <img src="src/assets/7.png" width=400 height=300 />
+<br/>
 3.编写对应事件处理函数
-<img src="src/assets/6.png" width=600 height=500 />
+<img src="src/assets/6.png" width=700 height=600 />
+<br/>
 
 ```javascript
 // pluginsMixins联动事件处理函数代码
