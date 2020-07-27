@@ -1,7 +1,10 @@
 @import './var.scss';
-
+* {
+  box-sizing: border-box;
+}
 // 修改element-ui默认样式
 .ui-designer {
+  
   .el-collapse {
     border-top: 0;
   }

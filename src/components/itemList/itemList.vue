@@ -105,7 +105,7 @@ export default {
   &__ul {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 10px;
   }
   &__li {
     display: flex;

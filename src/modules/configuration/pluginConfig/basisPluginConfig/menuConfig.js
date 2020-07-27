@@ -57,20 +57,39 @@ export const menuConfig = {
     ],
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '菜单', height: 350, width: 170, iconname: 'iconmenu-line' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '菜单',
+    height: 350,
+    width: 170,
+    iconname: 'iconmenu-line',
+    dataConfig: [
+      {
+        label: '数据配置配置',
+        type: 'title',
+      },
+      {
+        id: 'props.children',
+        type: 'code',
+        label: '数据源',
+        options: {
+          btnName: '数据源编辑',
+        },
+      },
+    ],
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',
       type: 'title',
     },
-    {
-      id: 'props.children',
-      type: 'code',
-      label: '数据源',
-      options: {
-        btnName: '数据源编辑',
-      },
-    },
+    // {
+    //   id: 'props.children',
+    //   type: 'code',
+    //   label: '数据源',
+    //   options: {
+    //     btnName: '数据源编辑',
+    //   },
+    // },
     {
       id: 'props.defaultActive',
       label: '激活菜单',

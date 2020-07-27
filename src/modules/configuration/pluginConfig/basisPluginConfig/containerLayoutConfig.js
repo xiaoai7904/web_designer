@@ -15,7 +15,53 @@ export const containerLayoutConfig = {
     autoSize: true,
   },
   style: Object.assign({}, commonConfig.style),
-  custom: Object.assign({}, commonConfig.custom, { name: '容器组件', iconname: 'iconrongqi' }),
+  custom: Object.assign({}, commonConfig.custom, {
+    name: '容器组件',
+    iconname: 'iconrongqi',
+    dataConfig: [
+      {
+        label: '子组件列表',
+        type: 'title',
+      },
+      {
+        id: 'props.children',
+        label: '',
+        type: 'custom',
+        render(h, vm) {
+          const handlerDel = (data, delData) => {
+            vm.$store.commit('updatePluginsProps', data);
+            vm.$store.commit('addPlugin', delData);
+          };
+
+          return (
+            <itemList
+              list={vm.handlerData('children', 'get')}
+              id="children"
+              ins={vm}
+              isContainer
+              cutomDelCallback={handlerDel}
+              scopedSlots={{
+                default(props) {
+                  return [
+                    <ul class="item-list__ul">
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">组件名:</span>
+                        <el-input size="mini" value={props.data.custom.name} disabled />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">组件id:</span>
+                        <el-input size="mini" value={props.data.custom.id} disabled />
+                      </li>
+                    </ul>,
+                  ];
+                },
+              }}
+            />
+          );
+        },
+      },
+    ],
+  }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',
@@ -98,47 +144,6 @@ export const containerLayoutConfig = {
       type: 'switch',
       activeText: '是',
       inactiveText: '否',
-    },
-    {
-      label: '子组件列表',
-      type: 'title',
-    },
-    {
-      id: 'props.children',
-      label: '',
-      type: 'custom',
-      render(h, vm) {
-        const handlerDel = (data, delData) => {
-          vm.$store.commit('updatePluginsProps', data);
-          vm.$store.commit('addPlugin', delData);
-        };
-
-        return (
-          <itemList
-            list={vm.handlerData('children', 'get')}
-            id="children"
-            ins={vm}
-            isContainer
-            cutomDelCallback={handlerDel}
-            scopedSlots={{
-              default(props) {
-                return [
-                  <ul class="item-list__ul">
-                    <li class="item-list__li">
-                      <span class="item-list__li-label">组件名:</span>
-                      <el-input size="mini" value={props.data.custom.name} disabled />
-                    </li>
-                    <li class="item-list__li">
-                      <span class="item-list__li-label">组件id:</span>
-                      <el-input size="mini" value={props.data.custom.id} disabled />
-                    </li>
-                  </ul>,
-                ];
-              },
-            }}
-          />
-        );
-      },
     },
   ]),
   children: [],

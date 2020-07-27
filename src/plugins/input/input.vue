@@ -7,14 +7,14 @@ export default {
 
   data() {
     return {
-      inputValue: '',
+      currentValue: '',
     }
   },
 
   watch: {
     'options.value': {
       handler() {
-        this.inputValue = this.options.value
+        this.currentValue = this.options.value
       },
       immediate: true
     }
@@ -38,11 +38,11 @@ export default {
     },
     // 获取组件当前值
     getCurrentValue() {
-      return this.inputValue
+      return this.currentValue
     },
     // 设置组件当前值 
     setCurrentValue(value) {
-      this.inputValue = value
+      this.currentValue = value
     },
   },
 
@@ -61,7 +61,7 @@ export default {
   render(h) {
     return <div class="xa-input" style={this.styles}>
       <el-input
-        v-model={this.inputValue}
+        v-model={this.currentValue}
         placeholder={this.options.placeholder}
         type={this.options.type}
         size={this.options.size}

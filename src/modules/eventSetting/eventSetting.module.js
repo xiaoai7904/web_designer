@@ -34,11 +34,13 @@ export default class EventSetting {
   createEventFunction(item, functionName) {
     const eventCallbackFunction = `
         return function ${functionName ? functionName : 'on' + firstUpperCase(item.eventName) + 'EventCallBack'}(currentComponentInstance, ...arg) {
-            /**
-             * Tips: 函数体内的单行注释会在保存的时候删除,如果需要加注释请使用多行注释
-             * @param {Object} currentComponentInstance 默认第一参数是当前组件实例对象
-             * @param {Array} arg 当前事件剩余参数
-             */
+          /**
+           * 函数体内的单行注释会在保存的时候删除,如果需要加注释请使用多行注释
+           * currentComponentInstance.$store.state.pluginsRefs 可以访问页面上所有组件实例对象
+           * 支持返回Promise对象
+           * @param {Object} currentComponentInstance 默认第一参数是当前组件实例对象
+           * @param {Array} arg 当前事件剩余参数
+           */
         }
     `;
     return Object.assign({}, item, { eventCallBack: new Function(eventCallbackFunction)() });

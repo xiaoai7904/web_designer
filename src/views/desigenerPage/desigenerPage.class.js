@@ -77,10 +77,18 @@ class DesigenerPage extends Vue {
         }
       });
       this.currentPluginOptions = extend(true, {}, newValue[0]);
+
+      if (newValue[0] && typeof newValue[0].custom.dataConfig !== 'undefined') {
+        let copyCurrentPluginOptions = extend(true, {}, newValue[0]);
+        copyCurrentPluginOptions.options = copyCurrentPluginOptions.custom.dataConfig;
+        this.dataSettingCurrentPluginOptions = extend(true, {}, copyCurrentPluginOptions);
+      }
+
       this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys(newValue.map((item) => item.id));
       this.collapseValue = '2';
     } else {
       this.currentPluginOptions = {};
+      this.dataSettingCurrentPluginOptions = {};
       this.$refs.componentTree && this.$refs.componentTree.setCheckedKeys([]);
       this.collapseValue = '1';
       this.componentTabs = '1';
@@ -113,6 +121,7 @@ class DesigenerPage extends Vue {
   collapseValue = '1';
   componentList = [];
   currentPluginOptions = {};
+  dataSettingCurrentPluginOptions = {}; // 数据设置组件配置
   pageOptions = {};
   componentData = {};
   componentTitleMap = {
@@ -137,9 +146,9 @@ class DesigenerPage extends Vue {
   }
 
   preview() {
-    let _html = document.querySelector('#pageCanvasContainer');
+    // let _html = document.querySelector('#pageCanvasContainer');
 
-    this.setPerviewHtml(_html.innerHTML);
+    // this.setPerviewHtml(_html.innerHTML);
     this.$router.push({ name: 'perview' });
   }
   release() {

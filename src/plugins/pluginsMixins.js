@@ -33,10 +33,11 @@ export default {
 
   methods: {
     // 联动事件处理函数
-    linkageEventFunctionHandler(eventName) {
+    linkageEventFunctionHandler: async function(eventName) {
       let i = -1;
       let items = Object.keys(this.custom.eventListener).filter((item) => item.indexOf(`${eventName}$$`) > -1);
       let len = items.length;
+      this.linkageEventBackValueStack = [];
 
       while (++i < len) {
         let item = items[i];
@@ -49,7 +50,9 @@ export default {
 
         // 根据配置调用对应组件函数
         if (refs[componentId] && typeof refs[componentId][componentEventCallbackName] === 'function') {
-          let backValue = refs[componentId][componentEventCallbackName](this.custom.eventListener[item](this));
+          let result = await this.custom.eventListener[item](this);
+          let backValue = refs[componentId][componentEventCallbackName](result);
+
           if (typeof backValue !== undefined) {
             // 执行联动事件后如果有返回值,存储当前返回值，
             // 如果下一个联动事件需要用到上一次的值可以在当前执行函数参数里面拿到当前组件实例
@@ -75,12 +78,12 @@ export default {
   },
 
   created() {
-    this.custom.eventListener.created && this.custom.eventListener.created();
+    this.custom.eventListener.created && this.custom.eventListener.created(this);
     this.linkageEventFunctionHandler('created');
   },
 
   mounted() {
-    this.custom.eventListener.mounted && this.custom.eventListener.mounted();
+    this.custom.eventListener.mounted && this.custom.eventListener.mounted(this);
     this.linkageEventFunctionHandler('mounted');
   },
 };

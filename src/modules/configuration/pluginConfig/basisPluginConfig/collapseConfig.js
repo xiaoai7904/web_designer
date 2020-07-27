@@ -34,6 +34,79 @@ export const collapseConfig = {
       ],
       ...commonConfig.custom.eventConfig
     ),
+    dataConfig: [
+      {
+        label: '可选项配置',
+        type: 'title',
+      },
+      {
+        id: 'props.children',
+        label: '',
+        type: 'custom',
+        render(h, vm) {
+          function updateItem(vm, props) {
+            return function(key, value) {
+              let _data = vm.handlerData('props.children', 'get');
+              _data.map((item) => {
+                if (item.id === props.data.id) {
+                  item[key] = value;
+                }
+              });
+
+              vm.$store.commit('updatePluginsProps', {
+                id: vm.options.id,
+                modify: { id: 'props.children', value: _data },
+              });
+            };
+          }
+          return (
+            <itemList
+              list={vm.handlerData('props.children', 'get')}
+              id="props.children"
+              ins={vm}
+              scopedSlots={{
+                default(props) {
+                  return [
+                    <ul class="item-list__ul">
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">ID</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.id}
+                          on-input={(val) => {
+                            updateItem(vm, props)('id', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">标题</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.label}
+                          on-input={(val) => {
+                            updateItem(vm, props)('label', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">内容</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.content}
+                          on-input={(val) => {
+                            updateItem(vm, props)('content', val);
+                          }}
+                        />
+                      </li>
+                    </ul>,
+                  ];
+                },
+              }}
+            />
+          );
+        },
+      },
+    ],
   }),
   options: [].concat(commonConfig.options, [
     {
@@ -51,77 +124,6 @@ export const collapseConfig = {
       type: 'switch',
       activeText: '开启',
       inactiveText: '关闭',
-    },
-    {
-      label: '可选项配置',
-      type: 'title',
-    },
-    {
-      id: 'props.children',
-      label: '',
-      type: 'custom',
-      render(h, vm) {
-        function updateItem(vm, props) {
-          return function(key, value) {
-            let _data = vm.handlerData('props.children', 'get');
-            _data.map((item) => {
-              if (item.id === props.data.id) {
-                item[key] = value;
-              }
-            });
-
-            vm.$store.commit('updatePluginsProps', {
-              id: vm.options.id,
-              modify: { id: 'props.children', value: _data },
-            });
-          };
-        }
-        return (
-          <itemList
-            list={vm.handlerData('props.children', 'get')}
-            id="props.children"
-            ins={vm}
-            scopedSlots={{
-              default(props) {
-                return [
-                  <ul class="item-list__ul">
-                    <li class="item-list__li">
-                      <span class="item-list__li-label">ID</span>
-                      <el-input
-                        size="mini"
-                        value={props.data.id}
-                        on-input={(val) => {
-                          updateItem(vm, props)('id', val);
-                        }}
-                      />
-                    </li>
-                    <li class="item-list__li">
-                      <span class="item-list__li-label">标题</span>
-                      <el-input
-                        size="mini"
-                        value={props.data.label}
-                        on-input={(val) => {
-                          updateItem(vm, props)('label', val);
-                        }}
-                      />
-                    </li>
-                    <li class="item-list__li">
-                      <span class="item-list__li-label">内容</span>
-                      <el-input
-                        size="mini"
-                        value={props.data.content}
-                        on-input={(val) => {
-                          updateItem(vm, props)('content', val);
-                        }}
-                      />
-                    </li>
-                  </ul>,
-                ];
-              },
-            }}
-          />
-        );
-      },
     },
   ]),
 };

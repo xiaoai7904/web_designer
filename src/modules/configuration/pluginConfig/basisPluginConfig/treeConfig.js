@@ -81,6 +81,19 @@ export const treeConfig = {
     height: 160,
     width: 150,
     iconname: 'iconjuxingkaobei',
+    linkageEventConfig: [].concat(
+      [
+        {
+          id: 'getCurrentValue',
+          label: '获取组件当前值',
+        },
+        {
+          id: 'setCurrentValue',
+          label: '设置组件当前值',
+        },
+      ],
+      [...commonConfig.custom.linkageEventConfig]
+    ),
     eventConfig: [].concat(
       [
         {
@@ -151,20 +164,34 @@ export const treeConfig = {
       ],
       ...commonConfig.custom.eventConfig
     ),
+    dataConfig: [
+      {
+        label: '数据配置',
+        type: 'title',
+      },
+      {
+        id: 'props.data',
+        label: '数据源',
+        type: 'code',
+        options: {
+          btnName: '数据源编辑',
+        },
+      },
+    ],
   }),
   options: [].concat(commonConfig.options, [
     {
       label: '属性配置',
       type: 'title',
     },
-    {
-      id: 'props.data',
-      label: '数据源',
-      type: 'code',
-      options: {
-        btnName: '数据源编辑',
-      },
-    },
+    // {
+    //   id: 'props.data',
+    //   label: '数据源',
+    //   type: 'code',
+    //   options: {
+    //     btnName: '数据源编辑',
+    //   },
+    // },
     {
       id: 'props.emptyText',
       label: '空显示值',

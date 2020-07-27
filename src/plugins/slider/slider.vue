@@ -7,14 +7,14 @@ export default {
 
   data() {
     return {
-      value: '',
+      currentValue: '',
     }
   },
 
   watch: {
     'options.value': {
       handler() {
-        this.value = this.options.value
+        this.currentValue = this.options.value
       },
       immediate: true
     }
@@ -29,18 +29,18 @@ export default {
     },
     // 获取组件当前值
     getCurrentValue() {
-      return this.value
+      return this.currentValue
     },
     // 设置组件当前值 
     setCurrentValue(value) {
-      this.value = value
+      this.currentValue = value
     },
   },
 
   render(h) {
     return <div class="xa-slider" style={this.styles}>
       <el-slider
-        value={this.value}
+        value={this.currentValue}
         min={this.options.min}
         max={this.options.max}
         step={this.options.step}
