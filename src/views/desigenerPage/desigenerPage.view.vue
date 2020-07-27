@@ -72,9 +72,24 @@
                 </div>
               </el-tab-pane>
               <el-tab-pane label="事件配置" name="2">
-                <EventSetting v-if="collapseValue === '2'" :options="currentPluginOptions"/>
+                <EventSetting v-if="collapseValue === '2'" :options="currentPluginOptions" />
               </el-tab-pane>
-              <el-tab-pane label="数据配置" name="3">数据配置</el-tab-pane>
+              <el-tab-pane label="数据配置" name="3">
+                <div class="desigener-page-data-setting">
+                  <PageScrollbar
+                    ref="pageComponentDataSettingScrollbar"
+                    :options="{ scrollX: false }"
+                    customClassName="desigener-page-component-data-setting--scrollbar"
+                  >
+                    <div>
+                      <pageFormView
+                        :options="dataSettingCurrentPluginOptions"
+                        @updateOptions="updatePluginsPropsFn"
+                      />
+                    </div>
+                  </PageScrollbar>
+                </div>
+              </el-tab-pane>
             </el-tabs>
           </el-collapse-item>
         </el-collapse>
@@ -149,6 +164,11 @@ import desigenerPage from "./desigenerPage.class"; export default desigenerPage
       padding: 5px 5px 5px 10px;
     }
     &-basis {
+      height: calc(100vh - 180px);
+      padding: 0 0 10px 0;
+      overflow: hidden;
+    }
+    &-data-setting {
       height: calc(100vh - 180px);
       padding: 0 0 10px 0;
       overflow: hidden;

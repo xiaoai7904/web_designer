@@ -7,14 +7,14 @@ export default {
 
   data() {
     return {
-      percentage: 50,
+      currentValue: 50,
     }
   },
 
   watch: {
     'options.percentage': {
       handler() {
-        this.percentage = this.options.percentage
+        this.currentValue = this.options.percentage
       },
       immediate: true
     }
@@ -23,25 +23,25 @@ export default {
   methods: {
     // 获取组件当前值
     getCurrentValue() {
-      return this.percentage
+      return this.currentValue
     },
     // 设置组件当前值 
     setCurrentValue(value) {
-      this.percentage = value
+      this.currentValue = value
     },
   },
 
   render(h) {
     return <div class="xa-progress" style={this.styles}>
       <el-progress
-        percentage={this.percentage}
+        percentage={this.currentValue}
         type={this.options.type}
         stroke-width={this.options.strokeWidth}
         show-text={this.options.showText}
         status={this.options.status}
         color={this.options.color}
         width={this.options.width}
-      >{this.options.status === 'text' ? this.options.percentage + '%' : ''}</el-progress>
+      >{this.options.status === 'text' ? this.currentValue + '%' : ''}</el-progress>
     </div>
   }
 }

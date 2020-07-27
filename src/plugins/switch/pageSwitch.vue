@@ -164,7 +164,7 @@ export default {
   .el-switch__core {
     color: #fff;
     font-size: 12px;
-    line-height: 18px;
+    line-height: 20px;
   }
   .el-switch__actived {
     text-align: left;

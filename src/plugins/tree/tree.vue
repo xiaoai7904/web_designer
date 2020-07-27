@@ -5,6 +5,22 @@ export default {
 
   mixins: [pluginsMixins],
 
+  data() {
+    return {
+      currentValue: [],
+      loading: false
+    }
+  },
+
+  watch: {
+    'options.data': {
+      handler() {
+        this.currentValue = this.options.data.slice()
+      },
+      immediate: true
+    }
+  },
+
   methods: {
     // 节点被点击时的回调
     nodeClickEvent(data, node, currentNode) {
@@ -58,12 +74,20 @@ export default {
     nodeDropEvent(dargNode, node1, node2, event) {
       this.eventFunctionHandler('nodeDrop', dargNode, node1, node2, event)
     },
+    // 获取组件当前值
+    getCurrentValue() {
+      return this.currentValue
+    },
+    // 设置组件当前值 
+    setCurrentValue(value) {
+      this.currentValue = value
+    },
   },
 
   render(h) {
     return <div class="xa-tree" style={this.styles}>
       <el-tree
-        data={this.options.data}
+        data={this.currentValue}
         props={this.options.props}
         load={this.options.load}
         empty-text={this.options.emptyText}
@@ -75,19 +99,19 @@ export default {
         icon-class={this.options.iconClass}
         lazy={this.options.lazy}
         draggable={this.options.draggable}
-        onNodeClick={this.nodeClickEvent}
-        onNodeContextmenu={this.nodeContextmenuEvent}
-        onCheckChange={this.checkChangeEvent}
+        onNode-click={this.nodeClickEvent}
+        onNode-contextmenu={this.nodeContextmenuEvent}
+        onCheck-change={this.checkChangeEvent}
         onCheck={this.checkEvent}
-        onCurrentChange={this.currentChangeEvent}
-        onNodeExpand={this.nodeExpandEvent}
-        onNodeCollapse={this.nodeCollapseEvent}
-        onNodeDragStart={this.nodeDragStartEvent}
-        onNodeDragEnter={this.nodeDragEnterEvent}
-        onNodeDragLeave={this.nodeDragLeaveEvent}
-        onNodeDragOver={this.nodeDragOverEvent}
-        onNodeDragEnd={this.nodeDragEndEvent}
-        onNodeDrop={this.nodeDropEvent}
+        onCurrent-change={this.currentChangeEvent}
+        onNode-expand={this.nodeExpandEvent}
+        onNode-collapse={this.nodeCollapseEvent}
+        onNode-drag-start={this.nodeDragStartEvent}
+        onNode-drag-enter={this.nodeDragEnterEvent}
+        onNode-drag-leave={this.nodeDragLeaveEvent}
+        onNode-drag-over={this.nodeDragOverEvent}
+        onNode-drag-end={this.nodeDragEndEvent}
+        onNode-drop={this.nodeDropEvent}
       >
       </el-tree>
     </div>

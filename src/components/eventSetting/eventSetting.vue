@@ -387,6 +387,8 @@ export default {
   }
   &-dropdown {
     min-width: 276px;
+    max-height: 60vh;
+    overflow: auto;
     &-item {
       display: flex;
       justify-content: space-between;

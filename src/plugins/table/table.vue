@@ -5,6 +5,22 @@ export default {
 
   mixins: [pluginsMixins],
 
+  data() {
+    return {
+      currentValue: [],
+      loading: false
+    }
+  },
+
+  watch: {
+    'options.data': {
+      handler() {
+        this.currentValue = this.options.data.slice()
+      },
+      immediate: true
+    }
+  },
+
   methods: {
     // 当用户手动勾选数据行的 Checkbox 时触发的事件
     selectEvent(selection, row) {
@@ -73,13 +89,22 @@ export default {
     // 当用户对某一行展开或者关闭的时候会触发该事件
     expandChangeEvent(row, expandedRows) {
       this.eventFunctionHandler('expandChange', row, expandedRows)
-    }
+    },
+    // 获取组件当前值
+    getCurrentValue() {
+      return this.currentValue
+    },
+    // 设置组件当前值 
+    setCurrentValue(value) {
+      this.currentValue = value
+    },
   },
 
   render(h) {
     return <div class="xa-table" style={this.styles}>
       <el-table
-        data={this.options.data}
+        v-loading={this.loading}
+        data={this.currentValue}
         stripe={this.options.stripe}
         border={this.options.border}
         size={this.options.size}
@@ -90,23 +115,23 @@ export default {
         sum-text={this.options.sumText}
         summary-method={this.options.summaryMethod}
         span-method={this.options.spanMethod}
-        onSelect={this.selectEvent}
-        onSelectAll={this.selectAllEvent}
-        onSelectionChange={this.selectionChangeEvent}
-        onCellMouseEnter={this.cellMouseEnterEvent}
-        onCellMouseLeave={this.cellMouseLeaveEvent}
-        onCellClick={this.cellClickEvent}
-        oncellDblclick={this.cellDblclickEvent}
-        onRowClick={this.rowClickEvent}
-        onRowContextmenu={this.rowContextmenuEvent}
-        onRowDblclick={this.rowDblclickEvent}
-        onHeaderClick={this.headerClickEvent}
-        onHeaderContextmenu={this.headerContextmenuEvent}
-        onSortChange={this.sortChangeEvent}
-        onFilterChange={this.filterChangeEvent}
-        onCurrentChange={this.currentChangeEvent}
-        onHeaderDragend={this.headerDragendEvent}
-        onExpandChange={this.expandChangeEvent}
+        // onSelect={this.selectEvent}
+        // onSelect-all={this.selectAllEvent}
+        // onSelection-change={this.selectionChangeEvent}
+        onCell-mouseEnter={this.cellMouseEnterEvent}
+        onCell-mouseLeave={this.cellMouseLeaveEvent}
+        onCell-click={this.cellClickEvent}
+        onCell-dblclick={this.cellDblclickEvent}
+        onRow-click={this.rowClickEvent}
+        onRow-contextmenu={this.rowContextmenuEvent}
+        onRow-dblclick={this.rowDblclickEvent}
+        onHeader-click={this.headerClickEvent}
+        onHeader-contextmenu={this.headerContextmenuEvent}
+        onSort-change={this.sortChangeEvent}
+        onFilter-change={this.filterChangeEvent}
+      // onCurrent-change={this.currentChangeEvent}
+      // onHeader-dragend={this.headerDragendEvent}
+      // onExpand-change={this.expandChangeEvent}
       >
         {this.options.children.map((item, index) => {
           return <el-table-column key={index} prop={item.prop} label={item.label} width={item.width}></el-table-column>

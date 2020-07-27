@@ -64,6 +64,80 @@ export const selectConfig = {
       ],
       ...commonConfig.custom.eventConfig
     ),
+    dataConfig: [
+      {
+        label: '可选项配置',
+        type: 'title',
+      },
+      {
+        id: 'props.children',
+        label: '',
+        type: 'custom',
+        render(h, vm) {
+          function updateItem(vm, props) {
+            return function(key, value) {
+              let _data = vm.handlerData('props.children', 'get');
+              _data.map((item) => {
+                if (item.id === props.data.id) {
+                  item[key] = value;
+                }
+              });
+
+              vm.$store.commit('updatePluginsProps', {
+                id: vm.options.id,
+                modify: { id: 'props.children', value: _data },
+              });
+            };
+          }
+          return (
+            <itemList
+              list={vm.handlerData('props.children', 'get')}
+              id="props.children"
+              ins={vm}
+              scopedSlots={{
+                default(props) {
+                  return [
+                    <ul class="item-list__ul">
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">显示值</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.label}
+                          on-input={(val) => {
+                            updateItem(vm, props)('label', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <span class="item-list__li-label">绑定值</span>
+                        <el-input
+                          size="mini"
+                          value={props.data.value}
+                          on-input={(val) => {
+                            updateItem(vm, props)('value', val);
+                          }}
+                        />
+                      </li>
+                      <li class="item-list__li">
+                        <el-checkbox
+                          value={props.data.disabled}
+                          size="mini"
+                          on-input={(val) => {
+                            updateItem(vm, props)('disabled', val);
+                          }}
+                        >
+                          禁用
+                        </el-checkbox>
+                      </li>
+                    </ul>,
+                  ];
+                },
+              }}
+            />
+          );
+        },
+      },
+    ],
   }),
   options: [].concat(commonConfig.options, [
     {
@@ -108,78 +182,6 @@ export const selectConfig = {
       options: {
         min: 0,
         max: Number.MAX_SAFE_INTEGER,
-      },
-    },
-    {
-      label: '可选项配置',
-      type: 'title',
-    },
-    {
-      id: 'props.children',
-      label: '',
-      type: 'custom',
-      render(h, vm) {
-        function updateItem(vm, props) {
-          return function(key, value) {
-            let _data = vm.handlerData('props.children', 'get');
-            _data.map((item) => {
-              if (item.id === props.data.id) {
-                item[key] = value;
-              }
-            });
-
-            vm.$store.commit('updatePluginsProps', {
-              id: vm.options.id,
-              modify: { id: 'props.children', value: _data },
-            });
-          };
-        }
-        return (
-          <itemList
-            list={vm.handlerData('props.children', 'get')}
-            id="props.children"
-            ins={vm}
-            scopedSlots={{
-              default(props) {
-                return [
-                  <ul class="item-list__ul">
-                    <li class="item-list__li">
-                      <span class="item-list__li-label">显示值</span>
-                      <el-input
-                        size="mini"
-                        value={props.data.label}
-                        on-input={(val) => {
-                          updateItem(vm, props)('label', val);
-                        }}
-                      />
-                    </li>
-                    <li class="item-list__li">
-                      <span class="item-list__li-label">绑定值</span>
-                      <el-input
-                        size="mini"
-                        value={props.data.value}
-                        on-input={(val) => {
-                          updateItem(vm, props)('value', val);
-                        }}
-                      />
-                    </li>
-                    <li class="item-list__li">
-                      <el-checkbox
-                        value={props.data.disabled}
-                        size="mini"
-                        on-input={(val) => {
-                          updateItem(vm, props)('disabled', val);
-                        }}
-                      >
-                        禁用
-                      </el-checkbox>
-                    </li>
-                  </ul>,
-                ];
-              },
-            }}
-          />
-        );
       },
     },
   ]),

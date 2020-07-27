@@ -7,14 +7,14 @@ export default {
 
   data() {
     return {
-      dateValue: '',
+      currentValue: '',
     }
   },
 
   watch: {
     'options.value': {
       handler() {
-        this.dateValue = this.options.value
+        this.currentValue = this.options.value
       },
       immediate: true
     }
@@ -32,18 +32,18 @@ export default {
     },
     // 获取组件当前值
     getCurrentValue() {
-      return this.dateValue
+      return this.currentValue
     },
     // 设置组件当前值 
     setCurrentValue(value) {
-      this.dateValue = value
+      this.currentValue = value
     },
   },
 
   render(h) {
     return <div class="xa-date-picker" style={this.styles}>
       <el-date-picker
-        v-model={this.dateValue}
+        v-model={this.currentValue}
         disabled={this.options.disabled}
         readonly={this.options.readonly}
         editable={this.options.editable}

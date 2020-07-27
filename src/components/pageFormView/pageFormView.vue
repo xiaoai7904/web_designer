@@ -130,6 +130,14 @@ export default class PageFormView extends Vue {
       color: $--color-primary;
     }
   }
+  &__code {
+    display: flex;
+    place-content: center;
+    padding: 0 20px;
+    .el-button--mini {
+      width: 100%;
+    }
+  }
   .el-form-item {
     margin-bottom: 5px;
   }
