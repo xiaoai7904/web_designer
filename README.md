@@ -203,8 +203,11 @@ export default {
 ```
 联动事件配置处理思路:
 * 配置联动层级链,配置后后存储在组件`custom.eventListener`对象里面
+
 -格式: `click$$xaInput_e26298d99bd3ac03$$getCurrentValue: 'function event() {}'`
--格式介绍: `组件事件$$联动组件Id$$联动类型`
+
+-格式说明: `组件事件$$联动组件Id$$联动类型`
+
 * 通过解析组件配置的联动事件,在`this.$store.state.pluginsRefs`所有组件实例对象中去执行对应联动组件联动类型函数
 * 执行联动函数顺序是按照配置顺序执行,每执行一步如果函数有返回值会存储在联动事件返回值存储器`linkageEventBackValueStack`中,可以在联动事件处理函数体内通过第一个参数`currentComponentInstance.linkageEventBackValueStack`拿到上次函数返回值,也可以继续一直链式返回
 
