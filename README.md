@@ -93,10 +93,10 @@ npm run dev
 │
 ```
 
-### 项目使用手册
+### 文档
 
-* [事件设置功能手册](./functionManual/eventSetting.md)
-
+- [事件设置功能手册](./functionManual/eventSetting.md)
+- [代码发布思路](./functionManual/release.md)
 
 ### 后期版本规划
 
