@@ -40,6 +40,11 @@ export const basisCommonConfig = {
         eventName: 'mounted',
         eventDes: '组件元素挂载完成',
       },
+      {
+        eventType: '3',
+        eventName: 'customEvent',
+        eventDes: '组件自定义事件',
+      },
     ],
     eventListener: {}, // 组件监听事件数据
   },

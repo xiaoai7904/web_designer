@@ -86,7 +86,7 @@
         <div v-show="linkageEventSettingActiveIndex === 0">
           <ul class="linkage-dialog-event">
             <li
-              v-for="item in componentsEvents"
+              v-for="item in linkageEvents"
               @click="selectComponentEvent(item)"
               :class="item.eventName === currentLinkageEvent[0] ? 'linkage-dialog-event-actived' : ''"
             >
@@ -198,6 +198,7 @@ export default {
     return {
       drawer: false,
       componentsEvents: [],
+      linkageEvents: [],
       eventData: [],
       currentEvent: {},
       currentLinkageEvent: [],
@@ -227,18 +228,23 @@ export default {
       this.currentEvent = {}
     },
     createEventConfig() {
+      let _linkageEvents = []
       let _componentsEvents = []
       let _componentsEventsObj = {}
 
       this.options.custom.eventConfig.forEach(item => {
-        // 1: 组件事件 2: 原生事件 
-        if (item.eventType === '1') {
+        // 1: 组件事件 2: 原生事件  3:自定义事件
+        if (['1', '3'].includes(item.eventType)) {
           _componentsEvents.push(item)
-          _componentsEventsObj[item.eventName] = Object.assign({}, item)
         }
+        if(['1'].includes(item.eventType)) {
+          _linkageEvents.push(item)
+        }
+        _componentsEventsObj[item.eventName] = Object.assign({}, item)
       })
 
       this.componentsEvents = _componentsEvents.slice(0)
+      this.linkageEvents = _linkageEvents.slice(0)
       this.componentsEventsObj = Object.assign({}, _componentsEventsObj)
     },
     createEventListener() {

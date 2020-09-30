@@ -11,8 +11,8 @@ export default {
 
   methods: {
     init() {
-      this.echartsIns.registerMap(chinaJson)
-      this.echartsIns.load({
+      this.echartsBase.registerMap(chinaJson)
+      this.echartsBase.load({
         series: [{
           type: 'map',
           map: 'china'

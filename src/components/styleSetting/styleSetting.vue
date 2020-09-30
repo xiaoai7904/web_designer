@@ -13,7 +13,7 @@ export default {
   components: { StyleSettingParamsEdit },
 
   computed: {
-    echartsIns() {
+    echartsBase() {
       return new EchartBase()
     }
   },
@@ -22,12 +22,12 @@ export default {
   },
 
   mounted() {
-    this.echartsIns.load(this.options, document.querySelector('.style-setting__chart'))
+    this.echartsBase.load(this.options, document.querySelector('.style-setting__chart'))
   },
 
   methods: {
     updateChartData(data) {
-      this.echartsIns.setOption(data)
+      this.echartsBase.setOption(data)
     },
     getValue() {
       return this.$refs.styleSettingParamsEditRef.getValue()

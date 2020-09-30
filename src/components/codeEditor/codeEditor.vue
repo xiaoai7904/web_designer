@@ -81,7 +81,7 @@ export default class CodeEditor extends Vue {
   formatDocument() {
     setTimeout(() => {
       monacoEditor.trigger('anyString', 'editor.action.formatDocument');
-    }, 100)
+    }, 300)
   }
 
   render(h) {

@@ -16,11 +16,21 @@ export default {
       if (key === 'render') {
         return eval("(function(){return " + value + " })()")
       }
+
       return value
     })
 
     if (pagePlugins && plugins && plugins.length) {
       plugins.forEach(item => {
+        if (item.custom && item.custom.eventListener) {
+          let eventListenerKeys = Object.keys(item.custom.eventListener)
+          if (eventListenerKeys.length) {
+            eventListenerKeys.forEach(key => {
+              item.custom.eventListener[key] = new Function(`return ${item.custom.eventListener[key]}`)()
+            })
+          }
+        }
+
         this.$store.commit('addPlugin', item)
       })
     }

@@ -96,7 +96,7 @@ npm run dev
 ### 文档
 
 - [事件设置功能手册](./functionManual/eventSetting.md)
-- [代码发布思路](./functionManual/release.md)
+- [代码发布功能](./functionManual/release.md)
 
 ### 后期版本规划
 

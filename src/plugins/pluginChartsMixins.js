@@ -18,7 +18,7 @@ export default {
         display: this.show ? 'block' : 'none',
       };
     },
-    echartsIns() {
+    echartsBase() {
       return new EchartsBase();
     },
   },
@@ -27,7 +27,7 @@ export default {
     'options.chartConfig': {
       handler(newValue, oldValue) {
         if (!isEqual(newValue, oldValue)) {
-          this.echartsIns.setOption(newValue);
+          this.echartsBase.setOption(newValue);
         }
       },
       deep: true,
@@ -52,10 +52,10 @@ export default {
   },
   methods: {
     init() {
-      this.echartsIns.load(extend(true, {}, this.options.chartConfig), document.querySelector('#' + this.custom.id), this.options.chartTheme);
+      this.echartsBase.load(extend(true, {}, this.options.chartConfig), document.querySelector('#' + this.custom.id), this.options.chartTheme);
     },
     resize: throttle(() => {
-      _this.echartsIns.resize();
+      _this.echartsBase.resize();
     }, 500),
   },
 };

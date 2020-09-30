@@ -17,29 +17,19 @@ export const buttonConfig = {
     height: 50,
     width: 100,
     iconname: 'iconanniu',
-    linkageEventConfig: [
+    linkageEventConfig: [].concat([
       {
         id: 'setDisplay',
         label: '获取组件显示隐藏',
       },
-    ],
-    eventConfig: [
+    ], ...commonConfig.custom.linkageEventConfig),
+    eventConfig: [].concat([
       {
         eventType: '1', // 组件事件
         eventName: 'click',
         eventDes: '点击触发',
       },
-      {
-        eventType: '1',
-        eventName: 'created',
-        eventDes: '组件实例初始化完成',
-      },
-      {
-        eventType: '1',
-        eventName: 'mounted',
-        eventDes: '组件元素挂载完成',
-      },
-    ],
+    ], ...commonConfig.custom.eventConfig),
     eventListener: {},
   }),
   options: [].concat(commonConfig.options, [

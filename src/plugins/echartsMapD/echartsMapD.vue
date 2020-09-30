@@ -14,7 +14,7 @@ export default {
 
   methods: {
     init() {
-      this.echartsIns.load({
+      this.echartsBase.load({
         backgroundColor: '#000',
         globe: {
           baseTexture,

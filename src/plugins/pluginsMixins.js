@@ -85,5 +85,32 @@ export default {
   mounted() {
     this.custom.eventListener.mounted && this.custom.eventListener.mounted(this);
     this.linkageEventFunctionHandler('mounted');
+
+    // 绑定自定义事件必须延迟支持，因为需要图表组件初始化完成后才能拿到图表实例
+    setTimeout(() => {
+      // 可以在cstomEvent函数绑定自定义事件
+      // 比如图表组件的事件处理
+      // 具体事件处理函数可以参考https://echarts.apache.org/zh/api.html#events文档
+      /*
+      currentComponentInstance.echartsBase.getEcharsInstance() 获取chart实例对象
+
+      currentComponentInstance.echartsBase.getEcharsInstance().on('click', function(params) {
+        console.log(params);
+      });
+
+      currentComponentInstance.echartsBase.getEcharsInstance().on('legendselectchanged', function(params) {
+        console.log(params);
+      });
+
+      currentComponentInstance.echartsBase.getEcharsInstance().on('click', 'series.line', function(params) {
+        console.log(params);
+      });
+
+      currentComponentInstance.echartsBase.getEcharsInstance().on('mouseover', { seriesIndex: 1, name: 'xx' }, function(params) {
+        console.log(params);
+      });
+      */
+      this.custom.eventListener.customEvent && this.custom.eventListener.customEvent(this);
+    }, 100);
   },
 };
