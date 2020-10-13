@@ -160,24 +160,34 @@ class DesigenerPage extends Vue {
         message: '模版生成中,请稍后...',
       });
 
-      this.$http.post('/api/release', { page: JSON.stringify(this.$store.state.page), terminal: navigator.platform.indexOf('Mac') > -1 ? 'mac' : 'windows' }).then(
-        (data) => {
-          loadingNotify.close();
-          this.$notify({
-            title: '成功',
-            message: '模版生成成功',
-            type: 'success',
-          });
-          this.$http.post('/api/install');
-        },
-        (err) => {
-          loadingNotify.close();
-          this.$notify.error({
-            title: '错误',
-            message: '模版生成失败,' + err.data.msg,
-          });
-        }
-      );
+      this.$http
+        .post('/api/release', {
+          page: JSON.stringify(this.$store.state.page, (key, value) => {
+            if (typeof value === 'function') {
+              return value.toString();
+            }
+            return value;
+          }),
+          terminal: navigator.platform.indexOf('Mac') > -1 ? 'mac' : 'windows',
+        })
+        .then(
+          (data) => {
+            loadingNotify.close();
+            this.$notify({
+              title: '成功',
+              message: '模版生成成功',
+              type: 'success',
+            });
+            // this.$http.post('/api/install');
+          },
+          (err) => {
+            loadingNotify.close();
+            this.$notify.error({
+              title: '错误',
+              message: '模版生成失败,' + err.data.msg,
+            });
+          }
+        );
     });
   }
   save(type) {

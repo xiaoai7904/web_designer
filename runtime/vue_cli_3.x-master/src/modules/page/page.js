@@ -4,54 +4,8 @@
 import Observer from '@/modules/observer/observer';
 import Plugins from '@/modules/plugins/plugins';
 import { uuid, extend } from '@/modules/utils/utils';
+import DEFALUT_CONFIG from '@/modules/configuration/commonConfig/pageConfig';
 let ins = null;
-const DEFALUT_CONFIG = {
-  style: {
-    background: '#fbfbfb',
-    w: 1366,
-    h: 768,
-    layoutStyle: '1'
-  },
-  options: [
-    {
-      label: '提示:宽度大小建议为1920,1600,1366,1440,1280',
-      type: 'tips',
-      hidden: false
-    },
-    {
-      id: 'style.layoutStyle',
-      label: '布局方式',
-      type: 'select',
-      list: [
-        {
-          label: '固定布局',
-          value: '1'
-        },
-        {
-          label: '自适应布局',
-          value: '2'
-        }
-      ]
-    },
-    {
-      id: 'style.w',
-      label: '宽',
-      hidden: false,
-      type: 'inputNumber'
-    },
-    {
-      id: 'style.h',
-      label: '高',
-      hidden: false,
-      type: 'inputNumber'
-    },
-    {
-      id: 'style.background',
-      label: '背景色',
-      type: 'color'
-    }
-  ]
-};
 
 export default class Page extends Observer {
   constructor() {
@@ -63,8 +17,8 @@ export default class Page extends Observer {
           id: 'page_' + uuid(),
           plugins: [],
           style: Object.assign({}, DEFALUT_CONFIG.style),
-          options: DEFALUT_CONFIG.options
-        }
+          options: DEFALUT_CONFIG.options,
+        },
       ];
       ins = this;
     }
@@ -83,6 +37,10 @@ export default class Page extends Observer {
       i++;
     }
   }
+
+  /** 
+   * options: {id: 'page_1464b0741ab0a9db', modify: {id: 'style.w', value: '1350'}}
+   */
   updatePage(option) {
     let [i, length, ary, last, item] = [0, this.page.length];
 
@@ -92,9 +50,7 @@ export default class Page extends Observer {
         ary = option.modify.id.match(/\w+|\d+/g);
         last = ary.pop();
 
-        let obj = ary.reduce((a, b) => {
-          return a[b];
-        }, item);
+        let obj = ary.reduce((a, b) => a[b], item);
 
         if (obj) {
           obj[last] = option.modify.value;
@@ -106,7 +62,7 @@ export default class Page extends Observer {
   }
   addPlugin(data) {
     let plugins = [];
-    const cb = item => {
+    const cb = (item) => {
       item.plugins = plugins = this.plugins.setPlugin(data.options).getPlguin();
     };
     this.findPage(data.pageId, cb);
@@ -114,7 +70,7 @@ export default class Page extends Observer {
   }
   delPlugin(data) {
     let plugins = [];
-    const cb = item => {
+    const cb = (item) => {
       item.plugins = plugins = this.plugins.detPlugin(data.pluginId).getPlguin();
     };
     this.findPage(data.pageId, cb);
@@ -122,7 +78,7 @@ export default class Page extends Observer {
   }
   updatePlugin(data) {
     let plugins = [];
-    const cb = item => {
+    const cb = (item) => {
       item.plugins = plugins = this.plugins.setOption(data.options).getPlguin();
     };
     this.findPage(data.pageId, cb);

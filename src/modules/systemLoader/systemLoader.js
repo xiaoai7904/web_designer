@@ -18,6 +18,7 @@ export default class SystemLoader {
   constructor() {}
   mountGlobalVar() {
     window.Uidesigner || (window.Uidesigner = {});
+    window.Uidesigner.$refs = {}
     window.Uidesigner.$event = new Observer();
   }
   mountComponents() {

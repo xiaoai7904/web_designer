@@ -47,7 +47,7 @@ class ReleaseController extends Controller {
       return false;
     }
 
-    const delFileDir = dir => {
+    const delFileDir = (dir) => {
       let files = fs.readdirSync(dir);
       for (var i = 0; i < files.length; i++) {
         let newPath = path.join(dir, files[i]);
@@ -78,7 +78,7 @@ class ReleaseController extends Controller {
 
       request(DOWNLOADURL)
         .pipe(stream)
-        .on('close', err => {
+        .on('close', (err) => {
           if (err) {
             ctx.logger.error('运行器模版文件下载失败' + err);
           } else {
@@ -105,7 +105,7 @@ class ReleaseController extends Controller {
     return new Promise((resolve, reject) => {
       fs.createReadStream(path.join(this.dirPath, FILENAME + SUFFIX))
         .pipe(unzip.Extract({ path: this.dirPath }))
-        .on('close', err => {
+        .on('close', (err) => {
           if (err) {
             ctx.logger.error('运行器文件解压失败' + err);
             reject();
@@ -149,12 +149,12 @@ class ReleaseController extends Controller {
       const runtimeDirectoryPath = path.join(path.resolve('../'), `${RUNTIMEPATH}src/plugins`);
       // 递归查询组件
       let usePlugins = [];
-      const findPlugin = plugins => {
-        plugins.map(item => {
+      const findPlugin = (plugins) => {
+        plugins.map((item) => {
           if (item.children) {
             findPlugin(item.children);
           }
-          usePlugins.push(item.key.replace(/xa/g, '').replace(/^\S/, str => str.toLocaleLowerCase()));
+          usePlugins.push(item.key.replace(/xa/g, '').replace(/^\S/, (str) => str.toLocaleLowerCase()));
         });
       };
       findPlugin(requestParams.plugins);
@@ -174,32 +174,27 @@ class ReleaseController extends Controller {
 
       // 遍历组件集合拷贝组件文件包
       runtimeUsePluginNames.forEach((item, index) => {
-        let key = item.replace(/^\S/, str => str.toLocaleUpperCase());
+        let key = item.replace(/^\S/, (str) => str.toLocaleUpperCase());
         pluginImportCode += `import xa${key} from "./${item}/${item}.vue";\n`;
         pluginVarCode += `xa${key}${index === runtimeUsePluginNames.length - 1 ? '};\n\n' : ','}`;
 
-        let result = shelljs.cp('-Rf', `${originalDirectoryPath}/${item}/`, runtimeDirectoryPath);
-        if (result && result.code === 0) {
-          ctx.logger.info(`${item}组件拷贝完成`);
-        }
+        this.copyFile(`${originalDirectoryPath}/${item}/`, runtimeDirectoryPath);
       });
 
+      // 拷贝plugin依赖的文件[pluginsMixins.js,pluginsChartsMixins.js]
+      this.copyFile(`${originalDirectoryPath}/pluginsMixins.js`, `${runtimeDirectoryPath}/pluginsMixins.js`);
+      this.copyFile(`${originalDirectoryPath}/pluginChartsMixins.js`, `${runtimeDirectoryPath}/pluginChartsMixins.js`);
+
       // 拷贝modules文件
-      let copymodulesResult = shelljs.cp('-Rf', path.join(path.resolve('../'), 'src/modules'), path.join(path.resolve('../'), `${RUNTIMEPATH}src/modules`));
-      if (copymodulesResult && copymodulesResult.code === 0) {
-        ctx.logger.info(`modules文件夹拷贝完成`);
-      }
+      this.copyFile(path.join(path.resolve('../'), 'src/modules'), path.join(path.resolve('../'), `${RUNTIMEPATH}src/modules`));
 
       // 拷贝runtimeComponents文件
-      let copyRuntimeComponentsResult = shelljs.cp('-Rf', path.join(path.resolve('../'), 'src/rumtimeComponents'), path.join(path.resolve('../'), `${RUNTIMEPATH}src/rumtimeComponents`));
-      if (copyRuntimeComponentsResult && copyRuntimeComponentsResult.code === 0) {
-        ctx.logger.info(`rumtimeComponents文件夹拷贝完成`);
-      }
+      this.copyFile(path.join(path.resolve('../'), 'src/rumtimeComponents'), path.join(path.resolve('../'), `${RUNTIMEPATH}src/rumtimeComponents`));
 
       const getFileContent = () => `${pluginImportCode}${pluginVarCode}${pluginInstallComponentsCode}`;
 
       // 写入组件导入js主文件
-      fs.writeFile(`${runtimeDirectoryPath}/index.js`, getFileContent(), 'utf-8', err => {
+      fs.writeFile(`${runtimeDirectoryPath}/index.js`, getFileContent(), 'utf-8', (err) => {
         if (err) {
           ctx.logger.warn('写入组件引用文件失败' + err);
           reject();
@@ -226,12 +221,12 @@ class ReleaseController extends Controller {
 
         // 页面固定布局模式
         if (!isAutoLayout) {
-          plugins.forEach(item => {
+          plugins.forEach((item) => {
             let styles = Object.assign({}, item.custom, item.style);
             let componentsStyle = 'position:absolute;';
             let key;
             for (let i in styles) {
-              if (['iconname', 'id', 'name'].includes(i)) {
+              if (['iconname', 'id', 'name', 'autoView', 'linkageEventConfig', 'eventConfig', 'eventListener', 'dataConfig'].includes(i)) {
                 delete styles[i];
                 continue;
               }
@@ -243,7 +238,7 @@ class ReleaseController extends Controller {
               componentsStyle += `${i.replace(/([A-Z])/g, '-$1').toLowerCase()}:${typeof styles[key] === 'number' ? styles[key] + 'px' : styles[key]};`;
             }
 
-            componentsTpl += `<div class="${item.id}" style="${componentsStyle}"><${item.key} :options="componentsOptions.${item.id}" :custom="componentsOptions.${item.id}.custom" :children="componentsOptions.${item.id}.children"/></div>\n`;
+            componentsTpl += `<div class="${item.id}" style="${componentsStyle}"><${item.key} ref="${item.id}" :options="componentsOptions.${item.id}" :custom="componentsOptions.${item.id}.custom" :children="componentsOptions.${item.id}.children"/></div>\n`;
           });
         } else {
           // 页面自适应布局模式
@@ -260,19 +255,30 @@ class ReleaseController extends Controller {
 
         if (!isAutoLayout) {
           plugins.forEach((item, index) => {
-            item.props['children'] = item.children || [];
-            item.props['custom'] = item.custom || {};
+            if (!item.custom) item.custom = {};
+            item.props['children'] = item.children || item.props.children || [];
+            item.props['custom'] =
+              {
+                autoView: item.custom.autoView,
+                height: item.custom.height,
+                id: item.custom.id,
+                name: item.custom.name,
+                width: item.custom.width,
+                x: item.custom.x,
+                y: item.custom.y,
+                eventListener: item.custom.eventListener
+              };
 
             componentsOptions += `${item.id}:${JSON.stringify(item.props)}${index === plugins.length - 1 ? '\n}\n' : ',\n'}`;
           });
-        }else {
-          componentsOptions += `plugins: ${JSON.stringify(plugins)}\n}\n`
+        } else {
+          componentsOptions += `plugins: ${JSON.stringify(plugins)}\n}\n`;
         }
-        return `<script>\n/** 组件逻辑代码 */\nexport default {\nname: '${requestParams.id.replace(/_/g, '')}',\ndata() {\nreturn {\n${componentsOptions}}\n}\n}\n</script>\n\n`;
+        return `<script>\n/** 组件逻辑代码 */\nexport default {\nname: '${requestParams.id.replace(/_/g, '')}',\ndata() {\nreturn {\n${componentsOptions}}\n},\nmounted(){\nif(!window.Uidesigner){\nwindow.Uidesigner={}\n}\nwindow.Uidesigner.$refs = Object.assign({}, this.$refs)\n}\n}\n</script>\n\n`;
       };
       // 生成style
       const generatePageComponentsStyleCode = () => {
-        if(isAutoLayout) {
+        if (isAutoLayout) {
           return `<style>\n/** 组件样式 */\nbody{ margin:0;padding:0 }\n.${requestParams.id} {\nposition:relative;\nwidth: 100vw;\nheight: 100vh;\n background: ${requestParams.style.background};\n margin: 0 auto;\n}</style>`;
         }
         return `<style>\n/** 组件样式 */\nbody{ margin:0;padding:0 }\n.${requestParams.id} {\nposition:relative;\nwidth: ${requestParams.style.w}px;\nheight: ${requestParams.style.h}px;\n background: ${requestParams.style.background};\n margin: 0 auto;\n}</style>`;
@@ -291,7 +297,7 @@ class ReleaseController extends Controller {
         fs.readFile(mainJsPath, 'utf-8', (err, data) => {
           if (!err) {
             let newCode = data.replace(/\/\/\sadd\scode\stag/g, mainJsCode);
-            fs.writeFile(mainJsPath, newCode, 'utf-8', err => {
+            fs.writeFile(mainJsPath, newCode, 'utf-8', (err) => {
               if (err) {
                 ctx.logger.warn('写入main.js文件失败' + err);
                 reject();
@@ -331,7 +337,7 @@ class ReleaseController extends Controller {
             .replace(/\/\/\simport\scomponents/g, `import ${componentName} from '@/components/${requestParams.id}.vue';\n`)
             .replace(/\/\/\scomponents/g, `${componentName},\n`);
 
-          fs.writeFile(homeVuePath, newCode, 'utf-8', err => {
+          fs.writeFile(homeVuePath, newCode, 'utf-8', (err) => {
             if (err) {
               ctx.logger.warn('写入Home.vue文件失败' + err);
               reject();
@@ -344,10 +350,10 @@ class ReleaseController extends Controller {
       });
 
       Promise.all([mainPromise, generateVuePromise, homeVuePromise]).then(
-        data => {
+        (data) => {
           resolve(this.createResponseData(0, '模版生成完成'));
         },
-        err => {
+        (err) => {
           reject(this.createResponseData(1001, '模版生成失败'));
         }
       );
@@ -358,18 +364,16 @@ class ReleaseController extends Controller {
    * npm run serve
    */
   runProject(requestParams) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       let dir = path.join(path.resolve('../', RUNTIMEPATH));
       if (shelljs.cd(dir).code === 0) {
         if (requestParams.terminal === 'mac') {
           fs.readFile(`${dir}/run.sh`, 'utf-8', (err, data) => {
             if (!err) {
               let newCode = data.replace(/#start[^]*#end/g, `cd ${dir}`);
-              fs.writeFile(`${dir}/run.sh`, newCode, 'utf-8', err => {
-                if (!err) {
-                  shelljs.exec('chmod +x run.sh', { silent: true });
-                  shelljs.exec('open -a Terminal run.sh');
-                }
+              this.writeFile(`${dir}/run.sh`, newCode).then(() => {
+                shelljs.exec('chmod +x run.sh', { silent: true });
+                shelljs.exec('open -a Terminal run.sh');
               });
             }
           });
@@ -377,11 +381,9 @@ class ReleaseController extends Controller {
           fs.readFile(`${dir}/run.bat`, 'utf-8', (err, data) => {
             if (!err) {
               let newCode = data.replace(/::start[^]*::end/g, `cd ${dir}`);
-              fs.writeFile(`${dir}/run.bat`, newCode, 'utf-8', err => {
-                if (!err) {
-                  shelljs.exec('chmod +x run.bat', { silent: true });
-                  shelljs.exec('open -a Terminal run.bat');
-                }
+              this.writeFile(`${dir}/run.bat`, newCode).then(() => {
+                shelljs.exec('chmod +x run.bat', { silent: true });
+                shelljs.exec('open -a Terminal run.bat');
               });
             }
           });
@@ -391,7 +393,33 @@ class ReleaseController extends Controller {
       resolve();
     });
   }
-
+  /**
+   * 拷贝文件
+   * @param {string} sourcePath
+   * @param {string} targetPath
+   */
+  copyFile(sourcePath, targetPath) {
+    let result = shelljs.cp('-Rf', sourcePath, targetPath);
+    if (result && result.code === 0) {
+      this.ctx.logger.info(`${sourcePath}文件夹拷贝完成`);
+    }
+  }
+  /**
+   * 写入文件
+   * @param {string} path
+   * @param {any} content
+   */
+  writeFile(path, content) {
+    return new Promise((resolve, reject) => {
+      fs.writeFile(path, content, 'utf-8', (err) => {
+        if (!err) {
+          resolve();
+          return;
+        }
+        reject();
+      });
+    });
+  }
   /**
    * 创建响应数据
    * @param {number} code 响应code
@@ -400,7 +428,7 @@ class ReleaseController extends Controller {
   createResponseData(code, msg) {
     return {
       body: { code: code, msg: msg },
-      status: 200
+      status: 200,
     };
   }
 

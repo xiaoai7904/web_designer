@@ -15,7 +15,7 @@
 
 - 函数接受多个参数,默认第一个参数是当前组件实例对象,可以通过该参数调用组件方法和修改组件属性,
 
-- `currentComponentInstance.$store.state.pluginsRefs`可以访问页面上面所有组件实例
+- `window.Uidesigner.$refs`可以访问页面上面所有组件实例
 
 - 函数支持返回`Promise`对象,可以在该函数体内进行数据请求和数据修改操作
 
@@ -59,7 +59,7 @@ export default {
 function onCustomEventEventCallBack(currentComponentInstance, ...arg) {
   /**
    * 函数体内的单行注释会在保存的时候删除,如果需要加注释请使用多行注释
-   * currentComponentInstance.$store.state.pluginsRefs 可以访问页面上所有组件实例对象
+   * window.Uidesigner.$refs[组件id] 可以访问页面上所有组件实例对象
    * 支持返回Promise对象
    * @param {Object} currentComponentInstance 默认第一参数是当前组件实例对象
    * @param {Array} arg 当前事件剩余参数
@@ -82,7 +82,7 @@ function onCustomEventEventCallBack(currentComponentInstance, ...arg) {
 function onCustomEventEventCallBack(currentComponentInstance, ...arg) {
   /**
    * 函数体内的单行注释会在保存的时候删除,如果需要加注释请使用多行注释
-   * currentComponentInstance.$store.state.pluginsRefs 可以访问页面上所有组件实例对象
+   * window.Uidesigner.$refs[组件id] 可以访问页面上所有组件实例对象
    * 支持返回Promise对象
    * @param {Object} currentComponentInstance 默认第一参数是当前组件实例对象
    * @param {Array} arg 当前事件剩余参数
@@ -120,7 +120,7 @@ export default {
       while (++i < len) {
         let item = items[i];
         let levels = item.split('$$');
-        let refs = this.$store.state.pluginsRefs;
+        let refs = window.Uidesigner.$refs;
         levels.shift();
 
         let componentId = levels[0];
@@ -156,7 +156,7 @@ export default {
 
 -格式说明: `组件事件$$联动组件Id$$联动类型`
 
-- 通过解析组件配置的联动事件,在`this.$store.state.pluginsRefs`所有组件实例对象中去执行对应联动组件联动类型函数
+- 通过解析组件配置的联动事件,在`window.Uidesigner.$refs`所有组件实例对象中去执行对应联动组件联动类型函数
 - 执行联动函数顺序是按照配置顺序执行,每执行一步如果函数有返回值会存储在联动事件返回值存储器`linkageEventBackValueStack`中,可以在联动事件处理函数体内通过第一个参数`currentComponentInstance.linkageEventBackValueStack`拿到上次函数返回值,也可以继续一直链式返回
 
 > Tips: 组件事件配置和联动事件配置运行器暂时没有实现

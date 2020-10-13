@@ -33,7 +33,9 @@ export default class Plugins extends Observer {
     return extend(true, [], this.plugins);
   }
   addAttrs(data) {
-    data['id'] = data.key + '_' + uuid();
+    if(!data.id) {
+      data['id'] = data.key + '_' + uuid();
+    }
     data.custom && (data.custom['id'] = data.id);
     return data;
   }

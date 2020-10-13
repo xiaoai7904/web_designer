@@ -1,22 +1,13 @@
 <script>
+import pluginsMixins from '../pluginsMixins';
 export default {
   name: 'xaButton',
-  props: {
-    options: Object
-  },
- 
-  computed: {
-    styles() {
-      return {
-        width: '100%',
-        height: '100%'
-      }
-    }
-  },
+
+  mixins: [pluginsMixins],
 
   methods: {
-    clickFn() {
-      console.log('buttonClick')
+    clickEvent() {
+      this.eventFunctionHandler('click')
     }
   },
 
@@ -29,7 +20,7 @@ export default {
         plain={this.options.plain}
         circle={this.options.circle}
         size={this.options.size}
-        onClick={this.clickFn}
+        onClick={this.clickEvent}
       >
         {this.options.content}
       </el-button>

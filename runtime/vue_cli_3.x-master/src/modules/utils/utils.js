@@ -6,7 +6,7 @@ export const uuid = () => {
   });
 };
 
-export const types = data => {
+export const types = (data) => {
   return Object.prototype.toString.call(data);
 };
 
@@ -135,4 +135,16 @@ export const isMobile750 = (function() {
 })();
 
 // 驼峰转换下划线
-export const toLine = (name) => name.replace(/([A-Z])/g,"-$1").toLowerCase()
+export const toLine = (name) => name.replace(/([A-Z])/g, '-$1').toLowerCase();
+// 首字母大写
+export const firstUpperCase = ([first, ...rest]) => first.toUpperCase() + rest.join('');
+// 组件classname
+export const classnames = (data) => {
+  let classNames = [];
+  Object.keys(data).map((item) => {
+    if (data[item]) {
+      classNames.push(item);
+    }
+  });
+  return classNames.join(' ');
+};

@@ -7,6 +7,9 @@ export default class EchartBase extends Observable {
     super();
     this.echartInstance = null;
   }
+  getEcharsInstance() {
+    return this.echartInstance;
+  }
   resize() {
     this.echartInstance && this.echartInstance.resize();
   }

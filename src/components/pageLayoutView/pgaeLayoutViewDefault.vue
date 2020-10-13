@@ -201,6 +201,7 @@ class PageLayoutViewDefault extends Vue {
   mounted() {
     _this = this
     this.setPluginsRefFn(this.$refs)
+    window.Uidesigner.$refs = Object.assign({}, this.$refs)
   }
 
   render(h) {

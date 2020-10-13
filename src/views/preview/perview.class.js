@@ -57,7 +57,7 @@ export default class Perview extends Vue {
             message: '模版生成成功',
             type: 'success',
           });
-          this.$http.post('/api/install');
+          // this.$http.post('/api/install');
         },
         (err) => {
           loadingNotify.close();
