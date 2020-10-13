@@ -158,5 +158,3 @@ export default {
 
 - 通过解析组件配置的联动事件,在`window.Uidesigner.$refs`所有组件实例对象中去执行对应联动组件联动类型函数
 - 执行联动函数顺序是按照配置顺序执行,每执行一步如果函数有返回值会存储在联动事件返回值存储器`linkageEventBackValueStack`中,可以在联动事件处理函数体内通过第一个参数`currentComponentInstance.linkageEventBackValueStack`拿到上次函数返回值,也可以继续一直链式返回
-
-> Tips: 组件事件配置和联动事件配置运行器暂时没有实现
