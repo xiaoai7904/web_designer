@@ -3,7 +3,7 @@ import EchartsBase from '@/modules/echartBase/echartBase.module';
 import { extend, throttle } from '@/modules/utils/utils';
 import { isEqual } from 'lodash';
 
-let _this = null
+// let _this = null
 
 export default {
   mixins: [pluginsMixins],
@@ -45,7 +45,7 @@ export default {
   },
 
   mounted() {
-    _this = this;
+    // _this = this;
     this.$nextTick(() => {
       this.init();
     });
@@ -54,8 +54,8 @@ export default {
     init() {
       this.echartsBase.load(extend(true, {}, this.options.chartConfig), document.querySelector('#' + this.custom.id), this.options.chartTheme);
     },
-    resize: throttle(() => {
-      _this.echartsBase.resize();
+    resize: throttle(function() {
+      this.echartsBase.resize();
     }, 500),
   },
 };
